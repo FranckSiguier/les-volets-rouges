@@ -1,7 +1,6 @@
 import "~/styles/globals.css";
-
-import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
+import { Navbar } from "~/components/navbar";
 
 export const metadata: Metadata = {
   title: "Les Volets Rouges",
@@ -13,8 +12,15 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${GeistSans.variable}`}>
-      <body>{children}</body>
+    <html lang="fr">
+      <body>
+        <main className="flex flex-col items-center bg-background xl:px-24 2xl:px-32">
+          <Navbar />
+          {children}
+          {/* Marquee */}
+          {/* Footer */}
+        </main>
+      </body>
     </html>
   );
 }
