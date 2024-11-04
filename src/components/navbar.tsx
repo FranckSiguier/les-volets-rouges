@@ -16,7 +16,7 @@ export function Navbar() {
   return (
     <>
       {/* Mobile Header */}
-      <header className="flex h-20 w-full items-center px-4 font-light text-accent lg:hidden">
+      <header className="flex h-20 w-full items-center font-light text-accent lg:hidden">
         <Sheet open={open} onOpenChange={setOpen}>
           <SheetTrigger asChild>
             <div className="relative flex w-full items-center justify-between px-4">
@@ -74,7 +74,7 @@ export function Navbar() {
       </header>
 
       {/* Desktop Header */}
-      <header className="hidden h-32 w-full items-center justify-between px-6 text-lg text-accent lg:flex">
+      <header className="hidden h-32 w-full items-center justify-between text-lg text-accent lg:flex">
         {/* Left-aligned Links */}
         <div className="flex gap-6">
           <Link
