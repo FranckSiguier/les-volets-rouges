@@ -1,9 +1,12 @@
 "use server";
 
-import { encodedRedirect } from "~/utils/utils";
-import { createClient } from "~/utils/supabase/server";
+import { eq } from "drizzle-orm";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
+import { db } from "~/server/db";
+import { menus } from "~/server/db/schema";
+import { createClient } from "~/utils/supabase/server";
+import { encodedRedirect } from "~/utils/utils";
 
 export const signUpAction = async (formData: FormData) => {
   const email = formData.get("email")?.toString();
@@ -129,4 +132,25 @@ export const signOutAction = async () => {
   const supabase = await createClient();
   await supabase.auth.signOut();
   return redirect("/sign-in");
+};
+
+export const getActiveMenu = async () => {
+  const menu = await db.query.menus.findFirst({
+    with: {
+      menuItems: true,
+    },
+    where: eq(menus.active, true),
+  });
+
+  return menu;
+};
+
+export const getMenus = async () => {
+  const menus = await db.query.menus.findMany({
+    with: {
+      menuItems: true,
+    },
+  });
+
+  return menus;
 };

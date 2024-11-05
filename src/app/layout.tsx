@@ -14,7 +14,7 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <body>
-        <main className="flex flex-col items-center bg-background xl:px-24 2xl:px-32">
+        <main className="flex flex-col items-center bg-background px-4 md:px-8 lg:px-16 xl:px-24 2xl:px-32">
           <Navbar />
           {children}
           {/* Marquee */}

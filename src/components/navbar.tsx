@@ -19,7 +19,7 @@ export function Navbar() {
       <header className="flex h-20 w-full items-center font-light text-accent lg:hidden">
         <Sheet open={open} onOpenChange={setOpen}>
           <SheetTrigger asChild>
-            <div className="relative flex w-full items-center justify-between px-4">
+            <div className="relative flex w-full items-center justify-between">
               <Button variant="ghost" size="icon">
                 <HamburgerMenuIcon />
                 <span className="sr-only">Toggle navigation menu</span>
