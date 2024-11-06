@@ -1,4 +1,4 @@
-export function Video({ path }: { path: string }) {
+export function Video() {
   return (
     <video
       width="800"
@@ -9,7 +9,12 @@ export function Video({ path }: { path: string }) {
       loop
       muted
     >
-      <source src={path} type="video/mp4" />
+      <source
+        src={
+          "https://njowvzjporohgzvgfyif.supabase.co/storage/v1/object/public/assets/hero-video.mp4?t=2024-11-06T04%3A59%3A26.033Z"
+        }
+        type="video/mp4"
+      />
       Your browser does not support the video tag.
     </video>
   );

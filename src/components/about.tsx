@@ -18,7 +18,7 @@ export function About() {
           <div className="col-span-1" />
         </div>
         <div className="absolute inset-0 left-[25%]">
-          <Video path="/videos/hero-video.mp4" />
+          <Video />
           <div className="absolute inset-0 w-full rounded-full bg-black opacity-30" />
         </div>
       </section>
@@ -30,12 +30,13 @@ export function About() {
         <Separator className="max-w-xl" />
         <div className="flex flex-col justify-between py-10 lg:flex-row">
           <p className="max-w-md py-10">
-            Les Volets Rouges c'est un clin d'œil a notre région d'origine, le
-            pays basque bien sur. L'idée est de travailler à partir de produits
-            bruts que nous sélectionnons avec soins, d'Occitanie, du pays basque
-            et un peu d'ailleurs. Ils sont issus de l'agriculture biologique et
-            raisonnée, d'élevage fermier et de pêche durable. Nos vins sont
-            biologique et/ou naturelles pour la majorité.
+            Les Volets Rouges c&apos;est un clin d&apos;œil a notre région
+            d&apos;origine, le pays basque bien sur. L&apos;idée est de
+            travailler à partir de produits bruts que nous sélectionnons avec
+            soins, d&apos;Occitanie, du pays basque et un peu d&apos;ailleurs.
+            Ils sont issus de l&apos;agriculture biologique et raisonnée,
+            d&apos;élevage fermier et de pêche durable. Nos vins sont biologique
+            et/ou naturelles pour la majorité.
           </p>
           <Image
             className="-mt-20 rounded-full"
