@@ -4,7 +4,7 @@ export function Video() {
       width="800"
       height="auto"
       preload="none"
-      className="h-full w-full rounded-full object-cover"
+      className="h-full w-full rounded-3xl object-cover md:rounded-full"
       autoPlay
       loop
       muted

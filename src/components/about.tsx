@@ -14,20 +14,20 @@ export function About() {
   return (
     <>
       <section className="relative mb-10 mt-10 h-[50vh] w-full overflow-hidden">
-        <div className="absolute inset-0 grid grid-cols-3">
-          <div className="relative z-10 col-span-2 flex flex-col items-start justify-center p-8 font-cormorant">
-            <h1 className="mb-8 text-3xl text-accent md:text-5xl lg:text-8xl">
+        <div className="absolute inset-0 grid grid-cols-1 md:grid-cols-3">
+          <div className="relative z-10 flex flex-col items-start justify-center p-8 font-cormorant md:col-span-2">
+            <h1 className="mb-8 text-5xl text-accent md:text-7xl lg:text-9xl">
               Du terroir.
             </h1>
-            <h2 className="text-3xl text-accent md:text-5xl lg:text-8xl">
+            <h2 className="text-3xl text-accent md:text-7xl lg:text-9xl">
               Du savoir faire.
             </h2>
           </div>
-          <div className="col-span-1" />
+          <div className="md:col-span-1" />
         </div>
-        <div className="absolute inset-0 left-[25%]">
+        <div className="absolute inset-0 md:left-[25%]">
           <Video />
-          <div className="absolute inset-0 w-full rounded-full bg-black opacity-30" />
+          <div className="absolute inset-0 w-full rounded-3xl bg-black opacity-30 md:rounded-full" />
         </div>
       </section>
       <section className="w-full">
@@ -35,9 +35,9 @@ export function About() {
         <h1 className="py-4 font-cormorant text-2xl font-thin text-accent md:text-4xl lg:text-6xl">
           Notre histoire
         </h1>
-        <Separator className="max-w-xl" />
-        <div className="flex flex-col justify-between py-10 lg:flex-row">
-          <p className="max-w-md py-10">
+        <Separator className="md:max-w-xl" />
+        <div className="flex flex-col items-center justify-center gap-6 py-4 text-center md:flex-row md:justify-between md:py-6">
+          <p className="max-w-full py-4 md:max-w-md md:py-10">
             Les Volets Rouges c&apos;est un clin d&apos;œil a notre région
             d&apos;origine, le pays basque bien sur. L&apos;idée est de
             travailler à partir de produits bruts que nous sélectionnons avec
@@ -47,7 +47,7 @@ export function About() {
             et/ou naturelles pour la majorité.
           </p>
           <Image
-            className="-mt-20 rounded-full"
+            className="rounded-full md:-mt-20"
             src={"/cook-restaurant.jpg"}
             alt="Chef cuisine"
             width={624}
@@ -56,30 +56,30 @@ export function About() {
         </div>
         <Separator />
       </section>
-      <section className="flex w-full flex-col items-center justify-between py-10 lg:flex-row">
+      <section className="flex w-full flex-col items-center justify-between gap-6 py-6 lg:flex-row">
         <Image
-          className="-mt-10 rounded-full"
+          className="rounded-full lg:-mt-10"
           src={"/plat1.jpg"}
           alt="Plat français"
           width={250}
           height={200}
         />
         <Image
-          className="mt-10 rounded-full"
+          className="rounded-full lg:mt-10"
           src={"/plat2.jpg"}
           alt="Plat français"
           width={250}
           height={200}
         />
         <Image
-          className="-mt-10 rounded-full"
+          className="rounded-full lg:-mt-10"
           src={"/plat3.jpg"}
           alt="Plat français"
           width={250}
           height={200}
         />
         <Image
-          className="mt-10 rounded-full"
+          className="rounded-full lg:mt-10"
           src={"/plat4.jpg"}
           alt="Plat français"
           width={250}
