@@ -3,8 +3,9 @@
 import { eq } from "drizzle-orm";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
+import { MenuSectionType } from "~/lib/types";
 import { db } from "~/server/db";
-import { menus } from "~/server/db/schema";
+import { menuItems, menus } from "~/server/db/schema";
 import { createClient } from "~/utils/supabase/server";
 import { encodedRedirect } from "~/utils/utils";
 
@@ -144,6 +145,7 @@ export const getActiveMenu = async () => {
 
   return menu;
 };
+export type MenuType = Awaited<ReturnType<typeof getActiveMenu>>;
 
 export const getMenus = async () => {
   const menus = await db.query.menus.findMany({
@@ -153,4 +155,26 @@ export const getMenus = async () => {
   });
 
   return menus;
+};
+
+export const createItem = async (data: {
+  name: string;
+  description: string;
+  price: string;
+  type: string;
+  menuId: number;
+}) => {
+  const itemId = await db
+    .insert(menuItems)
+    .values({
+      name: data.name,
+      description: data.description,
+      price: data.price,
+      type: data.type as MenuSectionType,
+      menuId: data.menuId,
+    })
+    .returning({ insertedId: menuItems.id })
+    .execute();
+
+  return itemId;
 };

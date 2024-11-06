@@ -19,7 +19,7 @@ export function MenuSection({
           : "À Partager";
 
   return (
-    <div className="flex flex-col pt-12 sm:px-4 lg:px-32">
+    <div className="flex flex-col py-12 sm:px-4 lg:px-32">
       <div className="flex flex-col gap-12">
         <p className="text-center font-cormorant text-3xl text-accent">
           {title}
