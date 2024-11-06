@@ -75,10 +75,10 @@ export const itemType = pgEnum("item_type", [
 export const menuItems = createTable(
   "menu_item",
   {
-    id: serial("id")
-      .primaryKey()
-      .default(sql`nextval('menu_item_id_seq')`),
-    menuId: serial("menu_id").references(() => menus.id),
+    id: serial("id").primaryKey(),
+    menuId: serial("menu_id")
+      .references(() => menus.id)
+      .notNull(),
     name: varchar("name", { length: 256 }).notNull(),
     description: text("description"),
     price: varchar("price", { length: 256 }).notNull(),
