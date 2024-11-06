@@ -6,6 +6,15 @@ export default {
   content: ["./src/**/*.tsx"],
   theme: {
     extend: {
+      keyframes: {
+        marquee: {
+          "0%": { transform: "translateX(0)" },
+          "100%": { transform: "translateX(-20%)" },
+        },
+      },
+      animation: {
+        marquee: "marquee linear infinite",
+      },
       fontFamily: {
         oswald: ["Oswald", ...fontFamily.sans],
         cormorant: ["Cormorant", ...fontFamily.serif],

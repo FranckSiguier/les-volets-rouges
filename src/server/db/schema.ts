@@ -1,7 +1,12 @@
 // Example model schema from the Drizzle docs
 // https://orm.drizzle.team/docs/sql-schema-declaration
 
-import { type InferSelectModel, relations, sql } from "drizzle-orm";
+import {
+  InferInsertModel,
+  type InferSelectModel,
+  relations,
+  sql,
+} from "drizzle-orm";
 import {
   boolean,
   index,
@@ -70,12 +75,14 @@ export const itemType = pgEnum("item_type", [
 export const menuItems = createTable(
   "menu_item",
   {
-    id: serial("id").primaryKey(),
+    id: serial("id")
+      .primaryKey()
+      .default(sql`nextval('menu_item_id_seq')`),
     menuId: serial("menu_id").references(() => menus.id),
-    name: varchar("name", { length: 256 }),
+    name: varchar("name", { length: 256 }).notNull(),
     description: text("description"),
-    price: varchar("price", { length: 256 }),
-    type: itemType("type"),
+    price: varchar("price", { length: 256 }).notNull(),
+    type: itemType("type").notNull(),
     createdAt: timestamp("created_at", { withTimezone: true })
       .default(sql`CURRENT_TIMESTAMP`)
       .notNull(),
@@ -88,6 +95,7 @@ export const menuItems = createTable(
   }),
 );
 export type MenuItemType = InferSelectModel<typeof menuItems>;
+export type MenuItemInsertType = InferInsertModel<typeof menuItems>;
 
 export const menusRelations = relations(menus, ({ many }) => ({
   menuItems: many(menuItems),
