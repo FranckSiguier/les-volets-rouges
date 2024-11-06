@@ -16,11 +16,11 @@ export function About() {
       <section className="relative mb-10 mt-10 h-[50vh] w-full overflow-hidden">
         <div className="absolute inset-0 grid grid-cols-1 md:grid-cols-3">
           <div className="relative z-10 flex flex-col items-start justify-center p-8 font-cormorant md:col-span-2">
-            <h1 className="mb-8 text-5xl text-accent md:text-7xl lg:text-9xl">
-              Du terroir.
+            <h1 className="mb-8 text-4xl text-accent md:text-5xl lg:text-8xl">
+              Restaurant.
             </h1>
-            <h2 className="text-3xl text-accent md:text-7xl lg:text-9xl">
-              Du savoir faire.
+            <h2 className="text-3xl text-accent md:text-4xl lg:text-7xl">
+              Au coeur des Carmes.
             </h2>
           </div>
           <div className="md:col-span-1" />
@@ -35,9 +35,9 @@ export function About() {
         <h1 className="py-4 font-cormorant text-2xl font-thin text-accent md:text-4xl lg:text-6xl">
           Notre histoire
         </h1>
-        <Separator className="md:max-w-xl" />
-        <div className="flex flex-col items-center justify-center gap-6 py-4 text-center md:flex-row md:justify-between md:py-6">
-          <p className="max-w-full py-4 md:max-w-md md:py-10">
+        <Separator className="max-w-full lg:max-w-2xl" />
+        <div className="flex flex-col items-center justify-center gap-6 py-4 text-center lg:flex-row lg:justify-between lg:py-6 lg:text-left">
+          <p className="max-w-full py-4 text-xl font-light md:max-w-md md:py-10">
             Les Volets Rouges c&apos;est un clin d&apos;œil a notre région
             d&apos;origine, le pays basque bien sur. L&apos;idée est de
             travailler à partir de produits bruts que nous sélectionnons avec
@@ -47,39 +47,39 @@ export function About() {
             et/ou naturelles pour la majorité.
           </p>
           <Image
-            className="rounded-full md:-mt-20"
+            className="rounded-full lg:-mt-20"
             src={"/cook-restaurant.jpg"}
             alt="Chef cuisine"
             width={624}
-            height={416}
+            height={300}
           />
         </div>
         <Separator />
       </section>
-      <section className="flex w-full flex-col items-center justify-between gap-6 py-6 lg:flex-row">
+      <section className="grid w-full items-center justify-center gap-6 py-6 lg:grid-cols-4">
         <Image
-          className="rounded-full lg:-mt-10"
+          className="col-span-1 mr-10 rounded-full lg:-mt-10 lg:mr-0"
           src={"/plat1.jpg"}
           alt="Plat français"
           width={250}
           height={200}
         />
         <Image
-          className="rounded-full lg:mt-10"
+          className="col-span-1 ml-10 rounded-full lg:ml-0 lg:mt-10"
           src={"/plat2.jpg"}
           alt="Plat français"
           width={250}
           height={200}
         />
         <Image
-          className="rounded-full lg:-mt-10"
+          className="col-span-1 mr-10 rounded-full lg:-mt-10 lg:mr-0"
           src={"/plat3.jpg"}
           alt="Plat français"
           width={250}
           height={200}
         />
         <Image
-          className="rounded-full lg:mt-10"
+          className="col-span-1 ml-10 rounded-full lg:ml-0 lg:mt-10"
           src={"/plat4.jpg"}
           alt="Plat français"
           width={250}
@@ -87,8 +87,8 @@ export function About() {
         />
       </section>
       <Separator />
-      <div className="container mx-auto py-10">
-        <h1 className="mb-10 text-center text-4xl font-bold text-[#2c2c2c]">
+      <div className="container mx-auto py-10 text-sm font-light">
+        <h1 className="mb-10 text-center text-4xl text-[#2c2c2c]">
           L&apos;équipe Les Volets Rouges
         </h1>
         <div className="grid gap-8 md:grid-cols-2">
@@ -103,7 +103,7 @@ export function About() {
                   <AvatarFallback>Paul</AvatarFallback>
                 </Avatar>
                 <div>
-                  <CardTitle className="text-2xl">Le Chef</CardTitle>
+                  <CardTitle className="text-2xl font-light">Le Chef</CardTitle>
                   <CardDescription className="font-cormorant text-lg font-semibold text-accent">
                     Paul Du Bois De Maquillé
                   </CardDescription>
@@ -116,12 +116,20 @@ export function About() {
                 nombreux restaurants :
               </p>
               <ul className="mb-4 list-inside list-disc space-y-1">
-                <li>Le Rech d&apos;Alain Ducasse</li>
-                <li>Restaurant Papillon de Christophe Saint Agne</li>
                 <li>
-                  Restaurant Septime de Bertrand Grebault et Théo Pourriat
+                  <strong>Le Rech</strong> d&apos;Alain Ducasse
                 </li>
-                <li>Restaurant Le Servan De Tatiana et Katia Levha</li>
+                <li>
+                  <strong>Restaurant Papillon</strong> de Christophe Saint Agne
+                </li>
+                <li>
+                  <strong>Restaurant Septime</strong> de Bertrand Grebault et
+                  Théo Pourriat
+                </li>
+                <li>
+                  <strong>Restaurant Le Servan</strong> De Tatiana et Katia
+                  Levha
+                </li>
               </ul>
               <p className="mb-4">
                 Aujourd&apos;hui, ses multiples expériences culinaires se mêlent
@@ -147,7 +155,7 @@ export function About() {
                   <AvatarFallback>Vincent</AvatarFallback>
                 </Avatar>
                 <div>
-                  <CardTitle className="text-2xl">
+                  <CardTitle className="text-2xl font-light">
                     Le directeur de salle
                   </CardTitle>
                   <CardDescription className="font-cormorant text-lg font-semibold text-accent">

@@ -5,6 +5,7 @@ import { InstagramLogoIcon } from "@radix-ui/react-icons";
 export function Footer() {
   return (
     <footer className="mt-6 flex w-full flex-col items-center justify-center gap-6 pb-10 pt-4">
+      <Separator />
       <div className="flex w-full flex-col items-center justify-between gap-6 p-6 lg:flex-row">
         <Image
           src={"/logo-horizontal.png"}
@@ -23,13 +24,15 @@ export function Footer() {
           <p className="text-sm underline underline-offset-1 opacity-75">
             +33 6 58 01 45 49
           </p>
-          <a
-            className="opacity-75"
-            target="_blank"
-            href="https://www.instagram.com/lesvoletsrouges_restaurant/"
-          >
-            <InstagramLogoIcon />
-          </a>
+          <div className="flex items-center opacity-75">
+            <p className="text-light hidden pr-2 md:block">Suivez nous sur</p>
+            <a
+              target="_blank"
+              href="https://www.instagram.com/lesvoletsrouges_restaurant/"
+            >
+              <InstagramLogoIcon />
+            </a>
+          </div>
         </div>
         <div className="flex flex-col items-center gap-4 text-center lg:w-1/6">
           <p className="font-cormorant text-xl">Lieu</p>

@@ -20,7 +20,7 @@ export default function Component() {
       <div className="w-full overflow-hidden opacity-75" aria-hidden="true">
         <Separator />
         <div
-          className="inline-flex animate-marquee items-center whitespace-nowrap py-1 motion-reduce:animate-none motion-reduce:whitespace-normal"
+          className="inline-flex items-center whitespace-nowrap py-1 motion-reduce:animate-none motion-reduce:whitespace-normal"
           style={{ animationDuration: `${contentWidth / 40}s` }}
         >
           {[...Array(5)].map((_, index) => (

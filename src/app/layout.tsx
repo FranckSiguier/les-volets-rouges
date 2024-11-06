@@ -1,8 +1,7 @@
-import "~/styles/globals.css";
 import { type Metadata } from "next";
-import { Navbar } from "~/components/navbar";
 import { Footer } from "~/components/footer";
-import Marquee from "~/components/marquee";
+import { Navbar } from "~/components/navbar";
+import "~/styles/globals.css";
 
 export const metadata: Metadata = {
   title: "Les Volets Rouges",
@@ -19,7 +18,7 @@ export default function RootLayout({
         <main className="flex flex-col items-center bg-background px-4 md:px-8 lg:px-16 xl:px-24 2xl:px-32">
           <Navbar />
           {children}
-          <Marquee />
+          {/* <Marquee /> */}
           <Footer />
         </main>
       </body>

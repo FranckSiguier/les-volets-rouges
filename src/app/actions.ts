@@ -3,9 +3,8 @@
 import { eq } from "drizzle-orm";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import { type MenuSectionType } from "~/lib/types";
 import { db } from "~/server/db";
-import { menuItems, menus } from "~/server/db/schema";
+import { menuItems, type MenuItemType, menus } from "~/server/db/schema";
 import { createClient } from "~/utils/supabase/server";
 import { encodedRedirect } from "~/utils/utils";
 
@@ -170,7 +169,7 @@ export const createItem = async (data: {
       name: data.name,
       description: data.description,
       price: data.price,
-      type: data.type as MenuSectionType,
+      type: data.type as MenuItemType["type"],
       menuId: data.menuId,
     })
     .returning({ insertedId: menuItems.id })

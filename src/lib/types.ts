@@ -1,1 +1,6 @@
-export type MenuSectionType = "starter" | "entree" | "main" | "dessert";
+export const MenuSectionType = [
+  "starter",
+  "entree",
+  "main",
+  "dessert",
+] as const;

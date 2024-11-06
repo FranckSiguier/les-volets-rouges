@@ -1,5 +1,4 @@
 import { type getActiveMenu } from "~/app/actions";
-import { type MenuSectionType } from "~/lib/types";
 import { type MenuItemType } from "~/server/db/schema";
 
 export function MenuSection({
@@ -7,7 +6,7 @@ export function MenuSection({
   selectedSection,
 }: {
   menu: Awaited<ReturnType<typeof getActiveMenu>>;
-  selectedSection: MenuSectionType;
+  selectedSection: MenuItemType["type"];
 }) {
   const title =
     selectedSection === "entree"
