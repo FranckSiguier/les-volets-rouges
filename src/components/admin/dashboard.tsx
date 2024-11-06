@@ -41,13 +41,13 @@ export default function RestaurantDashboard({
     },
   });
 
-  const onSubmit = async (data: MenuItemInsertType) => {
-    "use server";
-    await createItem({
-      ...data,
-      description: data.description ?? "",
-      menuId: activeMenu?.id ?? 1,
-    });
+  const onSubmit = async (_data: MenuItemInsertType) => {
+    // "use server";
+    // await createItem({
+    //   ...data,
+    //   description: data.description ?? "",
+    //   menuId: activeMenu?.id ?? 1,
+    // });
     form.reset();
     revalidatePath("/admin");
   };
