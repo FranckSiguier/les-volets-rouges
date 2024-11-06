@@ -3,7 +3,7 @@
 import { eq } from "drizzle-orm";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import { MenuSectionType } from "~/lib/types";
+import { type MenuSectionType } from "~/lib/types";
 import { db } from "~/server/db";
 import { menuItems, menus } from "~/server/db/schema";
 import { createClient } from "~/utils/supabase/server";

@@ -2,7 +2,7 @@
 // https://orm.drizzle.team/docs/sql-schema-declaration
 
 import {
-  InferInsertModel,
+  type InferInsertModel,
   type InferSelectModel,
   relations,
   sql,

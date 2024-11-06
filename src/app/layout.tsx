@@ -3,7 +3,6 @@ import { type Metadata } from "next";
 import { Navbar } from "~/components/navbar";
 import { Footer } from "~/components/footer";
 import Marquee from "~/components/marquee";
-import { Separator } from "~/components/ui/separator";
 
 export const metadata: Metadata = {
   title: "Les Volets Rouges",

@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { createItem, MenuType, type getMenus } from "~/app/actions";
+import { type MenuType, type getMenus } from "~/app/actions";
 import { Button } from "~/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 import { Checkbox } from "~/components/ui/checkbox";
@@ -17,14 +17,14 @@ import {
 } from "~/components/ui/form";
 import { Input } from "~/components/ui/input";
 import { Textarea } from "~/components/ui/textarea";
-import { MenuItemInsertType } from "~/server/db/schema";
+import { type MenuItemInsertType } from "~/server/db/schema";
 
-const itemTypes = [
-  { label: "À Partager", value: "starter" },
-  { label: "Entrée", value: "entree" },
-  { label: "Plat", value: "plat" },
-  { label: "Dessert", value: "dessert" },
-];
+// const itemTypes = [
+//   { label: "À Partager", value: "starter" },
+//   { label: "Entrée", value: "entree" },
+//   { label: "Plat", value: "plat" },
+//   { label: "Dessert", value: "dessert" },
+// ];
 
 export default function RestaurantDashboard({
   menus,
