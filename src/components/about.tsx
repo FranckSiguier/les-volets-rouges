@@ -88,11 +88,11 @@ export function About() {
       </section>
       <Separator />
       <div className="container mx-auto py-10 text-sm font-light">
-        <h1 className="mb-10 text-center text-4xl text-[#2c2c2c]">
+        <h1 className="mb-10 text-center text-4xl text-[#2c2c2c] underline underline-offset-4">
           L&apos;équipe Les Volets Rouges
         </h1>
         <div className="grid gap-8 md:grid-cols-2">
-          <Card className="bg-background shadow-lg">
+          <Card className="border border-accent shadow-lg">
             <CardHeader>
               <div className="flex items-center space-x-4">
                 <Avatar className="h-20 w-20">
@@ -144,7 +144,7 @@ export function About() {
             </CardContent>
           </Card>
 
-          <Card className="bg-background shadow-lg">
+          <Card className="border border-accent shadow-lg">
             <CardHeader>
               <div className="flex items-center space-x-4">
                 <Avatar className="h-20 w-20">
