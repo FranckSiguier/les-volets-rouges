@@ -28,7 +28,7 @@ import { sendMessage } from "../actions";
 import { useState } from "react";
 // import Script from "next/script";
 
-export const contactFormSchema = z.object({
+const contactFormSchema = z.object({
   name: z.string().min(2, {
     message: "Name must be at least 2 characters.",
   }),
