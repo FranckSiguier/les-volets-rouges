@@ -1,6 +1,7 @@
 import { type Metadata } from "next";
 import { Footer } from "~/components/footer";
 import { Navbar } from "~/components/navbar";
+import { Toaster } from "~/components/ui/toaster";
 import "~/styles/globals.css";
 
 export const metadata: Metadata = {
@@ -20,6 +21,7 @@ export default function RootLayout({
           {children}
           {/* <Marquee /> */}
           <Footer />
+          <Toaster />
         </main>
       </body>
     </html>

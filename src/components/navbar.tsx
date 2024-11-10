@@ -57,7 +57,7 @@ export function Navbar() {
               />
             </Link>
             <div className="grid justify-center gap-2 py-6 text-center">
-              {["menu", "vins", "blog", "contact", "book"].map((link) => (
+              {["menu", "vins", "blog", "contact", "reserver"].map((link) => (
                 <Link
                   key={link}
                   href={`/${link}`}
@@ -125,7 +125,7 @@ export function Navbar() {
 
         {/* Right-aligned Link */}
         <div className="flex gap-6 rounded-lg border border-accent p-2 font-light hover:border-secondary hover:bg-secondary hover:text-background">
-          <Link href="/book" prefetch={false}>
+          <Link href="/reserver" prefetch={false}>
             Réserver une table
           </Link>
         </div>

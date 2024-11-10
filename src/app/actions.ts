@@ -3,10 +3,13 @@
 import { eq } from "drizzle-orm";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
+import { Resend } from "resend";
+import { env } from "~/env";
 import { db } from "~/server/db";
-import { menuItems, type MenuItemType, menus } from "~/server/db/schema";
+import { type MenuItemInsertType, menuItems, menus } from "~/server/db/schema";
 import { createClient } from "~/utils/supabase/server";
 import { encodedRedirect } from "~/utils/utils";
+import { type ContactFormValues } from "./contact/page";
 
 export const signUpAction = async (formData: FormData) => {
   const email = formData.get("email")?.toString();
@@ -156,24 +159,52 @@ export const getMenus = async () => {
   return menus;
 };
 
-export const createItem = async (data: {
-  name: string;
-  description: string;
-  price: string;
-  type: string;
-  menuId: number;
-}) => {
+export const createItem = async (data: MenuItemInsertType) => {
   const itemId = await db
     .insert(menuItems)
     .values({
+      id: 55,
       name: data.name,
       description: data.description,
       price: data.price,
-      type: data.type as MenuItemType["type"],
+      type: data.type,
       menuId: data.menuId,
     })
     .returning({ insertedId: menuItems.id })
     .execute();
 
   return itemId;
+};
+
+export const sendMessage = async (data: ContactFormValues) => {
+  // const secretKey = env.RECAPTCHA_SECRET_KEY;
+
+  // const response = await fetch(
+  //   `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${recaptchaToken}`,
+  //   {
+  //     method: "POST",
+  //   },
+  // );
+
+  // const verificationData = (await response.json()) as { success: boolean };
+  // if (!verificationData.success) {
+  //   return false;
+  // }
+
+  const resend = new Resend(env.RESEND_API_KEY);
+
+  await resend.emails.send({
+    from: "contact@lesvoletsrouges.fr",
+    to: "restaurant.volets.rouges@gmail.com",
+    subject: "Message depuis formulaire de contact",
+    html: `
+        <p><strong>Nom:</strong> ${data.name}</p>
+        <p><strong>Email:</strong> ${data.email}</p>
+        <p><strong>Téléphone:</strong> ${data.phone}</p>
+        <p><strong>Type de demande:</strong> ${data.inquiryType}</p>
+        <p><strong>Message:</strong> ${data.message}</p>
+        `,
+  });
+
+  return true;
 };
