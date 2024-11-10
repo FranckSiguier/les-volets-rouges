@@ -10,6 +10,7 @@ import {
 import {
   boolean,
   index,
+  integer,
   pgEnum,
   pgTableCreator,
   serial,
@@ -77,7 +78,7 @@ export const menuItems = createTable(
   "menu_item",
   {
     id: serial("id").primaryKey(),
-    menuId: serial("menu_id")
+    menuId: integer("menu_id")
       .references(() => menus.id)
       .notNull(),
     name: varchar("name", { length: 256 }).notNull(),

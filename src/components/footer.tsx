@@ -45,6 +45,14 @@ export function Footer() {
         </div>
       </div>
       <Separator />
+      <div className="flex w-full justify-start gap-4 py-2 text-primary sm:px-4">
+        <p className="text-center text-sm font-light">
+          © 2024 Les Volets Rouges. Tous droits réservés. -{" "}
+          <a href="/mentions-legales" className="underline">
+            Mentions légales
+          </a>
+        </p>
+      </div>
     </footer>
   );
 }

@@ -10,6 +10,7 @@ import { type MenuItemInsertType, menuItems, menus } from "~/server/db/schema";
 import { createClient } from "~/utils/supabase/server";
 import { encodedRedirect } from "~/utils/utils";
 import { type ContactFormValues } from "./contact/page";
+import { revalidatePath } from "next/cache";
 
 export const signUpAction = async (formData: FormData) => {
   const email = formData.get("email")?.toString();
@@ -160,10 +161,9 @@ export const getMenus = async () => {
 };
 
 export const createItem = async (data: MenuItemInsertType) => {
-  const itemId = await db
+  await db
     .insert(menuItems)
     .values({
-      id: 55,
       name: data.name,
       description: data.description,
       price: data.price,
@@ -172,8 +172,7 @@ export const createItem = async (data: MenuItemInsertType) => {
     })
     .returning({ insertedId: menuItems.id })
     .execute();
-
-  return itemId;
+  revalidatePath("/admin");
 };
 
 export const sendMessage = async (data: ContactFormValues) => {

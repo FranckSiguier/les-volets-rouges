@@ -1,7 +1,6 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { revalidatePath } from "next/cache";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -57,13 +56,13 @@ export default function RestaurantDashboard({
 
     await createItem({
       ...formData,
-      menuId: activeMenu?.id,
+      menuId: activeMenu?.id ?? 1,
     });
     toast({
       title: "Plat ajouté",
       description: "Le plat a été ajouté avec succès",
     });
-    revalidatePath("/admin");
+
     form.reset();
   };
 
