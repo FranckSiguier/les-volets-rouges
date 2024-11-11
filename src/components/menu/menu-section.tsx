@@ -1,7 +1,17 @@
-import { type getActiveMenu } from "~/app/actions";
+import { getActiveMenu } from "~/app/actions";
+import { MenuSectionType } from "~/lib/types";
 import { type MenuItemType } from "~/server/db/schema";
+import { Skeleton } from "../ui/skeleton";
 
-export function MenuSection({
+export async function MenuDashboard() {
+  const menu = await getActiveMenu();
+
+  return MenuSectionType.map((section, index) => (
+    <MenuSection key={index} selectedSection={section} menu={menu} />
+  ));
+}
+
+export async function MenuSection({
   menu,
   selectedSection,
 }: {
@@ -44,6 +54,33 @@ function MenuItem({ item }: { item: MenuItemType }) {
         <p className="text-lg font-light text-accent">{item.price}€</p>
       </div>
       <p className="pr-6 text-lg font-light">{item.description}</p>
+    </div>
+  );
+}
+
+export function MenuSectionSkeleton() {
+  return (
+    <div className="flex flex-col py-12 sm:px-4 lg:px-32">
+      <div className="flex flex-col gap-12">
+        <Skeleton className="h-8 w-24" />
+        <div className="grid grid-cols-1 gap-16 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3">
+          {[0, 1, 2, 3, 4, 5].map((_, index) => (
+            <MenuItemSkeleton key={index} />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function MenuItemSkeleton() {
+  return (
+    <div className="flex flex-col gap-2">
+      <div className="flex justify-between">
+        <Skeleton className="h-4 w-[200px]" />
+        <Skeleton className="h-6 w-12 rounded-full" />
+      </div>
+      <Skeleton className="h-4 w-[200px]" />
     </div>
   );
 }

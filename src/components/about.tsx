@@ -1,6 +1,5 @@
 import Image from "next/image";
-import { Separator } from "./ui/separator";
-import { Video } from "./video";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import {
   Card,
   CardContent,
@@ -8,25 +7,47 @@ import {
   CardHeader,
   CardTitle,
 } from "./ui/card";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { Separator } from "./ui/separator";
 
 export function About() {
   return (
     <>
-      <section className="relative mb-10 mt-10 h-[50vh] w-full overflow-hidden">
+      <section className="mt-6 flex flex-col md:flex-row md:gap-20">
+        <div className="motion-preset-slide-right-sm flex flex-col justify-center gap-4 py-6 text-center lg:w-1/6">
+          <p className="font-cormorant text-xl text-accent">Nos horaires</p>
+          <p className="text-sm opacity-75">Mercredi - Vendredi | 12h - 14h </p>
+          <p className="text-sm opacity-75">Mardi - Samedi | 19h30 - 22h30</p>
+        </div>
+        <div className="motion-preset-slide-left-sm flex flex-col justify-center gap-4 py-6 text-center lg:w-1/6">
+          <p className="font-cormorant text-xl text-accent">Nous trouver</p>
+          <p className="text-sm opacity-75">
+            1 Rue Vélane, 31000 Toulouse, France
+          </p>
+          <p className="text-sm opacity-75">31000 Toulouse, France</p>
+        </div>
+      </section>
+      <section className="relative my-10 h-[50vh] w-full overflow-hidden">
         <div className="absolute inset-0 grid grid-cols-1 md:grid-cols-3">
           <div className="relative z-10 flex flex-col items-start justify-center p-8 font-cormorant md:col-span-2">
             <h1 className="mb-8 text-4xl text-accent md:text-5xl lg:text-8xl">
               Restaurant.
             </h1>
-            <h2 className="text-3xl text-accent md:text-4xl lg:text-7xl">
+            <h2 className="motion-preset-typewriter-[16] font-cormorant text-3xl text-accent md:text-4xl lg:text-7xl">
               Au coeur des Carmes.
             </h2>
           </div>
           <div className="md:col-span-1" />
         </div>
         <div className="absolute inset-0 md:left-[25%]">
-          <Video />
+          <Image
+            src={
+              "https://njowvzjporohgzvgfyif.supabase.co/storage/v1/object/public/assets/gourmet-dish-meat-caviar.jpg?t=2024-11-10T20%3A34%3A38.790Z"
+            }
+            alt="meat and caviar"
+            className="h-full w-full rounded-3xl object-cover md:rounded-full"
+            width={800}
+            height={400}
+          />
           <div className="absolute inset-0 w-full rounded-3xl bg-black opacity-30 md:rounded-full" />
         </div>
       </section>
@@ -48,7 +69,9 @@ export function About() {
           </p>
           <Image
             className="rounded-full lg:-mt-20"
-            src={"/cook-restaurant.jpg"}
+            src={
+              "https://njowvzjporohgzvgfyif.supabase.co/storage/v1/object/public/assets/cook-restaurant.jpg?t=2024-11-11T02%3A08%3A08.919Z"
+            }
             alt="Chef cuisine"
             width={624}
             height={300}
@@ -58,29 +81,37 @@ export function About() {
       </section>
       <section className="grid w-full items-center justify-center gap-6 py-6 lg:grid-cols-4">
         <Image
-          className="col-span-1 mr-10 rounded-full lg:-mt-10 lg:mr-0"
-          src={"/plat1.jpg"}
+          className="motion-preset-bounce col-span-1 mr-10 rounded-full lg:-mt-10 lg:mr-0"
+          src={
+            "https://njowvzjporohgzvgfyif.supabase.co/storage/v1/object/public/assets/plat1.jpg?t=2024-11-11T02%3A08%3A19.195Z"
+          }
           alt="Plat français"
           width={250}
           height={200}
         />
         <Image
-          className="col-span-1 ml-10 rounded-full lg:ml-0 lg:mt-10"
-          src={"/plat2.jpg"}
+          className="motion-preset-bounce col-span-1 ml-10 rounded-full lg:ml-0 lg:mt-10"
+          src={
+            "https://njowvzjporohgzvgfyif.supabase.co/storage/v1/object/public/assets/plat2.jpg?t=2024-11-11T02%3A08%3A28.340Z"
+          }
           alt="Plat français"
           width={250}
           height={200}
         />
         <Image
-          className="col-span-1 mr-10 rounded-full lg:-mt-10 lg:mr-0"
-          src={"/plat3.jpg"}
+          className="motion-preset-bounce col-span-1 mr-10 rounded-full lg:-mt-10 lg:mr-0"
+          src={
+            "https://njowvzjporohgzvgfyif.supabase.co/storage/v1/object/public/assets/plat3.jpg?t=2024-11-11T02%3A08%3A40.463Z"
+          }
           alt="Plat français"
           width={250}
           height={200}
         />
         <Image
-          className="col-span-1 ml-10 rounded-full lg:ml-0 lg:mt-10"
-          src={"/plat4.jpg"}
+          className="motion-preset-bounce col-span-1 ml-10 rounded-full lg:ml-0 lg:mt-10"
+          src={
+            "https://njowvzjporohgzvgfyif.supabase.co/storage/v1/object/public/assets/plat4.jpg?t=2024-11-11T02%3A08%3A49.520Z"
+          }
           alt="Plat français"
           width={250}
           height={200}
@@ -88,8 +119,8 @@ export function About() {
       </section>
       <Separator />
       <div className="container mx-auto py-10 text-sm font-light">
-        <h1 className="mb-10 text-center text-4xl text-[#2c2c2c] underline underline-offset-4">
-          L&apos;équipe Les Volets Rouges
+        <h1 className="mb-10 text-center text-4xl text-[#2c2c2c]">
+          L&apos;équipe
         </h1>
         <div className="grid gap-8 md:grid-cols-2">
           <Card className="border border-accent shadow-lg">
@@ -105,7 +136,7 @@ export function About() {
                 <div>
                   <CardTitle className="text-2xl font-light">Le Chef</CardTitle>
                   <CardDescription className="font-cormorant text-lg font-semibold text-accent">
-                    Paul Du Bois De Maquillé
+                    Paul
                   </CardDescription>
                 </div>
               </div>
@@ -159,7 +190,7 @@ export function About() {
                     Le directeur de salle
                   </CardTitle>
                   <CardDescription className="font-cormorant text-lg font-semibold text-accent">
-                    Vincent Du Bois De Maquillé
+                    Vincent
                   </CardDescription>
                 </div>
               </div>
