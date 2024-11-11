@@ -36,7 +36,10 @@ export function Footer() {
         </div>
         <div className="flex flex-col items-center gap-4 text-center lg:w-1/6">
           <p className="font-cormorant text-xl">Lieu</p>
-          <p className="text-sm opacity-75">📍 Quartier des Carmes</p>
+          <p className="text-sm opacity-75">
+            1 Rue Vélane, 31000 Toulouse, France
+          </p>
+          <p className="text-sm opacity-75">31000 Toulouse, France</p>
         </div>
         <div className="flex flex-col items-center gap-4 text-center lg:w-1/6">
           <p className="font-cormorant text-xl">Horaires</p>

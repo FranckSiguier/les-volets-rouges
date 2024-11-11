@@ -173,6 +173,7 @@ export const createItem = async (data: MenuItemInsertType) => {
     .returning({ insertedId: menuItems.id })
     .execute();
   revalidatePath("/admin");
+  revalidatePath("/menu");
 };
 
 export const sendMessage = async (data: ContactFormValues) => {
