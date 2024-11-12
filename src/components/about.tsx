@@ -161,14 +161,14 @@ export function About() {
                 </li>
               </ul>
               <p className="mb-4">
+                Paul retourne à Toulouse, où il a grandi, et ouvre son propre
+                restaurant.
+              </p>
+              <p>
                 Aujourd&apos;hui, ses multiples expériences se mêlent à ses
                 origines et à sa technique pour réaliser des plats créatifs, en
                 adéquation avec sa représentation de la cuisine durable,
                 inventive et au service du goût.
-              </p>
-              <p>
-                Paul retourne à Toulouse, où il a grandi, et ouvre son propre
-                restaurant.
               </p>
             </CardContent>
           </Card>
