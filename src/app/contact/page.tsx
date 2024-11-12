@@ -26,12 +26,6 @@ import { Textarea } from "~/components/ui/textarea";
 import { toast } from "~/hooks/use-toast";
 import { sendMessage } from "../actions";
 import { useState } from "react";
-import { type Metadata } from "next";
-
-export const metadata: Metadata = {
-  title: "Contactez-nous",
-  description: "Contactez-nous pour toute question ou réservation.",
-};
 
 const contactFormSchema = z.object({
   name: z.string().min(2, {
