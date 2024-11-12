@@ -149,11 +149,13 @@ export function About() {
                 <strong>Restaurant Septime </strong>(Bertrand Grebault et Théo
                 Pourriat) et <strong>Restaurant Le Servan </strong>(Tatiana et
                 Katia Levha), Paul retourne à Toulouse, où il a grandi, et ouvre
-                son propre restaurant. Aujourd&apos;hui, ses multiples
-                expériences se mêlent à ses origines et à sa technique pour
-                réaliser des plats créatifs, en adéquation avec sa
-                représentation de la cuisine durable, inventive et au service du
-                goût.
+                son propre restaurant.
+              </p>
+              <p>
+                Aujourd&apos;hui, ses multiples expériences se mêlent à ses
+                origines et à sa technique pour réaliser des plats créatifs, en
+                adéquation avec sa représentation de la cuisine durable,
+                inventive et au service du goût.
               </p>
             </CardContent>
           </Card>
