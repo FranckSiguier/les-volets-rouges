@@ -13,13 +13,13 @@ export function About() {
   return (
     <>
       <section className="mt-6 flex flex-col md:flex-row md:gap-20">
-        <div className="motion-preset-slide-right-sm flex flex-col justify-center gap-4 py-6 text-center lg:w-1/6">
-          <p className="font-cormorant text-xl text-accent">Nos horaires</p>
+        <div className="motion-preset-slide-right-sm flex flex-col justify-center gap-4 py-6 text-center">
+          <p className="font-cormorant text-3xl text-accent">Nos horaires</p>
           <p className="text-sm opacity-75">Mercredi - Vendredi | 12h - 14h </p>
           <p className="text-sm opacity-75">Mardi - Samedi | 19h30 - 22h30</p>
         </div>
-        <div className="motion-preset-slide-left-sm flex flex-col justify-center gap-4 py-6 text-center lg:w-1/6">
-          <p className="font-cormorant text-xl text-accent">Nous trouver</p>
+        <div className="motion-preset-slide-left-sm flex flex-col justify-center gap-4 py-6 text-center">
+          <p className="font-cormorant text-3xl text-accent">Nous trouver</p>
           <p className="text-sm opacity-75">
             1 Rue Vélane, 31000 Toulouse, France
           </p>
@@ -32,7 +32,7 @@ export function About() {
             <h1 className="mb-8 text-4xl text-accent md:text-5xl lg:text-8xl">
               Restaurant.
             </h1>
-            <h2 className="motion-preset-typewriter-[16] font-cormorant text-3xl text-accent md:text-4xl lg:text-7xl">
+            <h2 className="motion-preset-typewriter-[18] font-cormorant text-3xl text-accent md:text-4xl lg:text-7xl">
               Au coeur des Carmes.
             </h2>
           </div>
@@ -41,80 +41,81 @@ export function About() {
         <div className="absolute inset-0 md:left-[25%]">
           <Image
             src={
-              "https://njowvzjporohgzvgfyif.supabase.co/storage/v1/object/public/assets/gourmet-dish-meat-caviar.jpg?t=2024-11-10T20%3A34%3A38.790Z"
+              "https://njowvzjporohgzvgfyif.supabase.co/storage/v1/object/public/assets/photo_1.jpg"
             }
-            alt="meat and caviar"
+            alt="Rue de Toulouse"
             className="h-full w-full rounded-3xl object-cover md:rounded-full"
-            width={800}
-            height={400}
+            fill
+            priority
           />
-          <div className="absolute inset-0 w-full rounded-3xl bg-black opacity-30 md:rounded-full" />
+          <div className="absolute inset-0 w-full rounded-3xl bg-black opacity-20 md:rounded-full" />
         </div>
       </section>
       <section className="w-full">
         <Separator />
-        <h1 className="py-4 font-cormorant text-2xl font-thin text-accent md:text-4xl lg:text-6xl">
+        <h1 className="py-4 font-cormorant text-2xl font-thin md:text-4xl lg:text-6xl">
           Notre histoire
         </h1>
         <Separator className="max-w-full lg:max-w-2xl" />
         <div className="flex flex-col items-center justify-center gap-6 py-4 text-center lg:flex-row lg:justify-between lg:py-6 lg:text-left">
           <p className="max-w-full py-4 text-xl font-light md:max-w-md md:py-10">
-            Les Volets Rouges c&apos;est un clin d&apos;œil a notre région
-            d&apos;origine, le pays basque bien sur. L&apos;idée est de
-            travailler à partir de produits bruts que nous sélectionnons avec
-            soins, d&apos;Occitanie, du pays basque et un peu d&apos;ailleurs.
-            Ils sont issus de l&apos;agriculture biologique et raisonnée,
-            d&apos;élevage fermier et de pêche durable. Nos vins sont biologique
-            et/ou naturelles pour la majorité.
+            <strong>Les volets rouges</strong> c&apos;est un clin d&apos;œil à
+            notre région d&apos;origine, le Pays basque. Le Restaurant est situé
+            au cœur du quartier des Carmes à Toulouse. Nous proposons une
+            cuisine authentique et de saison, l&apos;idée est de travailler à
+            partir de produits bruts sélectionnés avec soin, issus de
+            l&apos;agriculture biologique et raisonnée, d&apos;élevage fermier
+            et de pêche durable. Nous privilégions des vins naturels et
+            biologiques.
           </p>
           <Image
             className="rounded-full lg:-mt-20"
             src={
-              "https://njowvzjporohgzvgfyif.supabase.co/storage/v1/object/public/assets/cook-restaurant.jpg?t=2024-11-11T02%3A08%3A08.919Z"
+              "https://njowvzjporohgzvgfyif.supabase.co/storage/v1/object/public/assets/photo_2.jpg?t=2024-11-12T01%3A15%3A49.464Z"
             }
-            alt="Chef cuisine"
+            alt="L'équipe du restaurant Les Volets Rouges"
             width={624}
             height={300}
           />
         </div>
         <Separator />
       </section>
-      <section className="grid w-full items-center justify-center gap-6 py-6 lg:grid-cols-4">
+      <section className="grid w-full items-center justify-center gap-6 py-16 lg:grid-cols-4">
         <Image
-          className="motion-preset-bounce col-span-1 mr-10 rounded-full lg:-mt-10 lg:mr-0"
+          className="motion-preset-bounce col-span-1 mr-10 h-[250px] w-[280px] rounded-full object-cover lg:-mt-10 lg:mr-0"
           src={
-            "https://njowvzjporohgzvgfyif.supabase.co/storage/v1/object/public/assets/plat1.jpg?t=2024-11-11T02%3A08%3A19.195Z"
+            "https://njowvzjporohgzvgfyif.supabase.co/storage/v1/object/public/assets/photo_3.png"
           }
-          alt="Plat français"
-          width={250}
-          height={200}
+          alt="Paul qui cuisine"
+          width={500}
+          height={500}
         />
         <Image
-          className="motion-preset-bounce col-span-1 ml-10 rounded-full lg:ml-0 lg:mt-10"
+          className="motion-preset-bounce col-span-1 ml-10 h-[250px] w-[280px] rounded-full object-cover lg:ml-0 lg:mt-10"
           src={
-            "https://njowvzjporohgzvgfyif.supabase.co/storage/v1/object/public/assets/plat2.jpg?t=2024-11-11T02%3A08%3A28.340Z"
+            "https://njowvzjporohgzvgfyif.supabase.co/storage/v1/object/public/assets/photo_4.jpg?t=2024-11-12T01%3A18%3A08.838Z"
           }
-          alt="Plat français"
-          width={250}
-          height={200}
+          alt="Potimarron et citrouille"
+          width={500}
+          height={500}
         />
         <Image
-          className="motion-preset-bounce col-span-1 mr-10 rounded-full lg:-mt-10 lg:mr-0"
+          className="motion-preset-bounce col-span-1 mr-10 h-[360px] w-[280px] rounded-full object-cover lg:-mt-10 lg:mr-0"
           src={
-            "https://njowvzjporohgzvgfyif.supabase.co/storage/v1/object/public/assets/plat3.jpg?t=2024-11-11T02%3A08%3A40.463Z"
+            "https://njowvzjporohgzvgfyif.supabase.co/storage/v1/object/public/assets/photo_5.jpg?t=2024-11-12T01%3A18%3A17.765Z"
           }
-          alt="Plat français"
-          width={250}
-          height={200}
+          alt="Vincent avec un tablier"
+          width={500}
+          height={500}
         />
         <Image
-          className="motion-preset-bounce col-span-1 ml-10 rounded-full lg:ml-0 lg:mt-10"
+          className="motion-preset-bounce col-span-1 ml-10 h-[250px] w-[280px] rounded-full object-cover lg:ml-0 lg:mt-10"
           src={
-            "https://njowvzjporohgzvgfyif.supabase.co/storage/v1/object/public/assets/plat4.jpg?t=2024-11-11T02%3A08%3A49.520Z"
+            "https://njowvzjporohgzvgfyif.supabase.co/storage/v1/object/public/assets/photo_6.jpg?t=2024-11-12T01%3A18%3A31.225Z"
           }
-          alt="Plat français"
-          width={250}
-          height={200}
+          alt="Bouteilles de vin"
+          width={500}
+          height={500}
         />
       </section>
       <Separator />
@@ -128,7 +129,7 @@ export function About() {
               <div className="flex items-center space-x-4">
                 <Avatar className="h-20 w-20">
                   <AvatarImage
-                    src="/placeholder.svg?height=80&width=80"
+                    src="https://njowvzjporohgzvgfyif.supabase.co/storage/v1/object/public/assets/Chef%20Icon.png?t=2024-11-12T02%3A28%3A26.440Z"
                     alt="Paul Du Bois De Maquillé"
                   />
                   <AvatarFallback>Paul</AvatarFallback>
@@ -143,34 +144,33 @@ export function About() {
             </CardHeader>
             <CardContent>
               <p className="mb-4">
-                Après plus de 10 ans de métier à Paris où il se forme dans de
-                nombreux restaurants :
+                Après avoir travaillé à Paris pendant plus de dix ans, et
+                s&apos;être formé dans de nombreux établissements :
               </p>
               <ul className="mb-4 list-inside list-disc space-y-1">
                 <li>
-                  <strong>Le Rech</strong> d&apos;Alain Ducasse
+                  <strong>Le Rech </strong>(Alain Ducasse)
                 </li>
                 <li>
-                  <strong>Restaurant Papillon</strong> de Christophe Saint Agne
+                  <strong>Restaurant Papillon </strong>(Christophe Saint Agne)
                 </li>
                 <li>
-                  <strong>Restaurant Septime</strong> de Bertrand Grebault et
-                  Théo Pourriat
+                  <strong>Restaurant Septime </strong>(Bertrand Grebault et Théo
+                  Pourriat)
                 </li>
                 <li>
-                  <strong>Restaurant Le Servan</strong> De Tatiana et Katia
-                  Levha
+                  <strong>Restaurant Le Servan </strong>(Tatiana et Katia Levha)
                 </li>
               </ul>
               <p className="mb-4">
-                Aujourd&apos;hui, ses multiples expériences culinaires se mêlent
-                à ses origines et sa technique pour réaliser des plats créatifs,
-                en adéquation avec sa représentation de la cuisine axée sur un
-                sourcing propre et une grande créativité au service du goût.
+                Aujourd&apos;hui, ses multiples expériences se mêlent à ses
+                origines et à sa technique pour réaliser des plats créatifs, en
+                adéquation avec sa représentation de la cuisine durable,
+                inventive et au service du goût.
               </p>
               <p>
-                Paul réalise son rêve et ouvre son restaurant dans la ville où
-                il a grandi.
+                Paul retourne à Toulouse, où il a grandi, et ouvre son propre
+                restaurant.
               </p>
             </CardContent>
           </Card>
@@ -180,7 +180,7 @@ export function About() {
               <div className="flex items-center space-x-4">
                 <Avatar className="h-20 w-20">
                   <AvatarImage
-                    src="/placeholder.svg?height=80&width=80"
+                    src="https://njowvzjporohgzvgfyif.supabase.co/storage/v1/object/public/assets/Waiter%20Icon.png?t=2024-11-12T02%3A30%3A33.568Z"
                     alt="Vincent Du Bois De Maquillé"
                   />
                   <AvatarFallback>Vincent</AvatarFallback>
@@ -197,16 +197,16 @@ export function About() {
             </CardHeader>
             <CardContent>
               <p className="mb-4">
-                Il se forme dans la finance et travaille chez Mazars à Lyon puis
-                à Toulouse.
-              </p>
-              <p className="mb-4">
-                En 2024 il décide de se joindre à Paul dans l&apos;aventure Les
-                Volets Rouges.
+                Après une formation initiale dans le domaine de la finance à
+                l&apos;Université de Lyon, Vincent travaille dans le milieu de
+                l&apos;audit financier, chez Forvis Mazars à Lyon puis à
+                Toulouse.
               </p>
               <p>
-                Il se forme au métier de la salle notamment au Restaurant Le
-                Servan à Paris.
+                Après plusieurs années d&apos;exercice, il décide de se joindre
+                à son frère Paul dans l&apos;ouverture de son restaurant, et se
+                forme alors au service en salle et à la sommellerie à Paris (Le
+                Servan).
               </p>
             </CardContent>
           </Card>

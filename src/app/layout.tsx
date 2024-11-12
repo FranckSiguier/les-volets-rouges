@@ -17,7 +17,39 @@ const cormorant = Cormorant({
 
 export const metadata: Metadata = {
   title: "Les Volets Rouges",
-  description: "Site web du restaurant Les Volets Rouges à Toulouse",
+  description:
+    "Restaurant Bistronomique Les Volets Rouges à Toulouse, dans le quartier des Carmes. Cuisine traditionnelle et produits locaux.",
+  openGraph: {
+    siteName: "Les Volets Rouges, Restaurant",
+    type: "website",
+    title: "Les Volets Rouges",
+    description:
+      "Restaurant Bistronomique Les Volets Rouges à Toulouse, dans le quartier des Carmes. Cuisine traditionnelle et produits locaux.",
+    url: "https://www.lesvoletsrouges.fr/",
+    images: [
+      {
+        url: "https://www.lesvoletsrouges.fr/logo-horizontal.png",
+        width: 800,
+        height: 600,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Les Volets Rouges",
+    description:
+      "Restaurant Bistronomique Les Volets Rouges à Toulouse, dans le quartier des Carmes. Cuisine traditionnelle et produits locaux.",
+    images: ["https://www.lesvoletsrouges.fr/logo-horizontal.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    nocache: false,
+    noarchive: false,
+  },
+  alternates: {
+    canonical: "https://www.lesvoletsrouges.fr/",
+  },
   icons: [{ rel: "icon", url: "/favicon-32x32.png" }],
 };
 

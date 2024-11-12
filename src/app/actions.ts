@@ -1,6 +1,7 @@
 "use server";
 
 import { eq } from "drizzle-orm";
+import { revalidateTag, unstable_cache } from "next/cache";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { Resend } from "resend";
@@ -10,7 +11,6 @@ import { type MenuItemInsertType, menuItems, menus } from "~/server/db/schema";
 import { createClient } from "~/utils/supabase/server";
 import { encodedRedirect } from "~/utils/utils";
 import { type ContactFormValues } from "./contact/page";
-import { revalidatePath } from "next/cache";
 
 export const signUpAction = async (formData: FormData) => {
   const email = formData.get("email")?.toString();
@@ -149,6 +149,7 @@ export const getActiveMenu = async () => {
   return menu;
 };
 export type MenuType = Awaited<ReturnType<typeof getActiveMenu>>;
+unstable_cache(getActiveMenu, ["menu"]);
 
 export const getMenus = async () => {
   const menus = await db.query.menus.findMany({
@@ -159,6 +160,8 @@ export const getMenus = async () => {
 
   return menus;
 };
+export type MenusType = Awaited<ReturnType<typeof getMenus>>;
+unstable_cache(getMenus, ["menus"]);
 
 export const createItem = async (data: MenuItemInsertType) => {
   await db
@@ -172,8 +175,9 @@ export const createItem = async (data: MenuItemInsertType) => {
     })
     .returning({ insertedId: menuItems.id })
     .execute();
-  revalidatePath("/admin");
-  revalidatePath("/menu");
+
+  revalidateTag("menu");
+  revalidateTag("menus");
 };
 
 export const sendMessage = async (data: ContactFormValues) => {

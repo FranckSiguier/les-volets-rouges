@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Separator } from "./ui/separator";
 import { InstagramLogoIcon } from "@radix-ui/react-icons";
+import Link from "next/link";
 
 export function Footer() {
   return (
@@ -16,22 +17,22 @@ export function Footer() {
         />
         <div className="flex flex-col items-center gap-4 text-center lg:w-1/6">
           <p className="font-cormorant text-xl">Contact</p>
-          <a href="mailto:restaurant.volets.rouges@gmail.com">
+          <Link href="mailto:restaurant.volets.rouges@gmail.com">
             <span className="overflow-hidden text-sm underline underline-offset-1 opacity-75">
               restaurant.volets.rouges@gmail.com
             </span>
-          </a>
+          </Link>
           <p className="text-sm underline underline-offset-1 opacity-75">
             +33 6 58 01 45 49
           </p>
           <div className="flex items-center opacity-75">
             <p className="text-light hidden pr-2 md:block">Suivez nous sur</p>
-            <a
+            <Link
               target="_blank"
               href="https://www.instagram.com/lesvoletsrouges_restaurant/"
             >
               <InstagramLogoIcon />
-            </a>
+            </Link>
           </div>
         </div>
         <div className="flex flex-col items-center gap-4 text-center lg:w-1/6">
@@ -48,12 +49,12 @@ export function Footer() {
         </div>
       </div>
       <Separator />
-      <div className="flex w-full justify-start gap-4 py-2 text-primary sm:px-4">
+      <div className="flex w-full justify-center gap-4 py-2 text-primary sm:px-4">
         <p className="text-center text-sm font-light">
           © 2024 Les Volets Rouges. Tous droits réservés. -{" "}
-          <a href="/mentions-legales" className="underline">
+          <Link href="/mentions-legales" className="underline">
             Mentions légales
-          </a>
+          </Link>
         </p>
       </div>
     </footer>

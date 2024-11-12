@@ -26,18 +26,17 @@ import { Textarea } from "~/components/ui/textarea";
 import { toast } from "~/hooks/use-toast";
 import { sendMessage } from "../actions";
 import { useState } from "react";
-// import Script from "next/script";
 
 const contactFormSchema = z.object({
   name: z.string().min(2, {
-    message: "Name must be at least 2 characters.",
+    message: "Le nom doit contenir au moins 2 caractères.",
   }),
   email: z.string().email({
-    message: "Please enter a valid email address.",
+    message: "Veuillez entrer une adresse email valide.",
   }),
   phone: z.string().optional(),
-  inquiryType: z.enum(["general", "feedback", "other"], {
-    required_error: "Please select an inquiry type.",
+  inquiryType: z.enum(["group_booking", "feedback", "voucher", "other"], {
+    required_error: "Veuillez sélectionner une raison.",
   }),
   message: z.string().optional(),
 });
@@ -70,10 +69,6 @@ export default function RestaurantContactForm() {
 
   return (
     <div className="mx-auto mt-10 w-full lg:w-1/2">
-      {/* <Script
-        src="https://www.google.com/recaptcha/api.js"
-        strategy="lazyOnload"
-      /> */}
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
@@ -156,11 +151,16 @@ export default function RestaurantContactForm() {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    <SelectItem value="general">Toute questions</SelectItem>
                     <SelectItem value="feedback">
                       Un retour sur votre expérience
                     </SelectItem>
-                    <SelectItem value="other">Autre</SelectItem>
+                    <SelectItem value="group_booking">
+                      Une réservation de groupe
+                    </SelectItem>
+                    <SelectItem value="voucher">
+                      Offrir un bon cadeau
+                    </SelectItem>
+                    <SelectItem value="other">Autres</SelectItem>
                   </SelectContent>
                 </Select>
                 <FormMessage />
@@ -185,11 +185,6 @@ export default function RestaurantContactForm() {
               </FormItem>
             )}
           />
-          {/* <div
-            className="g-recaptcha"
-            data-sitekey="6LeTkXgqAAAAAC_Aev97oGUwx0ZoH4eWdHOZ1Qw_"
-            data-action="LOGIN"
-          ></div> */}
           <Button
             type="submit"
             className="w-full bg-accent text-white hover:bg-accent hover:bg-opacity-60"

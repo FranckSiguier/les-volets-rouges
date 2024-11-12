@@ -25,7 +25,7 @@ export async function MenuSection({
         ? "Plats"
         : selectedSection === "dessert"
           ? "Desserts"
-          : "À Partager";
+          : "Pour commencer";
 
   return (
     <div className="flex flex-col py-12 sm:px-4 lg:px-32">

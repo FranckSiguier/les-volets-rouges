@@ -57,17 +57,65 @@ export function Navbar() {
               />
             </Link>
             <div className="grid justify-center gap-2 py-6 text-center">
-              {["menu", "vins", "blog", "contact", "reserver"].map((link) => (
-                <Link
-                  key={link}
-                  href={`/${link}`}
-                  className="flex w-full items-center justify-center py-2 text-lg"
-                  prefetch={false}
-                  onClick={handleClose}
-                >
-                  {link.charAt(0).toUpperCase() + link.slice(1)}
-                </Link>
-              ))}
+              <Link
+                key={"accueil"}
+                href={`/`}
+                className="flex w-full items-center justify-center py-2 text-lg"
+                prefetch={false}
+                onClick={handleClose}
+              >
+                Accueil
+              </Link>
+
+              <Link
+                key={"menu"}
+                href={`/menu`}
+                className="flex w-full items-center justify-center py-2 text-lg"
+                prefetch={true}
+                onClick={handleClose}
+              >
+                Menu
+              </Link>
+
+              <Link
+                key={"vins"}
+                href={`/vins`}
+                className="flex w-full items-center justify-center py-2 text-lg"
+                prefetch={true}
+                onClick={handleClose}
+              >
+                Vins
+              </Link>
+
+              <Link
+                key={"blog"}
+                href={`/blog`}
+                className="flex w-full items-center justify-center py-2 text-lg"
+                prefetch={true}
+                onClick={handleClose}
+              >
+                Blog
+              </Link>
+
+              <Link
+                key={"contact"}
+                href={`/contact`}
+                className="flex w-full items-center justify-center py-2 text-lg"
+                prefetch={false}
+                onClick={handleClose}
+              >
+                Contact
+              </Link>
+
+              <Link
+                key={"reserver"}
+                href={`/reserver`}
+                className="flex w-full items-center justify-center rounded-lg border border-accent p-2 text-lg hover:border-secondary hover:bg-secondary hover:text-background"
+                prefetch={false}
+                onClick={handleClose}
+              >
+                Réserver une table
+              </Link>
             </div>
           </SheetContent>
         </Sheet>
@@ -78,10 +126,18 @@ export function Navbar() {
         {/* Left-aligned Links */}
         <div className="flex gap-6">
           <Link
+            href="/"
+            onClick={() => handleActiveLink("accueil")}
+            className={`font-light underline-offset-[4px] hover:text-primary hover:underline active:underline ${activeLink === "accueil" ? "underline" : ""}`}
+            prefetch={false}
+          >
+            Accueil
+          </Link>
+          <Link
             href="/menu"
             onClick={() => handleActiveLink("menu")}
             className={`font-light underline-offset-[4px] hover:text-primary hover:underline active:underline ${activeLink === "menu" ? "underline" : ""}`}
-            prefetch={false}
+            prefetch={true}
           >
             Menu
           </Link>
@@ -89,7 +145,7 @@ export function Navbar() {
             href="/vins"
             onClick={() => handleActiveLink("vins")}
             className={`font-light underline-offset-[4px] hover:text-primary hover:underline active:underline ${activeLink === "vins" ? "underline" : ""}`}
-            prefetch={false}
+            prefetch={true}
           >
             Vins
           </Link>
@@ -97,7 +153,7 @@ export function Navbar() {
             href="/blog"
             onClick={() => handleActiveLink("blog")}
             className={`font-light underline-offset-[4px] hover:text-primary hover:underline active:underline ${activeLink === "blog" ? "underline" : ""}`}
-            prefetch={false}
+            prefetch={true}
           >
             Blog
           </Link>

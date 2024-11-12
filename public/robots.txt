@@ -1,0 +1,9 @@
+User-agent: *
+Disallow: /admin/
+
+# Allow all other pages
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://www.lesvoletsrouges.fr/sitemap.xml
