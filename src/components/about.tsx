@@ -143,32 +143,17 @@ export function About() {
             <CardContent>
               <p className="mb-4">
                 Après avoir travaillé à Paris pendant plus de dix ans, et
-                s&apos;être formé dans de nombreux établissements :
-              </p>
-              <ul className="mb-4 list-inside list-disc space-y-1">
-                <li>
-                  <strong>Le Rech </strong>(Alain Ducasse)
-                </li>
-                <li>
-                  <strong>Restaurant Papillon </strong>(Christophe Saint Agne)
-                </li>
-                <li>
-                  <strong>Restaurant Septime </strong>(Bertrand Grebault et Théo
-                  Pourriat)
-                </li>
-                <li>
-                  <strong>Restaurant Le Servan </strong>(Tatiana et Katia Levha)
-                </li>
-              </ul>
-              <p className="mb-4">
-                Paul retourne à Toulouse, où il a grandi, et ouvre son propre
-                restaurant.
-              </p>
-              <p>
-                Aujourd&apos;hui, ses multiples expériences se mêlent à ses
-                origines et à sa technique pour réaliser des plats créatifs, en
-                adéquation avec sa représentation de la cuisine durable,
-                inventive et au service du goût.
+                s&apos;être formé dans de nombreux établissements dont{" "}
+                <strong>Le Rech </strong>(Alain Ducasse),{" "}
+                <strong>Restaurant Papillon </strong>(Christophe Saint Agne),{" "}
+                <strong>Restaurant Septime </strong>(Bertrand Grebault et Théo
+                Pourriat) et <strong>Restaurant Le Servan </strong>(Tatiana et
+                Katia Levha), Paul retourne à Toulouse, où il a grandi, et ouvre
+                son propre restaurant. Aujourd&apos;hui, ses multiples
+                expériences se mêlent à ses origines et à sa technique pour
+                réaliser des plats créatifs, en adéquation avec sa
+                représentation de la cuisine durable, inventive et au service du
+                goût.
               </p>
             </CardContent>
           </Card>
