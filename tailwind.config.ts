@@ -1,5 +1,4 @@
 import { type Config } from "tailwindcss";
-import { fontFamily } from "tailwindcss/defaultTheme";
 
 export default {
   darkMode: ["class"],
@@ -16,8 +15,8 @@ export default {
         marquee: "marquee linear infinite",
       },
       fontFamily: {
-        oswald: ["Oswald", ...fontFamily.sans],
-        cormorant: ["Cormorant", ...fontFamily.serif],
+        oswald: ["var(--font-oswald)", "sans-serif"],
+        cormorant: ["var(--font-cormorant)", "serif"],
       },
       colors: {
         primary: {
