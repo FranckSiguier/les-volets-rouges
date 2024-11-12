@@ -32,7 +32,7 @@ export function About() {
             <h1 className="mb-8 text-5xl text-accent md:text-7xl lg:text-8xl">
               Restaurant.
             </h1>
-            <h2 className="motion-preset-typewriter-[18] font-cormorant text-4xl text-accent motion-reduce:animate-none md:text-6xl lg:text-7xl">
+            <h2 className="motion-preset-typewriter-[18] font-cormorant text-4xl text-accent motion-duration-2000 motion-reduce:animate-none md:text-6xl lg:text-7xl">
               Au coeur des Carmes.
             </h2>
           </div>
