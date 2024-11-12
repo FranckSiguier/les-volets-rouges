@@ -1,39 +1,13 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
+import { XIcon } from "lucide-react";
 import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { createItem, type MenuType, type getMenus } from "~/app/actions";
-import { Button } from "~/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
+import { deleteItem, type MenuType, type getMenus } from "~/app/actions";
+import { Card, CardContent, CardHeader } from "~/components/ui/card";
 import { Checkbox } from "~/components/ui/checkbox";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "~/components/ui/form";
-import { Input } from "~/components/ui/input";
-import { Textarea } from "~/components/ui/textarea";
 import { toast } from "~/hooks/use-toast";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "../ui/select";
-export const insertMenuItemSchema = z.object({
-  name: z.string().min(2, { message: "Name must be at least 2 characters." }),
-  type: z.enum(["main", "entree", "dessert", "starter"]),
-  description: z
-    .string()
-    .min(2, { message: "Description must be at least 2 characters." }),
-  price: z.string().min(1, { message: "Price must be at least 1 character." }),
-});
+import CreateItem from "./components/create-item";
+import ModifyItem from "./components/modify-item";
 
 export default function RestaurantDashboard({
   menus,
@@ -41,140 +15,75 @@ export default function RestaurantDashboard({
   menus: Awaited<ReturnType<typeof getMenus>>;
 }) {
   const [activeMenu, setActiveMenu] = useState<MenuType>(menus[0]);
-  const form = useForm<z.infer<typeof insertMenuItemSchema>>({
-    resolver: zodResolver(insertMenuItemSchema),
-    defaultValues: {
-      name: "",
-      type: "main",
-      description: "",
-      price: "",
-    },
-  });
-
-  const onSubmit = async (formData: z.infer<typeof insertMenuItemSchema>) => {
-    console.log(formData);
-
-    await createItem({
-      ...formData,
-      menuId: activeMenu?.id ?? 1,
-    });
-    toast({
-      title: "Plat ajouté",
-      description: "Le plat a été ajouté avec succès",
-    });
-
-    form.reset();
+  const handleDeleteClick = async (id: number) => {
+    const isDeleted = await deleteItem(id);
+    if (isDeleted) {
+      toast({
+        title: "Plat supprimé",
+        description: "Le plat a été supprimé avec succès",
+      });
+    } else {
+      toast({
+        title: "Erreur",
+        description: "Une erreur est survenue lors de la suppression du plat",
+      });
+    }
   };
 
   return (
-    <div className="flex w-full rounded-sm bg-background p-4">
-      <div className="w-1/3 rounded-lg bg-white p-6 shadow-md">
-        <h2 className="mb-4 text-2xl font-bold">Menus</h2>
-        {menus.map((menu) => (
-          <div key={menu.id} className="mb-2 flex items-center space-x-2">
-            <Checkbox
-              id={`menu-${menu.id}`}
-              checked={activeMenu?.id === menu.id}
-              onCheckedChange={() => setActiveMenu(menu)}
-            />
-            <label
-              htmlFor={`menu-${menu.id}`}
-              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-            >
-              {menu.name}
-            </label>
+    <div className="flex w-full flex-col items-center bg-background p-4 md:rounded-l-3xl">
+      <div className="flex flex-col items-center md:flex-row md:items-start">
+        <div className="w-full rounded-sm bg-white p-6 md:min-h-screen md:w-1/3">
+          <div className="flex justify-between">
+            <h2 className="mb-4 text-2xl font-bold">Menus</h2>
+            <CreateItem activeMenu={activeMenu} />
           </div>
-        ))}
-      </div>
-      <div className="w-2/3 p-6">
-        <Card>
-          <CardHeader>
-            <CardTitle>Ajouter un plat</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <Form {...form}>
-              <form
-                onSubmit={form.handleSubmit(onSubmit)}
-                className="space-y-8"
+
+          {menus.map((menu) => (
+            <div key={menu.id} className="mb-2 flex items-center space-x-2">
+              <Checkbox
+                id={`menu-${menu.id}`}
+                checked={activeMenu?.id === menu.id}
+                onCheckedChange={() => setActiveMenu(menu)}
+              />
+              <label
+                htmlFor={`menu-${menu.id}`}
+                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
               >
-                <FormField
-                  control={form.control}
-                  name="name"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Nom</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Nom du plat" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="description"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Description</FormLabel>
-                      <FormControl>
-                        <Textarea placeholder="Description" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
-                <FormField
-                  control={form.control}
-                  name="type"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Type de plat</FormLabel>
-                      <Select
-                        onValueChange={field.onChange}
-                        defaultValue={field.value}
-                      >
-                        <FormControl>
-                          <SelectTrigger>
-                            <SelectValue placeholder="Type de plat" />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent>
-                          <SelectItem value="starter">A Partager</SelectItem>
-                          <SelectItem value="entree">Entree</SelectItem>
-                          <SelectItem value="main">Plat</SelectItem>
-                          <SelectItem value="dessert">Dessert</SelectItem>
-                        </SelectContent>
-                      </Select>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
-                <FormField
-                  control={form.control}
-                  name="price"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Prix</FormLabel>
-                      <FormControl>
-                        <Input type="text" placeholder="0" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
-                <Button
-                  className="w-full bg-accent text-white hover:bg-accent hover:bg-opacity-60"
-                  type="submit"
-                >
-                  Créer
-                </Button>
-              </form>
-            </Form>
-          </CardContent>
-        </Card>
+                {menu.name}
+              </label>
+            </div>
+          ))}
+        </div>
+        <div className="grid w-full bg-primary p-4 md:min-h-screen md:w-2/3 md:rounded-r-3xl">
+          <h2 className="mb-4 py-2 text-center text-2xl font-bold text-white">
+            Plats
+          </h2>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3">
+            {activeMenu?.menuItems.map((item) => (
+              <Card
+                key={item.id}
+                className="relative flex flex-col items-start space-y-2 bg-background"
+              >
+                <CardHeader>
+                  <p className="w-2/3 font-light text-accent">{item.name}</p>
+                  <XIcon
+                    className="absolute right-4 top-4"
+                    onClick={() => handleDeleteClick(item.id)}
+                  />
+                  <ModifyItem
+                    item={{ ...item, description: item.description ?? "" }}
+                    activeMenu={activeMenu}
+                  />
+                </CardHeader>
+                <CardContent className="flex w-4/5 justify-between text-sm font-thin">
+                  <p>{item.description}</p>
+                  <p className="text-accent">{item.price}€</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );

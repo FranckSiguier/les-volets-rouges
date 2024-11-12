@@ -29,10 +29,10 @@ export function About() {
       <section className="relative my-10 h-[50vh] w-full overflow-hidden">
         <div className="absolute inset-0 grid grid-cols-1 md:grid-cols-3">
           <div className="relative z-10 flex flex-col items-start justify-center p-8 font-cormorant md:col-span-2">
-            <h1 className="mb-8 text-4xl text-accent md:text-5xl lg:text-8xl">
+            <h1 className="mb-8 text-5xl text-accent md:text-7xl lg:text-8xl">
               Restaurant.
             </h1>
-            <h2 className="motion-preset-typewriter-[18] font-cormorant text-3xl text-accent md:text-4xl lg:text-7xl">
+            <h2 className="motion-preset-typewriter-[18] font-cormorant text-4xl text-accent motion-reduce:animate-none md:text-6xl lg:text-7xl">
               Au coeur des Carmes.
             </h2>
           </div>
@@ -57,16 +57,16 @@ export function About() {
           Notre histoire
         </h1>
         <Separator className="max-w-full lg:max-w-2xl" />
-        <div className="flex flex-col items-center justify-center gap-6 py-4 text-center lg:flex-row lg:justify-between lg:py-6 lg:text-left">
+        <div className="flex flex-col items-center justify-center gap-6 py-4 text-center lg:flex-row lg:items-start lg:justify-between lg:py-6 lg:text-left">
           <p className="max-w-full py-4 text-xl font-light md:max-w-md md:py-10">
-            <strong>Les volets rouges</strong> c&apos;est un clin d&apos;œil à
-            notre région d&apos;origine, le Pays basque. Le Restaurant est situé
-            au cœur du quartier des Carmes à Toulouse. Nous proposons une
-            cuisine authentique et de saison, l&apos;idée est de travailler à
-            partir de produits bruts sélectionnés avec soin, issus de
-            l&apos;agriculture biologique et raisonnée, d&apos;élevage fermier
-            et de pêche durable. Nous privilégions des vins naturels et
-            biologiques.
+            <strong className="text-accent">Les volets rouges</strong>{" "}
+            c&apos;est un clin d&apos;œil à notre région d&apos;origine, le Pays
+            basque. Le Restaurant est situé au cœur du quartier des Carmes à
+            Toulouse. Nous proposons une cuisine authentique et de saison,
+            l&apos;idée est de travailler à partir de produits bruts
+            sélectionnés avec soin, issus de l&apos;agriculture biologique et
+            raisonnée, d&apos;élevage fermier et de pêche durable. Nous
+            privilégions des vins naturels et biologiques.
           </p>
           <Image
             className="rounded-full lg:-mt-20"
@@ -135,7 +135,9 @@ export function About() {
                   <AvatarFallback>Paul</AvatarFallback>
                 </Avatar>
                 <div>
-                  <CardTitle className="text-2xl font-light">Le Chef</CardTitle>
+                  <CardTitle className="text-2xl font-light">
+                    Chef de cuisine
+                  </CardTitle>
                   <CardDescription className="font-cormorant text-lg font-semibold text-accent">
                     Paul
                   </CardDescription>
@@ -187,7 +189,7 @@ export function About() {
                 </Avatar>
                 <div>
                   <CardTitle className="text-2xl font-light">
-                    Le directeur de salle
+                    Directeur de salle
                   </CardTitle>
                   <CardDescription className="font-cormorant text-lg font-semibold text-accent">
                     Vincent

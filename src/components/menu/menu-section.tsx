@@ -28,9 +28,9 @@ export async function MenuSection({
           : "Pour commencer";
 
   return (
-    <div className="flex flex-col py-12 sm:px-4 lg:px-32">
+    <div className="flex flex-col py-8 sm:px-4 lg:px-32">
       <div className="flex flex-col gap-12">
-        <p className="text-center font-cormorant text-3xl text-accent">
+        <p className="text-center font-cormorant text-4xl text-accent">
           {title}
         </p>
         <div className="grid grid-cols-1 gap-16 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3">

@@ -1,11 +1,12 @@
 "use server";
 
 import { eq } from "drizzle-orm";
-import { revalidateTag, unstable_cache } from "next/cache";
+import { revalidatePath } from "next/cache";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { Resend } from "resend";
 import { env } from "~/env";
+import { VOLETS_EMAIL } from "~/lib/variables";
 import { db } from "~/server/db";
 import { type MenuItemInsertType, menuItems, menus } from "~/server/db/schema";
 import { createClient } from "~/utils/supabase/server";
@@ -149,7 +150,6 @@ export const getActiveMenu = async () => {
   return menu;
 };
 export type MenuType = Awaited<ReturnType<typeof getActiveMenu>>;
-unstable_cache(getActiveMenu, ["menu"]);
 
 export const getMenus = async () => {
   const menus = await db.query.menus.findMany({
@@ -161,10 +161,9 @@ export const getMenus = async () => {
   return menus;
 };
 export type MenusType = Awaited<ReturnType<typeof getMenus>>;
-unstable_cache(getMenus, ["menus"]);
 
 export const createItem = async (data: MenuItemInsertType) => {
-  await db
+  const result = await db
     .insert(menuItems)
     .values({
       name: data.name,
@@ -176,8 +175,84 @@ export const createItem = async (data: MenuItemInsertType) => {
     .returning({ insertedId: menuItems.id })
     .execute();
 
-  revalidateTag("menu");
-  revalidateTag("menus");
+  if (result) {
+    console.log(`Item  created successfully`);
+
+    // Trigger revalidation after the deletion
+    revalidatePath("/admin");
+    revalidatePath("/menu");
+
+    return true; // Return true to indicate successful deletion
+  } else {
+    console.log(`Failed to create item`);
+    return false;
+  }
+};
+
+export const deleteItem = async (id: number) => {
+  try {
+    // Perform the deletion
+    const result = await db
+      .delete(menuItems)
+      .where(eq(menuItems.id, id))
+      .execute();
+
+    if (result) {
+      console.log(`Item with ID ${id} deleted successfully`);
+
+      // Trigger revalidation after the deletion
+      revalidatePath("/admin");
+      revalidatePath("/menu");
+
+      return true; // Return true to indicate successful deletion
+    } else {
+      console.log(`Failed to delete item with ID ${id}`);
+      return false;
+    }
+  } catch (error) {
+    console.error("Error deleting item:", error);
+    return false;
+  }
+};
+
+export const modifyItem = async (data: {
+  id: number;
+  name: string;
+  description: string;
+  price: string;
+  type: "entree" | "main" | "dessert" | "starter";
+  menuId: number;
+}) => {
+  const { id, name, description, price, type, menuId } = data;
+
+  try {
+    const result = await db
+      .update(menuItems)
+      .set({
+        name: name,
+        description: description,
+        price: price,
+        type: type,
+        menuId: menuId,
+      })
+      .where(eq(menuItems.id, id))
+      .execute();
+
+    if (result) {
+      console.log(`Item with ID ${id} updated successfully`);
+
+      revalidatePath("/admin");
+      revalidatePath("/menu");
+
+      return true;
+    } else {
+      console.log(`Failed to update item with ID ${id}`);
+      return false;
+    }
+  } catch (error) {
+    console.error("Error updating item:", error);
+    return false;
+  }
 };
 
 export const sendMessage = async (data: ContactFormValues) => {
@@ -199,7 +274,7 @@ export const sendMessage = async (data: ContactFormValues) => {
 
   await resend.emails.send({
     from: "contact@lesvoletsrouges.fr",
-    to: "restaurant.volets.rouges@gmail.com",
+    to: VOLETS_EMAIL,
     subject: "Message depuis formulaire de contact",
     html: `
         <p><strong>Nom:</strong> ${data.name}</p>
