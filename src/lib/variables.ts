@@ -1,1 +1,1 @@
-export const VOLETS_EMAIL = "contact.voletrouges@gmail.com";
+export const VOLETS_EMAIL = "contact.voletsrouges@gmail.com";

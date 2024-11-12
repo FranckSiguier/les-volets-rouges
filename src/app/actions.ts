@@ -178,7 +178,7 @@ export const createItem = async (data: MenuItemInsertType) => {
   if (result) {
     console.log(`Item  created successfully`);
 
-    // Trigger revalidation after the deletion
+    // Trigger revalidation after the creation
     revalidatePath("/admin");
     revalidatePath("/menu");
 
