@@ -31,7 +31,7 @@ export default async function MenuPage() {
             Le Soir
           </p>
           <p className="text-lg font-light">
-            Menu dégustation en 5 temps <span className="text-accent">75€</span>
+            Menu dégustation en 5 temps <span className="text-accent">58€</span>
           </p>
         </div>
       </div>

@@ -20,9 +20,7 @@ export function About() {
         </div>
         <div className="motion-preset-slide-left-sm flex flex-col justify-center gap-4 py-6 text-center">
           <p className="font-cormorant text-3xl text-accent">Nous trouver</p>
-          <p className="text-sm opacity-75">
-            1 Rue Vélane, 31000 Toulouse, France
-          </p>
+          <p className="text-sm opacity-75">1 Rue Vélane</p>
           <p className="text-sm opacity-75">31000 Toulouse, France</p>
         </div>
       </section>
@@ -135,11 +133,9 @@ export function About() {
                   <AvatarFallback>Paul</AvatarFallback>
                 </Avatar>
                 <div>
-                  <CardTitle className="text-2xl font-light">
-                    Chef de cuisine
-                  </CardTitle>
+                  <CardTitle className="text-2xl font-light">Paul</CardTitle>
                   <CardDescription className="font-cormorant text-lg font-semibold text-accent">
-                    Paul
+                    Chef de cuisine
                   </CardDescription>
                 </div>
               </div>
@@ -188,11 +184,9 @@ export function About() {
                   <AvatarFallback>Vincent</AvatarFallback>
                 </Avatar>
                 <div>
-                  <CardTitle className="text-2xl font-light">
-                    Directeur de salle
-                  </CardTitle>
+                  <CardTitle className="text-2xl font-light">Vincent</CardTitle>
                   <CardDescription className="font-cormorant text-lg font-semibold text-accent">
-                    Vincent
+                    Directeur de salle
                   </CardDescription>
                 </div>
               </div>
