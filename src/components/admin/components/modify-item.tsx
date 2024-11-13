@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { EditIcon } from "lucide-react";
+import { EditIcon, LoaderCircle } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { type z } from "zod";
@@ -44,6 +44,7 @@ export default function ModifyItem({
   setActiveMenu: React.Dispatch<React.SetStateAction<MenuType>>;
 }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [isModifying, setIsModifying] = useState(0);
   const form = useForm<z.output<typeof modifyMenuItemSchema>>({
     resolver: zodResolver(modifyMenuItemSchema),
     defaultValues: {
@@ -56,6 +57,7 @@ export default function ModifyItem({
   });
 
   const onModify = async (formData: z.infer<typeof modifyMenuItemSchema>) => {
+    setIsModifying(formData.id);
     setIsOpen(true);
     const isModified = await modifyItem({
       ...formData,
@@ -91,6 +93,7 @@ export default function ModifyItem({
       });
     }
     setIsOpen(false);
+    setIsModifying(0);
   };
 
   return (
@@ -183,12 +186,23 @@ export default function ModifyItem({
                 </FormItem>
               )}
             />
-            <Button
-              className="w-full bg-accent text-white hover:bg-accent hover:bg-opacity-60"
-              type="submit"
-            >
-              Modifier
-            </Button>
+            <div className="flex w-full justify-center">
+              {isModifying ? (
+                <>
+                  <Button className="flex w-full cursor-not-allowed items-center justify-center gap-4 bg-accent text-white opacity-60 md:w-1/2">
+                    <LoaderCircle className="animate-spin" />
+                    <p>Modification ...</p>
+                  </Button>
+                </>
+              ) : (
+                <Button
+                  className="w-full items-center bg-accent text-white hover:bg-accent hover:bg-opacity-60 md:w-1/2"
+                  type="submit"
+                >
+                  Modifier
+                </Button>
+              )}
+            </div>
           </form>
         </Form>
       </DialogContent>

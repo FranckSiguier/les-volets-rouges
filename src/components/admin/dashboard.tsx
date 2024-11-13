@@ -1,6 +1,6 @@
 "use client";
 
-import { XIcon } from "lucide-react";
+import { LoaderCircle, XIcon } from "lucide-react";
 import { useState } from "react";
 import { deleteItem, type MenuType, type getMenus } from "~/app/actions";
 import { Card, CardContent, CardHeader } from "~/components/ui/card";
@@ -14,10 +14,13 @@ export default function RestaurantDashboard({
 }: {
   menus: Awaited<ReturnType<typeof getMenus>>;
 }) {
+  const [isDeleting, setIsDeleting] = useState(0);
+
   const [activeMenu, setActiveMenu] = useState<MenuType>(
     menus.find((menu) => menu.active) ?? menus[0],
   );
   const handleDeleteClick = async (id: number) => {
+    setIsDeleting(id);
     const isDeleted = await deleteItem(id);
     if (isDeleted) {
       toast({
@@ -38,6 +41,7 @@ export default function RestaurantDashboard({
         description: "Une erreur est survenue lors de la suppression du plat",
       });
     }
+    setIsDeleting(0);
   };
 
   return (
@@ -77,10 +81,14 @@ export default function RestaurantDashboard({
               >
                 <CardHeader>
                   <p className="w-2/3 font-light text-accent">{item.name}</p>
-                  <XIcon
-                    className="absolute right-4 top-4 cursor-pointer hover:text-accent"
-                    onClick={() => handleDeleteClick(item.id)}
-                  />
+                  {isDeleting === item.id ? (
+                    <LoaderCircle className="absolute right-4 top-4 animate-spin cursor-not-allowed text-accent" />
+                  ) : (
+                    <XIcon
+                      className="absolute right-4 top-4 cursor-pointer hover:text-accent"
+                      onClick={() => handleDeleteClick(item.id)}
+                    />
+                  )}
                   <ModifyItem
                     item={{ ...item, description: item.description ?? "" }}
                     activeMenu={activeMenu}
