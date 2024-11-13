@@ -14,13 +14,23 @@ export default function RestaurantDashboard({
 }: {
   menus: Awaited<ReturnType<typeof getMenus>>;
 }) {
-  const [activeMenu, setActiveMenu] = useState<MenuType>(menus[0]);
+  const [activeMenu, setActiveMenu] = useState<MenuType>(
+    menus.find((menu) => menu.active) ?? menus[0],
+  );
   const handleDeleteClick = async (id: number) => {
     const isDeleted = await deleteItem(id);
     if (isDeleted) {
       toast({
         title: "Plat supprimé",
         description: "Le plat a été supprimé avec succès",
+      });
+      if (!activeMenu) {
+        return;
+      }
+
+      setActiveMenu({
+        ...activeMenu,
+        menuItems: activeMenu.menuItems.filter((item) => item.id !== id),
       });
     } else {
       toast({
@@ -33,10 +43,10 @@ export default function RestaurantDashboard({
   return (
     <div className="flex w-full flex-col items-center bg-background p-4 md:rounded-l-3xl">
       <div className="flex flex-col items-center md:flex-row md:items-start">
-        <div className="w-full rounded-sm bg-white p-6 md:min-h-screen md:w-1/3">
+        <div className="w-full rounded-t-sm border border-b-0 border-accent bg-white p-6 md:w-1/3 md:rounded-l-3xl md:rounded-r-none md:border-b md:border-r-0">
           <div className="flex justify-between">
-            <h2 className="mb-4 text-2xl font-bold">Menus</h2>
-            <CreateItem activeMenu={activeMenu} />
+            <h2 className="mb-4 text-2xl font-light">Menus</h2>
+            <CreateItem activeMenu={activeMenu} setActiveMenu={setActiveMenu} />
           </div>
 
           {menus.map((menu) => (
@@ -56,7 +66,7 @@ export default function RestaurantDashboard({
           ))}
         </div>
         <div className="grid w-full bg-primary p-4 md:min-h-screen md:w-2/3 md:rounded-r-3xl">
-          <h2 className="mb-4 py-2 text-center text-2xl font-bold text-white">
+          <h2 className="mb-4 py-2 text-center text-2xl font-light text-white">
             Plats
           </h2>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3">
@@ -68,12 +78,13 @@ export default function RestaurantDashboard({
                 <CardHeader>
                   <p className="w-2/3 font-light text-accent">{item.name}</p>
                   <XIcon
-                    className="absolute right-4 top-4"
+                    className="absolute right-4 top-4 cursor-pointer hover:text-accent"
                     onClick={() => handleDeleteClick(item.id)}
                   />
                   <ModifyItem
                     item={{ ...item, description: item.description ?? "" }}
                     activeMenu={activeMenu}
+                    setActiveMenu={setActiveMenu}
                   />
                 </CardHeader>
                 <CardContent className="flex w-4/5 justify-between text-sm font-thin">

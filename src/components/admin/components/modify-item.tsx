@@ -2,8 +2,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { EditIcon } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { type getActiveMenu, modifyItem } from "~/app/actions";
+import { type z } from "zod";
+import { type getActiveMenu, type MenuType, modifyItem } from "~/app/actions";
 import { Button } from "~/components/ui/button";
 import {
   Dialog,
@@ -30,20 +30,22 @@ import {
 } from "~/components/ui/select";
 import { Textarea } from "~/components/ui/textarea";
 import { toast } from "~/hooks/use-toast";
-import { insertMenuItemSchema } from "~/lib/types";
+import { modifyMenuItemSchema } from "~/lib/types";
 
-type Item = z.infer<typeof insertMenuItemSchema>;
+type Item = z.infer<typeof modifyMenuItemSchema>;
 
 export default function ModifyItem({
   item,
   activeMenu,
+  setActiveMenu,
 }: {
   item: Item;
   activeMenu: Awaited<ReturnType<typeof getActiveMenu>>;
+  setActiveMenu: React.Dispatch<React.SetStateAction<MenuType>>;
 }) {
   const [isOpen, setIsOpen] = useState(false);
-  const form = useForm<z.infer<typeof insertMenuItemSchema>>({
-    resolver: zodResolver(insertMenuItemSchema),
+  const form = useForm<z.output<typeof modifyMenuItemSchema>>({
+    resolver: zodResolver(modifyMenuItemSchema),
     defaultValues: {
       id: item.id,
       name: item.name,
@@ -53,7 +55,7 @@ export default function ModifyItem({
     },
   });
 
-  const onModify = async (formData: z.infer<typeof insertMenuItemSchema>) => {
+  const onModify = async (formData: z.infer<typeof modifyMenuItemSchema>) => {
     setIsOpen(true);
     const isModified = await modifyItem({
       ...formData,
@@ -73,16 +75,28 @@ export default function ModifyItem({
         title: "Plat modifié",
         description: "Le plat a été modifié avec succès",
       });
+      const modifiedItem = {
+        ...formData,
+        description: formData.description ?? "",
+      };
+      if (!activeMenu) {
+        return;
+      }
+
+      setActiveMenu({
+        ...activeMenu,
+        menuItems: activeMenu?.menuItems.map((item) =>
+          item.id === formData.id ? modifiedItem : item,
+        ),
+      });
     }
     setIsOpen(false);
-
-    form.reset();
   };
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <EditIcon className="absolute right-12 top-4" />
+        <EditIcon className="absolute right-12 top-4 cursor-pointer hover:text-accent" />
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>

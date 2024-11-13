@@ -6,9 +6,10 @@ import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { Resend } from "resend";
 import { env } from "~/env";
+import { type InsertMenuItemInput } from "~/lib/types";
 import { VOLETS_EMAIL } from "~/lib/variables";
 import { db } from "~/server/db";
-import { type MenuItemInsertType, menuItems, menus } from "~/server/db/schema";
+import { menuItems, menus } from "~/server/db/schema";
 import { createClient } from "~/utils/supabase/server";
 import { encodedRedirect } from "~/utils/utils";
 import { type ContactFormValues } from "./contact/page";
@@ -141,8 +142,20 @@ export const signOutAction = async () => {
 
 export const getActiveMenu = async () => {
   const menu = await db.query.menus.findFirst({
+    columns: {
+      id: true,
+      name: true,
+    },
     with: {
-      menuItems: true,
+      menuItems: {
+        columns: {
+          id: true,
+          name: true,
+          description: true,
+          price: true,
+          type: true,
+        },
+      },
     },
     where: eq(menus.active, true),
   });
@@ -162,7 +175,10 @@ export const getMenus = async () => {
 };
 export type MenusType = Awaited<ReturnType<typeof getMenus>>;
 
-export const createItem = async (data: MenuItemInsertType) => {
+export async function createItem(data: InsertMenuItemInput): Promise<{
+  success: boolean;
+  id?: number;
+}> {
   const result = await db
     .insert(menuItems)
     .values({
@@ -172,7 +188,7 @@ export const createItem = async (data: MenuItemInsertType) => {
       type: data.type,
       menuId: data.menuId,
     })
-    .returning({ insertedId: menuItems.id })
+    .returning({ id: menuItems.id })
     .execute();
 
   if (result) {
@@ -182,47 +198,41 @@ export const createItem = async (data: MenuItemInsertType) => {
     revalidatePath("/admin");
     revalidatePath("/menu");
 
-    return true; // Return true to indicate successful deletion
+    return { success: true, id: result[0]?.id };
   } else {
     console.log(`Failed to create item`);
+    return { success: false };
+  }
+}
+
+export async function deleteItem(id: number) {
+  const result = await db
+    .delete(menuItems)
+    .where(eq(menuItems.id, id))
+    .execute();
+
+  if (result) {
+    console.log(`Item with ID ${id} deleted successfully`);
+
+    // Trigger revalidation after the deletion
+    revalidatePath("/admin");
+    revalidatePath("/menu");
+
+    return true; // Return true to indicate successful deletion
+  } else {
+    console.log(`Failed to delete item with ID ${id}`);
     return false;
   }
-};
+}
 
-export const deleteItem = async (id: number) => {
-  try {
-    // Perform the deletion
-    const result = await db
-      .delete(menuItems)
-      .where(eq(menuItems.id, id))
-      .execute();
-
-    if (result) {
-      console.log(`Item with ID ${id} deleted successfully`);
-
-      // Trigger revalidation after the deletion
-      revalidatePath("/admin");
-      revalidatePath("/menu");
-
-      return true; // Return true to indicate successful deletion
-    } else {
-      console.log(`Failed to delete item with ID ${id}`);
-      return false;
-    }
-  } catch (error) {
-    console.error("Error deleting item:", error);
-    return false;
-  }
-};
-
-export const modifyItem = async (data: {
+export async function modifyItem(data: {
   id: number;
   name: string;
   description: string;
   price: string;
   type: "entree" | "main" | "dessert" | "starter";
   menuId: number;
-}) => {
+}) {
   const { id, name, description, price, type, menuId } = data;
 
   try {
@@ -253,7 +263,7 @@ export const modifyItem = async (data: {
     console.error("Error updating item:", error);
     return false;
   }
-};
+}
 
 export const sendMessage = async (data: ContactFormValues) => {
   // const secretKey = env.RECAPTCHA_SECRET_KEY;

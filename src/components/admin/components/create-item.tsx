@@ -1,8 +1,8 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { createItem, type getActiveMenu } from "~/app/actions";
+import { type z } from "zod";
+import { createItem, type MenuType, type getActiveMenu } from "~/app/actions";
 import { Button } from "~/components/ui/button";
 import {
   Dialog,
@@ -33,8 +33,10 @@ import { insertMenuItemSchema } from "~/lib/types";
 
 export default function CreateItem({
   activeMenu,
+  setActiveMenu,
 }: {
   activeMenu: Awaited<ReturnType<typeof getActiveMenu>>;
+  setActiveMenu: React.Dispatch<React.SetStateAction<MenuType>>;
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const form = useForm<z.infer<typeof insertMenuItemSchema>>({
@@ -43,30 +45,43 @@ export default function CreateItem({
       name: "",
       type: "main",
       description: "",
+      menuId: activeMenu?.id,
       price: "",
     },
   });
 
-  const onSubmit = async (formData: z.infer<typeof insertMenuItemSchema>) => {
+  const onSubmit = async (data: z.infer<typeof insertMenuItemSchema>) => {
+    console.log(data);
     setIsOpen(true);
-    const isCreated = await createItem({
-      ...formData,
-      menuId: activeMenu?.id ?? 1,
-    });
-
-    if (!isCreated) {
+    const { success, id } = await createItem(data);
+    if (!success || !id) {
       toast({
         title: "Erreur",
         description: "Une erreur est survenue lors de la création du plat",
       });
       return;
-    } else {
-      toast({
-        title: "Plat ajouté",
-        description: "Le plat a été ajouté avec succès",
-      });
+    }
+    toast({
+      title: "Plat ajouté",
+      description: "Le plat a été ajouté avec succès",
+    });
+
+    if (!activeMenu) {
+      return;
     }
 
+    const newItem = {
+      ...data,
+      id,
+      description: data.description ?? "",
+    };
+
+    const newMenu = {
+      ...activeMenu,
+      menuItems: [...activeMenu.menuItems, newItem],
+    };
+
+    setActiveMenu(newMenu);
     setIsOpen(false);
     form.reset();
   };
@@ -91,6 +106,19 @@ export default function CreateItem({
                   <FormLabel>Nom</FormLabel>
                   <FormControl>
                     <Input placeholder="Nom du plat" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="menuId"
+              render={({ field }) => (
+                <FormItem className="hidden">
+                  <FormLabel>Menu ID</FormLabel>
+                  <FormControl>
+                    <Textarea placeholder="Menu Id" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
