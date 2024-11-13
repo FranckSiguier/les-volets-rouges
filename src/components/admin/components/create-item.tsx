@@ -183,7 +183,7 @@ export default function CreateItem({
             <div className="flex w-full justify-center">
               {isSubmitting ? (
                 <>
-                  <Button className="flex w-full cursor-not-allowed items-center justify-center gap-4 bg-accent text-white opacity-60 md:w-1/2">
+                  <Button className="flex w-full cursor-not-allowed items-center justify-center gap-4 bg-accent text-white opacity-60 hover:bg-accent md:w-1/2">
                     <LoaderCircle className="animate-spin" />
                     <p>Création ...</p>
                   </Button>

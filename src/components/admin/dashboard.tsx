@@ -14,11 +14,15 @@ export default function RestaurantDashboard({
 }: {
   menus: Awaited<ReturnType<typeof getMenus>>;
 }) {
-  const [isDeleting, setIsDeleting] = useState(0);
-
   const [activeMenu, setActiveMenu] = useState<MenuType>(
     menus.find((menu) => menu.active) ?? menus[0],
   );
+  const [isDeleting, setIsDeleting] = useState(0);
+
+  if (!activeMenu) {
+    return null;
+  }
+
   const handleDeleteClick = async (id: number) => {
     setIsDeleting(id);
     const isDeleted = await deleteItem(id);
@@ -74,7 +78,7 @@ export default function RestaurantDashboard({
             Plats
           </h2>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3">
-            {activeMenu?.menuItems.map((item) => (
+            {activeMenu.menuItems.map((item) => (
               <Card
                 key={item.id}
                 className="relative flex flex-col items-start space-y-2 bg-background"
