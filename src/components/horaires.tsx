@@ -44,7 +44,7 @@ export default function RestaurantHours() {
                       <h3 className="mb-1 text-lg font-medium">
                         {schedule.type}
                       </h3>
-                      <div className="space-y-1 font-oswald text-lg font-light">
+                      <div className="space-y-1 text-lg font-light">
                         <p>{schedule.days}</p>
                         <p>{schedule.time}</p>
                       </div>
