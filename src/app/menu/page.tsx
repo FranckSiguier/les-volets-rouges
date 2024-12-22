@@ -38,7 +38,7 @@ export default async function MenuPage() {
       </div>
 
       <Separator />
-      <SeparatorBanner title="LA CARTE" />
+      <SeparatorBanner title="LA CARTE" isMainTitle />
       <Separator />
       <Suspense fallback={<MenuSectionSkeleton />}>
         <MenuDashboard />

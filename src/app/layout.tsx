@@ -16,7 +16,7 @@ const cormorant = Cormorant({
 });
 
 export const metadata: Metadata = {
-  title: "Les Volets Rouges",
+  title: "Accueil - Les Volets Rouges",
   description:
     "Restaurant Bistronomique Les Volets Rouges à Toulouse, dans le quartier des Carmes. Cuisine traditionnelle et produits locaux.",
   openGraph: {

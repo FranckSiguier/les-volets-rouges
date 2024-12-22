@@ -6,7 +6,7 @@ export default function BookPage() {
     <div className="flex w-full flex-col items-center justify-center gap-6 p-6">
       <div className="w-full">
         <Separator />
-        <SeparatorBanner title="Réserver une table" />
+        <SeparatorBanner title="Réserver une table" isMainTitle />
         <Separator />
       </div>
       <iframe
