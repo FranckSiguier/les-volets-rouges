@@ -4,8 +4,8 @@ import { Separator } from "./ui/separator";
 
 export default function Marquee() {
   const openingHours = [
-    "Mercredi - Vendredi : 12h - 14h",
-    "Mardi - Samedi : 19h30 - 22h30",
+    "Mercredi - Vendredi : 12h15 - 14h",
+    "Mardi - Samedi : 19h30 - 21h30",
   ];
 
   // Calculate the total width of the content

@@ -1,10 +1,9 @@
-import Image from "next/image";
-import { Separator } from "./ui/separator";
 import { InstagramLogoIcon } from "@radix-ui/react-icons";
+import { FacebookIcon } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { VOLETS_EMAIL } from "~/lib/variables";
-import { FacebookIcon } from "lucide-react";
-import { horaires } from "~/lib/types";
+import { Separator } from "./ui/separator";
 
 export function Footer() {
   return (
@@ -53,9 +52,15 @@ export function Footer() {
           <p className="text-lg opacity-75">31000 Toulouse, France</p>
         </div>
         <div className="flex flex-col items-center gap-4 text-center lg:w-1/6">
-          <p className="font-cormorant font-bold text-accent">Horaires</p>
-          <p className="text-lg opacity-75">{horaires[0]}</p>
-          <p className="text-lg opacity-75">{horaires[1]}</p>
+          <p className="font-cormorant text-2xl font-bold text-accent">
+            Horaires
+          </p>
+          <p className="text-lg opacity-75">
+            Mercredi - Vendredi <br /> 12h15 - 14h{" "}
+          </p>
+          <p className="text-lg opacity-75">
+            Mardi - Samedi <br /> 19h30 - 21h30
+          </p>
         </div>
       </div>
       <Separator />

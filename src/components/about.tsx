@@ -9,14 +9,14 @@ import {
   CardTitle,
 } from "./ui/card";
 import { Separator } from "./ui/separator";
-import { horaires } from "~/lib/types";
+import RestaurantHours from "./horaires";
 
 export function About() {
   return (
     <>
       <section className="relative my-10 h-[40vh] w-full overflow-hidden md:h-[55vh]">
         <div className="absolute inset-0 grid grid-cols-1 md:grid-cols-4">
-          <div className="relative z-10 flex flex-col items-start justify-center p-8 font-cormorant md:col-span-3">
+          <div className="relative z-10 flex flex-col items-start justify-center py-8 font-cormorant md:col-span-3">
             <h1 className="relative mb-8 text-6xl text-background md:text-7xl md:text-accent lg:text-8xl xl:text-9xl">
               Restaurant Bistronomique. <br /> Au coeur des carmes.
             </h1>
@@ -37,36 +37,33 @@ export function About() {
         </div>
       </section>
 
-      <section className="w-full py-4">
-        <Separator />
-        <div className="flex flex-col justify-center">
-          <div className="motion-preset-slide-left-sm flex flex-col items-center justify-center gap-4 py-6 text-center">
-            <p className="font-cormorant text-3xl text-accent md:text-6xl">
+      <Separator />
+
+      <section className="w-full py-8">
+        <div className="flex flex-col items-center gap-8 lg:flex-row lg:justify-center">
+          <RestaurantHours />
+          <div className="flex flex-col items-center justify-center gap-8 lg:w-1/2">
+            <p className="font-cormorant text-4xl text-accent md:text-6xl">
               Nous trouver
             </p>
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2889.4515287851873!2d1.4432470553566652!3d43.5971393817878!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12aebd54c4c081c9%3A0xe1bda02993b3fe32!2sLes%20Volets%20Rouges!5e0!3m2!1sfr!2sau!4v1734833245436!5m2!1sfr!2sau"
-              className="hidden rounded-2xl border border-accent lg:block"
-              width="600"
-              height="450"
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-            ></iframe>
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2889.4515287851873!2d1.4432470553566652!3d43.5971393817878!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12aebd54c4c081c9%3A0xe1bda02993b3fe32!2sLes%20Volets%20Rouges!5e0!3m2!1sfr!2sau!4v1734833245436!5m2!1sfr!2sau"
-              width="400"
-              height="300"
-              className="block rounded-2xl border border-accent lg:hidden"
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-            ></iframe>
-          </div>
-          <div className="motion-preset-slide-right-sm flex flex-col justify-center gap-4 py-6 text-center">
-            <p className="font-cormorant text-3xl text-accent md:text-6xl">
-              Nos horaires
-            </p>
-            <p className="text-lg opacity-75">{horaires[0]}</p>
-            <p className="text-lg opacity-75">{horaires[1]}</p>
+            <div className="motion-preset-slide-left-sm flex flex-col items-center justify-center gap-4 text-center">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2889.4515287851873!2d1.4432470553566652!3d43.5971393817878!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12aebd54c4c081c9%3A0xe1bda02993b3fe32!2sLes%20Volets%20Rouges!5e0!3m2!1sfr!2sau!4v1734833245436!5m2!1sfr!2sau"
+                className="hidden rounded-2xl border border-accent lg:block"
+                width="600"
+                height="450"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              ></iframe>
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2889.4515287851873!2d1.4432470553566652!3d43.5971393817878!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12aebd54c4c081c9%3A0xe1bda02993b3fe32!2sLes%20Volets%20Rouges!5e0!3m2!1sfr!2sau!4v1734833245436!5m2!1sfr!2sau"
+                width="400"
+                height="300"
+                className="block rounded-2xl border border-accent lg:hidden"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              ></iframe>
+            </div>
           </div>
         </div>
       </section>
