@@ -7,7 +7,7 @@ import { redirect } from "next/navigation";
 import { Resend } from "resend";
 import { ContactFormValues } from "~/components/contact-form";
 import { env } from "~/env";
-import { InsertDrinkInput, type InsertMenuItemInput } from "~/lib/types";
+import { type InsertDrinkInput, type InsertMenuItemInput } from "~/lib/types";
 import { VOLETS_EMAIL } from "~/lib/variables";
 import { db } from "~/server/db";
 import { drinks, menuItems, menus } from "~/server/db/schema";
@@ -225,7 +225,7 @@ export async function createDrink(data: InsertDrinkInput) {
 
   // Trigger revalidation after the creation
   revalidatePath("/admin");
-  revalidatePath("/menu");
+  revalidatePath("/vins");
 
   redirect("/admin");
 }
@@ -255,7 +255,7 @@ export async function deleteDrink(id: number) {
 
   // Trigger revalidation after the deletion
   revalidatePath("/admin");
-  revalidatePath("/menu");
+  revalidatePath("/vins");
 
   redirect("/admin");
 }
@@ -289,7 +289,7 @@ export async function modifyDrink(data: {
     .execute();
 
   revalidatePath("/admin");
-  revalidatePath("/menu");
+  revalidatePath("/vins");
 
   redirect("/admin");
 }
