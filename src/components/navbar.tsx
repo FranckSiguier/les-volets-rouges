@@ -16,7 +16,7 @@ export function Navbar() {
   return (
     <>
       {/* Mobile Header */}
-      <header className="flex h-20 w-full items-center font-light text-accent lg:hidden">
+      <header className="flex h-40 w-full items-center font-light text-accent lg:hidden">
         <Sheet open={open} onOpenChange={setOpen}>
           <SheetTrigger asChild>
             <div className="relative flex w-full items-center justify-between">
@@ -31,9 +31,9 @@ export function Navbar() {
                 onClick={handleClose}
               >
                 <Image
-                  width={150}
-                  height={150}
-                  src="/logo-horizontal.png"
+                  width={300}
+                  height={300}
+                  src="/logo-navbar.png"
                   alt="Logo Restaurant"
                 />
               </Link>
@@ -122,7 +122,7 @@ export function Navbar() {
       </header>
 
       {/* Desktop Header */}
-      <header className="hidden h-32 w-full items-center justify-between text-lg text-accent lg:flex">
+      <header className="hidden h-40 w-full items-center justify-between text-sm text-accent md:text-lg lg:flex xl:text-xl">
         {/* Left-aligned Links */}
         <div className="flex gap-6">
           <Link
@@ -173,7 +173,17 @@ export function Navbar() {
             <Image
               width={200}
               height={200}
-              src="/logo-horizontal.png"
+              src="/logo-navbar.png"
+              className="lg:hidden"
+              alt="Logo Restaurant"
+            />
+          </Link>
+          <Link href="/" prefetch={false} onClick={handleClose}>
+            <Image
+              width={300}
+              height={300}
+              src="/logo-navbar.png"
+              className="hidden lg:block"
               alt="Logo Restaurant"
             />
           </Link>

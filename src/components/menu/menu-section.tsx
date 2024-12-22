@@ -30,10 +30,10 @@ export async function MenuSection({
   return (
     <div className="flex flex-col py-8 sm:px-4 lg:px-32">
       <div className="flex flex-col gap-12">
-        <p className="text-center font-cormorant text-4xl text-accent">
+        <p className="text-center font-cormorant text-5xl text-accent">
           {title}
         </p>
-        <div className="grid grid-cols-1 gap-16 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-16 px-10 sm:grid-cols-2 md:grid-cols-2 md:px-0 lg:grid-cols-3">
           {menu?.menuItems.map(
             (item) =>
               item.type === selectedSection && (
