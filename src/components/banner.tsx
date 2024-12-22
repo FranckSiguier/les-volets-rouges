@@ -40,7 +40,7 @@ export default function RestaurantBanner() {
           {/* Image */}
           <div className="relative mt-12 sm:mt-16 lg:mt-0">
             <div className="relative mx-auto max-w-2xl lg:max-w-none">
-              <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl shadow-2xl">
+              <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl shadow-2xl">
                 <Image
                   src={
                     "https://njowvzjporohgzvgfyif.supabase.co/storage/v1/object/public/assets/photo_1.jpg"
