@@ -52,7 +52,7 @@ export function Navbar() {
               <Image
                 width={150}
                 height={150}
-                src="/logo-horizontal.png"
+                src="/logo-navbar.png"
                 alt="Logo Restaurant"
               />
             </Link>
