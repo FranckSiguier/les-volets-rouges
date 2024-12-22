@@ -16,7 +16,7 @@ export function Navbar() {
   return (
     <>
       {/* Mobile Header */}
-      <header className="flex h-40 w-full items-center font-light text-accent lg:hidden">
+      <header className="flex h-32 w-full items-center font-light text-accent lg:hidden">
         <Sheet open={open} onOpenChange={setOpen}>
           <SheetTrigger asChild>
             <div className="relative flex w-full items-center justify-between">
@@ -31,8 +31,8 @@ export function Navbar() {
                 onClick={handleClose}
               >
                 <Image
-                  width={300}
-                  height={300}
+                  width={200}
+                  height={200}
                   src="/logo-navbar.png"
                   alt="Logo Restaurant"
                 />
@@ -50,8 +50,8 @@ export function Navbar() {
               onClick={handleClose}
             >
               <Image
-                width={150}
-                height={150}
+                width={200}
+                height={200}
                 src="/logo-navbar.png"
                 alt="Logo Restaurant"
               />

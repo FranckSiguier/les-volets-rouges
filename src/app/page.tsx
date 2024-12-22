@@ -17,7 +17,7 @@ export default function HomePage() {
       <section className="relative my-10 h-[40vh] w-full overflow-hidden md:h-[55vh]">
         <div className="absolute inset-0 grid grid-cols-1 md:grid-cols-4">
           <div className="relative z-10 flex flex-col items-start justify-center p-8 font-cormorant md:col-span-3">
-            <h1 className="relative mb-8 text-6xl text-background md:text-7xl md:text-accent lg:text-8xl xl:text-9xl">
+            <h1 className="relative mb-8 text-5xl text-background sm:text-6xl md:text-7xl md:text-accent lg:text-8xl xl:text-9xl">
               Restaurant Bistronomique. <br /> Au coeur des carmes.
             </h1>
           </div>
