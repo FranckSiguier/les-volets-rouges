@@ -2,7 +2,7 @@
 import { Fragment } from "react";
 import { Separator } from "./ui/separator";
 
-export default function Component() {
+export default function Marquee() {
   const openingHours = [
     "Mercredi - Vendredi : 12h - 14h",
     "Mardi - Samedi : 19h30 - 22h30",

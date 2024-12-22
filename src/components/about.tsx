@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { SeparatorBanner } from "./separator-banner";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import {
   Card,
@@ -8,33 +9,10 @@ import {
   CardTitle,
 } from "./ui/card";
 import { Separator } from "./ui/separator";
-import { SeparatorBanner } from "./separator-banner";
 
 export function About() {
   return (
     <>
-      <section className="w-full py-10">
-        <Separator />
-        <div className="flex flex-col justify-center md:flex-row md:gap-20">
-          <div className="motion-preset-slide-right-sm flex flex-col justify-center gap-4 py-8 text-center">
-            <p className="font-cormorant text-3xl text-accent md:text-6xl">
-              Nos horaires
-            </p>
-            <p className="text-lg opacity-75">
-              Mercredi - Vendredi | 12h - 14h{" "}
-            </p>
-            <p className="text-lg opacity-75">Mardi - Samedi | 19h30 - 22h30</p>
-          </div>
-          <div className="motion-preset-slide-left-sm flex flex-col justify-center gap-4 py-8 text-center">
-            <p className="font-cormorant text-3xl text-accent md:text-6xl">
-              Nous trouver
-            </p>
-            <p className="text-lg opacity-75">1 Rue Vélane</p>
-            <p className="text-lg opacity-75">31000 Toulouse, France</p>
-          </div>
-        </div>
-        <Separator />
-      </section>
       <section className="relative my-10 h-[40vh] w-full overflow-hidden md:h-[55vh]">
         <div className="absolute inset-0 grid grid-cols-1 md:grid-cols-4">
           <div className="relative z-10 flex flex-col items-start justify-center p-8 font-cormorant md:col-span-3">
@@ -55,6 +33,42 @@ export function About() {
             priority
           />
           <div className="absolute inset-0 w-full rounded-3xl bg-black opacity-40 md:rounded-full md:opacity-5" />
+        </div>
+      </section>
+
+      <section className="w-full py-4">
+        <Separator />
+        <div className="flex flex-col justify-center">
+          <div className="motion-preset-slide-left-sm flex flex-col items-center justify-center gap-4 py-6 text-center">
+            <p className="font-cormorant text-3xl text-accent md:text-6xl">
+              Nous trouver
+            </p>
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2889.4515287851873!2d1.4432470553566652!3d43.5971393817878!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12aebd54c4c081c9%3A0xe1bda02993b3fe32!2sLes%20Volets%20Rouges!5e0!3m2!1sfr!2sau!4v1734833245436!5m2!1sfr!2sau"
+              className="hidden rounded-2xl border border-accent lg:block"
+              width="600"
+              height="450"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            ></iframe>
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2889.4515287851873!2d1.4432470553566652!3d43.5971393817878!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12aebd54c4c081c9%3A0xe1bda02993b3fe32!2sLes%20Volets%20Rouges!5e0!3m2!1sfr!2sau!4v1734833245436!5m2!1sfr!2sau"
+              width="400"
+              height="300"
+              className="block rounded-2xl border border-accent lg:hidden"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            ></iframe>
+          </div>
+          <div className="motion-preset-slide-right-sm flex flex-col justify-center gap-4 py-6 text-center">
+            <p className="font-cormorant text-3xl text-accent md:text-6xl">
+              Nos horaires
+            </p>
+            <p className="text-lg opacity-75">
+              Mercredi - Vendredi | 12h - 14h{" "}
+            </p>
+            <p className="text-lg opacity-75">Mardi - Samedi | 19h30 - 22h30</p>
+          </div>
         </div>
       </section>
       <section className="w-full">
