@@ -5,6 +5,7 @@ import { revalidatePath } from "next/cache";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { Resend } from "resend";
+import { ContactFormValues } from "~/components/contact-form";
 import { env } from "~/env";
 import { type InsertMenuItemInput } from "~/lib/types";
 import { VOLETS_EMAIL } from "~/lib/variables";
@@ -12,7 +13,6 @@ import { db } from "~/server/db";
 import { menuItems, menus } from "~/server/db/schema";
 import { createClient } from "~/utils/supabase/server";
 import { encodedRedirect } from "~/utils/utils";
-import { type ContactFormValues } from "./contact/page";
 
 export const signUpAction = async (formData: FormData) => {
   const email = formData.get("email")?.toString();
