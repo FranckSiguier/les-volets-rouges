@@ -47,6 +47,36 @@ export const posts = createTable(
   }),
 );
 
+export const drinksType = pgEnum("drink_type", [
+  "rouge",
+  "blanc",
+  "biere",
+  "rose",
+  "cidre",
+  "cocktail",
+  "soft",
+  "champagne",
+]);
+export const drinks = createTable(
+  "drink",
+  {
+    id: serial("id").primaryKey(),
+    name: varchar("name", { length: 256 }).notNull(),
+    description: text("description"),
+    price: varchar("price", { length: 256 }).notNull(),
+    type: drinksType("type").notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .default(sql`CURRENT_TIMESTAMP`)
+      .notNull(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).$onUpdate(
+      () => new Date(),
+    ),
+  },
+  (example) => ({
+    nameIndex: index("drink_name_idx").on(example.name),
+  }),
+);
+
 // Menu related tables
 
 export const menus = createTable(

@@ -1,6 +1,6 @@
 import { createClient } from "~/utils/supabase/server";
 import { redirect } from "next/navigation";
-import { getMenus } from "../actions";
+import { getDrinks, getMenus } from "../actions";
 import RestaurantDashboard from "~/components/admin/dashboard";
 
 export default async function ProtectedPage() {
@@ -15,6 +15,7 @@ export default async function ProtectedPage() {
   }
 
   const menus = await getMenus();
+  const drinks = await getDrinks();
 
-  return <RestaurantDashboard menus={menus} />;
+  return <RestaurantDashboard menus={menus} drinks={drinks} />;
 }
