@@ -3,21 +3,20 @@
 import { LoaderCircle, UtensilsCrossed, Wine, XIcon } from "lucide-react";
 import { useState } from "react";
 import {
-  DrinksType,
-  MenusType,
+  type DrinksType,
+  type MenusType,
   deleteDrink,
   deleteItem,
   type MenuType,
-  type getMenus,
 } from "~/app/actions";
 import { Card, CardContent, CardHeader } from "~/components/ui/card";
 import { Checkbox } from "~/components/ui/checkbox";
-import { toast } from "~/hooks/use-toast";
-import CreateItem from "./components/create-item";
-import ModifyItem from "./components/modify-item";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
+import { toast } from "~/hooks/use-toast";
 import CreateDrink from "./components/create-drink";
+import CreateItem from "./components/create-item";
 import ModifyDrink from "./components/modify-drink";
+import ModifyItem from "./components/modify-item";
 
 export default function RestaurantDashboard({
   menus,

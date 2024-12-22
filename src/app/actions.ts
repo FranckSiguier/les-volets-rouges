@@ -5,7 +5,7 @@ import { revalidatePath } from "next/cache";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { Resend } from "resend";
-import { ContactFormValues } from "~/components/contact-form";
+import { type ContactFormValues } from "~/components/contact-form";
 import { env } from "~/env";
 import { type InsertDrinkInput, type InsertMenuItemInput } from "~/lib/types";
 import { VOLETS_EMAIL } from "~/lib/variables";

@@ -31,7 +31,7 @@ import {
 import { Textarea } from "~/components/ui/textarea";
 import { insertDrinkSchema } from "~/lib/types";
 
-export default function CreateDrink({}: {}) {
+export default function CreateDrink() {
   const [isOpen, setIsOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const form = useForm<z.infer<typeof insertDrinkSchema>>({
