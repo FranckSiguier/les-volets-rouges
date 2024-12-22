@@ -42,3 +42,8 @@ export const deleteMenuItemSchema = z.object({
   id: z.number(),
 });
 export type DeleteMenuItemInput = z.infer<typeof deleteMenuItemSchema>;
+
+export const horaires = [
+  "Mercredi - Vendredi | 12h15 - 14h ",
+  "Mardi - Samedi | 19h30 - 21h30",
+];

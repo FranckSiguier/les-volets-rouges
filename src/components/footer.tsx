@@ -4,6 +4,7 @@ import { InstagramLogoIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
 import { VOLETS_EMAIL } from "~/lib/variables";
 import { FacebookIcon } from "lucide-react";
+import { horaires } from "~/lib/types";
 
 export function Footer() {
   return (
@@ -53,8 +54,8 @@ export function Footer() {
         </div>
         <div className="flex flex-col items-center gap-4 text-center lg:w-1/6">
           <p className="font-cormorant font-bold text-accent">Horaires</p>
-          <p className="text-lg opacity-75">Mercredi - Vendredi | 12h - 14h </p>
-          <p className="text-lg opacity-75">Mardi - Samedi | 19h30 - 22h30</p>
+          <p className="text-lg opacity-75">{horaires[0]}</p>
+          <p className="text-lg opacity-75">{horaires[1]}</p>
         </div>
       </div>
       <Separator />

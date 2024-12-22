@@ -9,6 +9,7 @@ import {
   CardTitle,
 } from "./ui/card";
 import { Separator } from "./ui/separator";
+import { horaires } from "~/lib/types";
 
 export function About() {
   return (
@@ -64,10 +65,8 @@ export function About() {
             <p className="font-cormorant text-3xl text-accent md:text-6xl">
               Nos horaires
             </p>
-            <p className="text-lg opacity-75">
-              Mercredi - Vendredi | 12h - 14h{" "}
-            </p>
-            <p className="text-lg opacity-75">Mardi - Samedi | 19h30 - 22h30</p>
+            <p className="text-lg opacity-75">{horaires[0]}</p>
+            <p className="text-lg opacity-75">{horaires[1]}</p>
           </div>
         </div>
       </section>
