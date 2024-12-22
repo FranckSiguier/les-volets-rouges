@@ -15,21 +15,25 @@ export default function RestaurantBanner() {
               <p className="text-base font-medium uppercase tracking-wider text-primary">
                 Bienvenue
               </p>
-              <h1 className="mt-2 text-5xl font-medium tracking-tight text-accent sm:text-5xl lg:text-6xl">
+              <h1 className="mt-2 text-3xl font-medium tracking-tight text-accent md:text-5xl lg:text-6xl">
                 Restaurant Bistronomique. <br />{" "}
-                <span className="text-4xl">Au cœur des Carmes.</span>
+                <span className="text-2xl md:text-4xl lg:text-5xl">
+                  Au cœur des Carmes.
+                </span>
               </h1>
-              <p className="mt-6 text-xl leading-8 text-muted-foreground">
+              <p className="mt-6 text-xl leading-8 text-muted-foreground md:text-2xl lg:text-2xl">
                 Restaurant traditionnel situé à Toulouse, au cœur du quartier
                 des Carmes. Venez déguster une cuisine française authentique et
                 savoureuse dans un cadre chaleureux et convivial.
               </p>
-              <div className="mt-8 flex gap-4">
+              <div className="mt-8 flex flex-col gap-4 md:flex-row">
                 <Link href="/reserver" prefetch>
-                  <Button size="xl">Réserver une table</Button>
+                  <Button className="w-full" size="xl">
+                    Réserver une table
+                  </Button>
                 </Link>
                 <Link href="/menu" prefetch>
-                  <Button size="xl" variant="outline">
+                  <Button className="w-full" size="xl" variant="outline">
                     Voir le menu
                   </Button>
                 </Link>
