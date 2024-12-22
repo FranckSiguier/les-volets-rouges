@@ -1,6 +1,12 @@
 "use client";
 
-import { LoaderCircle, UtensilsCrossed, Wine, XIcon } from "lucide-react";
+import {
+  LoaderCircle,
+  Pencil,
+  UtensilsCrossed,
+  Wine,
+  XIcon,
+} from "lucide-react";
 import { useState } from "react";
 import {
   type DrinksType,
@@ -23,7 +29,7 @@ export default function RestaurantDashboard({
   drinks,
 }: {
   menus: MenusType;
-  drinks: DrinksType;
+  drinks: DrinksType[];
 }) {
   const [activeMenu, setActiveMenu] = useState<MenuType>(
     menus.find((menu) => menu.active) ?? menus[0],
@@ -67,8 +73,8 @@ export default function RestaurantDashboard({
 
   return (
     <div className="flex w-full flex-col items-center bg-background p-4 md:rounded-l-3xl">
-      <Tabs defaultValue="food" className="w-full space-y-4 py-6">
-        <TabsList className="lg-h- grid w-full grid-cols-2 bg-primary lg:w-[800px]">
+      <Tabs defaultValue="food" className="w-full items-center space-y-4 py-6">
+        <TabsList className="grid w-full grid-cols-3 bg-primary">
           <TabsTrigger
             value="food"
             className="flex items-center gap-2 text-white"
@@ -82,6 +88,13 @@ export default function RestaurantDashboard({
           >
             <Wine className="h-4 w-4" />
             Boire
+          </TabsTrigger>
+          <TabsTrigger
+            value="blog"
+            className="flex items-center gap-2 text-white"
+          >
+            <Pencil className="h-4 w-4" />
+            Écrire un article
           </TabsTrigger>
         </TabsList>
         <TabsContent value="food">
@@ -112,15 +125,11 @@ export default function RestaurantDashboard({
               ))}
             </div>
             <div className="grid w-full bg-primary p-4 md:min-h-screen md:w-2/3 md:rounded-r-3xl">
-              <h2 className="mb-4 py-2 text-center text-2xl font-light text-white">
-                Plats
-              </h2>
-
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3">
                 {activeMenu.menuItems.map((item) => (
                   <Card
                     key={item.id}
-                    className="relative flex flex-col items-start space-y-2 bg-background"
+                    className="relative flex max-h-[250px] flex-col items-start space-y-2 bg-background"
                   >
                     <CardHeader>
                       <p className="w-2/3 font-light text-accent">
@@ -140,7 +149,7 @@ export default function RestaurantDashboard({
                         setActiveMenu={setActiveMenu}
                       />
                     </CardHeader>
-                    <CardContent className="flex w-4/5 justify-between text-sm font-thin">
+                    <CardContent className="flex w-full justify-between gap-4 text-sm font-thin">
                       <p>{item.description}</p>
                       <p className="text-accent">{item.price}€</p>
                     </CardContent>
@@ -159,15 +168,11 @@ export default function RestaurantDashboard({
               </div>
             </div>
             <div className="grid w-full bg-primary p-4 md:min-h-screen md:w-2/3 md:rounded-r-3xl">
-              <h2 className="mb-4 py-2 text-center text-2xl font-light text-white">
-                Boissons
-              </h2>
-
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3">
                 {drinks.map((drink) => (
                   <Card
                     key={drink.id}
-                    className="relative flex flex-col items-start space-y-2 bg-background"
+                    className="relative flex max-h-[250px] flex-col items-start space-y-2 bg-background"
                   >
                     <CardHeader>
                       <p className="w-2/3 font-light text-accent">
@@ -185,12 +190,24 @@ export default function RestaurantDashboard({
                         item={{
                           ...drink,
                           description: drink.description ?? "",
+                          glassPrice: drink.glassPrice ?? "",
                         }}
                       />
                     </CardHeader>
-                    <CardContent className="flex w-4/5 justify-between text-sm font-thin">
-                      <p>{drink.description}</p>
-                      <p className="text-accent">{drink.price}€</p>
+                    <CardContent className="flex w-full flex-col space-y-4 text-sm font-thin">
+                      <p className="w-full text-lg">{drink.description}</p>
+                      <p className="flex w-full justify-between">
+                        Prix
+                        <span className="text-accent">{drink.price}€</span>
+                      </p>
+                      {drink.glassPrice && (
+                        <p className="flex w-full justify-between">
+                          Prix au verre
+                          <span className="pl-8 text-accent">
+                            {drink.glassPrice}€
+                          </span>
+                        </p>
+                      )}
                     </CardContent>
                   </Card>
                 ))}

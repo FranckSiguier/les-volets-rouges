@@ -180,7 +180,7 @@ export const getDrinks = async () => {
 
   return drinks;
 };
-export type DrinksType = Awaited<ReturnType<typeof getDrinks>>;
+export type DrinksType = Awaited<ReturnType<typeof getDrinks>>[number];
 
 export async function createItem(data: InsertMenuItemInput): Promise<{
   success: boolean;

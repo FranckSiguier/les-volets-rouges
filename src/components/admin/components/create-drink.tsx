@@ -41,6 +41,7 @@ export default function CreateDrink() {
       type: "rouge",
       description: "",
       price: "",
+      glassPrice: "",
     },
   });
 
@@ -128,6 +129,19 @@ export default function CreateDrink() {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Prix</FormLabel>
+                  <FormControl>
+                    <Input type="text" placeholder="0" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="glassPrice"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Prix au verre, si nécessaire</FormLabel>
                   <FormControl>
                     <Input type="text" placeholder="0" {...field} />
                   </FormControl>

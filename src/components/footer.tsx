@@ -25,7 +25,7 @@ export function Footer() {
             </span>
           </Link>
           <p className="text-lg underline underline-offset-1 opacity-75">
-            +33 6 58 01 45 49
+            05 34 35 86 30
           </p>
           <div className="flex items-center gap-1 opacity-75">
             <Link

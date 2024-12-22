@@ -26,6 +26,7 @@ export const insertDrinkSchema = z.object({
     .min(2, { message: "Description must be at least 2 characters." })
     .optional(),
   price: z.string().min(1, { message: "Price must be at least 1 character." }),
+  glassPrice: z.string().optional(),
   type: z.enum([
     "rouge",
     "blanc",
@@ -72,6 +73,7 @@ export const modifyDrinkSchema = z.object({
     .string()
     .trim()
     .min(1, { message: "Price must be at least 1 character." }),
+  glassPrice: z.string().optional(),
   type: z.enum([
     "rouge",
     "blanc",

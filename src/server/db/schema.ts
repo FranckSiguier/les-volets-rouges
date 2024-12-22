@@ -64,6 +64,7 @@ export const drinks = createTable(
     name: varchar("name", { length: 256 }).notNull(),
     description: text("description"),
     price: varchar("price", { length: 256 }).notNull(),
+    glassPrice: varchar("glass_price", { length: 256 }),
     type: drinksType("type").notNull(),
     createdAt: timestamp("created_at", { withTimezone: true })
       .default(sql`CURRENT_TIMESTAMP`)

@@ -43,6 +43,7 @@ export default function ModifyDrink({ item }: { item: Drink }) {
       name: item.name,
       type: item.type,
       description: item.description ?? "",
+      glassPrice: item.glassPrice,
       price: item.price,
     },
   });
@@ -116,21 +117,27 @@ export default function ModifyDrink({ item }: { item: Drink }) {
             <FormField
               control={form.control}
               name="type"
-              defaultValue={item.type}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Type de plat</FormLabel>
-                  <Select onValueChange={field.onChange}>
+                  <FormLabel>Type de boisson</FormLabel>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder="Type de plat" />
+                        <SelectValue placeholder="Type de boisson" />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="starter">A Partager</SelectItem>
-                      <SelectItem value="entree">Entree</SelectItem>
-                      <SelectItem value="main">Plat</SelectItem>
-                      <SelectItem value="dessert">Dessert</SelectItem>
+                      <SelectItem value="rouge">Rouge</SelectItem>
+                      <SelectItem value="blanc">Blanc</SelectItem>
+                      <SelectItem value="rose">Rosé</SelectItem>
+                      <SelectItem value="biere">Bière</SelectItem>
+                      <SelectItem value="cidre">Cidre</SelectItem>
+                      <SelectItem value="cocktail">Cocktail</SelectItem>
+                      <SelectItem value="soft">Soft</SelectItem>
+                      <SelectItem value="champagne">Champagne</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -144,6 +151,20 @@ export default function ModifyDrink({ item }: { item: Drink }) {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Prix</FormLabel>
+                  <FormControl>
+                    <Input type="text" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="glassPrice"
+              defaultValue={item.price}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Prix au verre, si nécessaire</FormLabel>
                   <FormControl>
                     <Input type="text" {...field} />
                   </FormControl>
