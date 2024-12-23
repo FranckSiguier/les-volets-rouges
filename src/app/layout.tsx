@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     url: "https://www.lesvoletsrouges.fr/",
     images: [
       {
-        url: "https://www.lesvoletsrouges.fr/logo-navbar.png",
+        url: "https://www.lesvoletsrouges.fr/logo-footer.png",
         width: 800,
         height: 600,
       },
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     title: "Les Volets Rouges",
     description:
       "Restaurant Bistronomique Les Volets Rouges à Toulouse, dans le quartier des Carmes. Cuisine traditionnelle et produits locaux.",
-    images: ["https://www.lesvoletsrouges.fr/logo-navbar.png"],
+    images: ["https://www.lesvoletsrouges.fr/logo-footer.png"],
   },
   robots: {
     index: true,

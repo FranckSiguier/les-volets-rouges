@@ -109,12 +109,13 @@ export function Navbar() {
 
               <Link
                 key={"reserver"}
-                href={`/reserver`}
-                className="flex w-full items-center justify-center rounded-lg border border-accent p-2 text-lg hover:border-secondary hover:bg-secondary hover:text-background"
-                prefetch={false}
+                href="/reserver"
+                prefetch={true}
                 onClick={handleClose}
               >
-                Réserver une table
+                <Button className="w-full" size="xl">
+                  Réserver une table
+                </Button>
               </Link>
             </div>
           </SheetContent>
@@ -122,7 +123,7 @@ export function Navbar() {
       </header>
 
       {/* Desktop Header */}
-      <header className="hidden h-40 w-full items-center justify-between text-sm text-accent md:text-lg lg:flex xl:text-xl">
+      <header className="hidden h-40 w-full items-center justify-between font-cormorant text-sm text-accent md:text-lg lg:flex xl:text-xl">
         {/* Left-aligned Links */}
         <div className="flex gap-6">
           <Link
@@ -190,11 +191,12 @@ export function Navbar() {
         </div>
 
         {/* Right-aligned Link */}
-        <div className="flex gap-6 rounded-lg border border-accent p-2 font-light hover:border-secondary hover:bg-secondary hover:text-background">
-          <Link href="/reserver" prefetch={false}>
+
+        <Link href="/reserver" prefetch={true} onClick={handleClose}>
+          <Button className="w-full" size="xl">
             Réserver une table
-          </Link>
-        </div>
+          </Button>
+        </Link>
       </header>
     </>
   );
