@@ -7,7 +7,7 @@ import {
   Wine,
   XIcon,
 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   type DrinksType,
   type MenusType,
@@ -23,6 +23,7 @@ import CreateDrink from "./components/create-drink";
 import CreateItem from "./components/create-item";
 import ModifyDrink from "./components/modify-drink";
 import ModifyItem from "./components/modify-item";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export default function RestaurantDashboard({
   menus,
@@ -31,6 +32,11 @@ export default function RestaurantDashboard({
   menus: MenusType;
   drinks: DrinksType[];
 }) {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+
+  const tab = searchParams.get("tab") ?? ("food" as "drinks" | "food" | "blog");
+
   const [activeMenu, setActiveMenu] = useState<MenuType>(
     menus.find((menu) => menu.active) ?? menus[0],
   );
@@ -39,6 +45,10 @@ export default function RestaurantDashboard({
   if (!activeMenu) {
     return null;
   }
+
+  const setTab = (tab: "drinks" | "food" | "blog") => {
+    router.replace(`admin/?tab=${tab}`);
+  };
 
   const handleDeleteClick = async (id: number) => {
     setIsDeleting(id);
@@ -73,10 +83,11 @@ export default function RestaurantDashboard({
 
   return (
     <div className="flex w-full flex-col items-center bg-background p-4 md:rounded-l-3xl">
-      <Tabs defaultValue="food" className="w-full items-center space-y-4 py-6">
+      <Tabs defaultValue={tab} className="w-full items-center space-y-4 py-6">
         <TabsList className="grid w-full grid-cols-3 bg-primary">
           <TabsTrigger
             value="food"
+            onClick={() => setTab("food")}
             className="flex items-center gap-2 text-white"
           >
             <UtensilsCrossed className="h-4 w-4" />
@@ -84,6 +95,7 @@ export default function RestaurantDashboard({
           </TabsTrigger>
           <TabsTrigger
             value="drinks"
+            onClick={() => setTab("drinks")}
             className="flex items-center gap-2 text-white"
           >
             <Wine className="h-4 w-4" />
@@ -91,6 +103,7 @@ export default function RestaurantDashboard({
           </TabsTrigger>
           <TabsTrigger
             value="blog"
+            onClick={() => setTab("blog")}
             className="flex items-center gap-2 text-white"
           >
             <Pencil className="h-4 w-4" />
@@ -215,6 +228,7 @@ export default function RestaurantDashboard({
             </div>
           </div>
         </TabsContent>
+        <TabsContent value="blog">{/* <BlogPostForm /> */}</TabsContent>
       </Tabs>
     </div>
   );
