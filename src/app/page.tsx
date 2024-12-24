@@ -3,14 +3,6 @@ import RestaurantBanner from "~/components/banner";
 import RestaurantHours from "~/components/horaires";
 import { SeparatorBanner } from "~/components/separator-banner";
 import { TeamBanner } from "~/components/team-banner";
-import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "~/components/ui/card";
 import { Separator } from "~/components/ui/separator";
 
 export default function HomePage() {

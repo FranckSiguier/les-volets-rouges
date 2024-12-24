@@ -4,6 +4,7 @@ import { SubmitButton } from "~/components/submit-button";
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
 import Link from "next/link";
+import { Routes } from "~/utils/utils";
 
 export default async function Signup(props: {
   searchParams: Promise<Message>;
@@ -23,7 +24,10 @@ export default async function Signup(props: {
         <h1 className="text-2xl font-medium">Sign up</h1>
         <p className="text text-sm text-foreground">
           Already have an account?{" "}
-          <Link className="font-medium text-primary underline" href="/sign-in">
+          <Link
+            className="font-medium text-primary underline"
+            href={Routes.signIn}
+          >
             Sign in
           </Link>
         </p>

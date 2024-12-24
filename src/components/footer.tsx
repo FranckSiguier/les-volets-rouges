@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { VOLETS_EMAIL } from "~/lib/variables";
 import { Separator } from "./ui/separator";
+import { Routes } from "~/utils/utils";
 
 export function Footer() {
   return (
@@ -67,7 +68,7 @@ export function Footer() {
       <div className="flex w-full justify-center gap-4 py-2 text-primary sm:px-4">
         <p className="text-center text-lg font-light">
           © 2024 Les Volets Rouges. Tous droits réservés. -{" "}
-          <Link href="/mentions-legales" className="underline">
+          <Link href={Routes.mentionsLegales} className="underline">
             Mentions légales
           </Link>
         </p>

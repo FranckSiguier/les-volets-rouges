@@ -7,12 +7,13 @@ import {
   Wine,
   XIcon,
 } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
 import {
-  type DrinksType,
-  type MenusType,
   deleteDrink,
   deleteItem,
+  type DrinksType,
+  type MenusType,
   type MenuType,
 } from "~/app/actions";
 import { Card, CardContent, CardHeader } from "~/components/ui/card";
@@ -23,7 +24,6 @@ import CreateDrink from "./components/create-drink";
 import CreateItem from "./components/create-item";
 import ModifyDrink from "./components/modify-drink";
 import ModifyItem from "./components/modify-item";
-import { useRouter, useSearchParams } from "next/navigation";
 
 export default function RestaurantDashboard({
   menus,

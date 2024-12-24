@@ -1,9 +1,10 @@
 import { type Metadata } from "next";
+import { Cormorant, Oswald } from "next/font/google";
 import { Footer } from "~/components/footer";
 import { Navbar } from "~/components/navbar";
 import { Toaster } from "~/components/ui/toaster";
+import ZenchefWidget from "~/components/zenchef-widget";
 import "~/styles/globals.css";
-import { Oswald, Cormorant } from "next/font/google";
 
 const oswald = Oswald({
   subsets: ["latin"],
@@ -67,6 +68,7 @@ export default function RootLayout({
           {/* <Marquee /> */}
           <Footer />
           <Toaster />
+          <ZenchefWidget />
         </main>
       </body>
     </html>

@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "~/components/ui/button";
+import { Routes } from "~/utils/utils";
 
 export default function RestaurantBanner() {
   return (
@@ -27,14 +28,14 @@ export default function RestaurantBanner() {
                 savoureuse dans un cadre chaleureux et convivial.
               </p>
               <div className="mt-8 flex flex-col gap-4 md:flex-row">
-                <Link href="/reserver" prefetch>
+                <Link href={Routes.menu} prefetch>
                   <Button className="w-full" size="xl">
-                    Réserver une table
+                    Voir le menu
                   </Button>
                 </Link>
-                <Link href="/menu" prefetch>
+                <Link href={Routes.vins} prefetch>
                   <Button className="w-full" size="xl" variant="outline">
-                    Voir le menu
+                    Carte des vins
                   </Button>
                 </Link>
               </div>

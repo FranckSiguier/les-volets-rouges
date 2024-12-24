@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { Button } from "~/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "~/components/ui/sheet";
+import { Routes } from "~/utils/utils";
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
@@ -25,7 +26,7 @@ export function Navbar() {
                 <span className="sr-only">Toggle navigation menu</span>
               </Button>
               <Link
-                href="/"
+                href={Routes.accueil}
                 className="absolute left-1/2 -translate-x-1/2 transform"
                 prefetch={false}
                 onClick={handleClose}
@@ -44,7 +45,7 @@ export function Navbar() {
             side="left"
           >
             <Link
-              href="/"
+              href={Routes.accueil}
               className="flex w-full items-center justify-center"
               prefetch={false}
               onClick={handleClose}
@@ -109,7 +110,7 @@ export function Navbar() {
 
               <Link
                 key={"reserver"}
-                href="/reserver"
+                href={Routes.reserver}
                 prefetch={true}
                 onClick={handleClose}
               >
@@ -127,7 +128,7 @@ export function Navbar() {
         {/* Left-aligned Links */}
         <div className="flex gap-6">
           <Link
-            href="/"
+            href={Routes.accueil}
             onClick={() => handleActiveLink("accueil")}
             className={`font-light underline-offset-[4px] hover:text-primary hover:underline active:underline ${activeLink === "accueil" ? "underline" : ""}`}
             prefetch={false}
@@ -135,7 +136,7 @@ export function Navbar() {
             Accueil
           </Link>
           <Link
-            href="/menu"
+            href={Routes.menu}
             onClick={() => handleActiveLink("menu")}
             className={`font-light underline-offset-[4px] hover:text-primary hover:underline active:underline ${activeLink === "menu" ? "underline" : ""}`}
             prefetch={true}
@@ -143,7 +144,7 @@ export function Navbar() {
             Menu
           </Link>
           <Link
-            href="/vins"
+            href={Routes.vins}
             onClick={() => handleActiveLink("vins")}
             className={`font-light underline-offset-[4px] hover:text-primary hover:underline active:underline ${activeLink === "vins" ? "underline" : ""}`}
             prefetch={true}
@@ -151,7 +152,7 @@ export function Navbar() {
             Vins
           </Link>
           <Link
-            href="/blog"
+            href={Routes.blog}
             onClick={() => handleActiveLink("blog")}
             className={`font-light underline-offset-[4px] hover:text-primary hover:underline active:underline ${activeLink === "blog" ? "underline" : ""}`}
             prefetch={true}
@@ -159,7 +160,7 @@ export function Navbar() {
             Blog
           </Link>
           <Link
-            href="/contact"
+            href={Routes.contact}
             onClick={() => handleActiveLink("contact")}
             className={`font-light underline-offset-[4px] hover:text-primary hover:underline active:underline ${activeLink === "contact" ? "underline" : ""}`}
             prefetch={false}
@@ -170,7 +171,7 @@ export function Navbar() {
 
         {/* Centered Logo */}
         <div className="absolute left-1/2 -translate-x-1/2 transform">
-          <Link href="/" prefetch={false} onClick={handleClose}>
+          <Link href={Routes.accueil} prefetch={false} onClick={handleClose}>
             <Image
               width={200}
               height={200}
@@ -179,7 +180,7 @@ export function Navbar() {
               alt="Logo Restaurant"
             />
           </Link>
-          <Link href="/" prefetch={false} onClick={handleClose}>
+          <Link href={Routes.accueil} prefetch={false} onClick={handleClose}>
             <Image
               width={300}
               height={300}
@@ -192,7 +193,7 @@ export function Navbar() {
 
         {/* Right-aligned Link */}
 
-        <Link href="/reserver" prefetch={true} onClick={handleClose}>
+        <Link href={Routes.reserver} prefetch={true} onClick={handleClose}>
           <Button className="w-full" size="xl">
             Réserver une table
           </Button>

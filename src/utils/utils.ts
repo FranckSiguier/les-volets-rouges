@@ -14,3 +14,17 @@ export function encodedRedirect(
 ) {
   return redirect(`${path}?${type}=${encodeURIComponent(message)}`);
 }
+
+export const Routes = {
+  accueil: "/",
+  reserver: "/reserver",
+  contact: "/contact",
+  blog: "/blog",
+  vins: "/vins",
+  menu: "/menu",
+  admin: "/admin",
+  signIn: "/sign-in",
+  signUp: "/sign-up",
+  forgotPassword: "/forgot-password",
+  mentionsLegales: "/mentions-legales",
+} as const;
