@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { type z } from "zod";
 import { createDrink } from "~/app/actions";
 import { Button } from "~/components/ui/button";
+import { Checkbox } from "~/components/ui/checkbox";
 import {
   Dialog,
   DialogContent,
@@ -28,8 +29,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "~/components/ui/select";
-import { Textarea } from "~/components/ui/textarea";
-import { insertDrinkSchema } from "~/lib/types";
+import {
+  DrinkRegion,
+  Drinks,
+  DrinkTypeLabel,
+  insertDrinkSchema,
+} from "~/lib/types";
 
 export default function CreateDrink() {
   const [isOpen, setIsOpen] = useState(false);
@@ -37,11 +42,7 @@ export default function CreateDrink() {
   const form = useForm<z.infer<typeof insertDrinkSchema>>({
     resolver: zodResolver(insertDrinkSchema),
     defaultValues: {
-      name: "",
-      type: "rouge",
-      description: "",
-      price: "",
-      glassPrice: "",
+      isGlass: false,
     },
   });
 
@@ -82,19 +83,6 @@ export default function CreateDrink() {
             />
             <FormField
               control={form.control}
-              name="description"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Description</FormLabel>
-                  <FormControl>
-                    <Textarea placeholder="Description" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
               name="type"
               render={({ field }) => (
                 <FormItem>
@@ -109,14 +97,11 @@ export default function CreateDrink() {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="rouge">Rouge</SelectItem>
-                      <SelectItem value="blanc">Blanc</SelectItem>
-                      <SelectItem value="rose">Rosé</SelectItem>
-                      <SelectItem value="biere">Bière</SelectItem>
-                      <SelectItem value="cidre">Cidre</SelectItem>
-                      <SelectItem value="cocktail">Cocktail</SelectItem>
-                      <SelectItem value="soft">Soft</SelectItem>
-                      <SelectItem value="champagne">Champagne</SelectItem>
+                      {Drinks.map((drink) => (
+                        <SelectItem key={drink} value={drink}>
+                          {DrinkTypeLabel[drink].label}
+                        </SelectItem>
+                      ))}
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -138,12 +123,83 @@ export default function CreateDrink() {
             />
             <FormField
               control={form.control}
-              name="glassPrice"
+              name="isGlass"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Prix au verre, si nécessaire</FormLabel>
+                  <FormLabel>
+                    S&apos;agit t&apos;il d&apos;un prix au verre ?{" "}
+                  </FormLabel>
                   <FormControl>
-                    <Input type="text" placeholder="0" {...field} />
+                    <Checkbox
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="domaine"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Domaine</FormLabel>
+                  <FormControl>
+                    <Input type="text" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="appellation"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Appellation</FormLabel>
+                  <FormControl>
+                    <Input type="text" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="region"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Region</FormLabel>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Region" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {DrinkRegion.map((region) => (
+                        <SelectItem key={region} value={region}>
+                          {region}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="year"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Année</FormLabel>
+                  <FormControl>
+                    <Input type="text" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

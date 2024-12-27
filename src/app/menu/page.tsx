@@ -34,6 +34,9 @@ export default async function MenuPage() {
           <p className="text-lg font-light md:text-2xl">
             Menu dégustation en 5 temps <span className="text-accent">58€</span>
           </p>
+          <p className="text-lg font-extralight md:text-2xl">
+            (Ainsi que la carte ci-dessous)
+          </p>
         </div>
       </div>
 

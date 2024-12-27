@@ -3,7 +3,7 @@ import { LoaderCircle } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { type z } from "zod";
-import { createItem, type MenuType, type getActiveMenu } from "~/app/actions";
+import { createItem, type getActiveMenu, type MenuType } from "~/app/actions";
 import { Button } from "~/components/ui/button";
 import {
   Dialog,
@@ -30,7 +30,11 @@ import {
 } from "~/components/ui/select";
 import { Textarea } from "~/components/ui/textarea";
 import { toast } from "~/hooks/use-toast";
-import { insertMenuItemSchema } from "~/lib/types";
+import {
+  insertMenuItemSchema,
+  MenuSections,
+  MenuSectionTypeLabel,
+} from "~/lib/types";
 
 export default function CreateItem({
   activeMenu,
@@ -156,10 +160,11 @@ export default function CreateItem({
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="starter">Pour Commencer</SelectItem>
-                      <SelectItem value="entree">Entree</SelectItem>
-                      <SelectItem value="main">Plat</SelectItem>
-                      <SelectItem value="dessert">Dessert</SelectItem>
+                      {MenuSections.map((type) => (
+                        <SelectItem key={type} value={type}>
+                          {MenuSectionTypeLabel[type]}
+                        </SelectItem>
+                      ))}
                     </SelectContent>
                   </Select>
                   <FormMessage />

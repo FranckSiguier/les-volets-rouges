@@ -17,11 +17,11 @@ export function SeparatorBanner({
         src="/logo-fenetre.png"
       />
       {isMainTitle ? (
-        <h1 className="py-4 text-center font-cormorant text-4xl font-thin md:text-5xl lg:text-6xl">
-          {title}
+        <h1 className="py-4 text-center font-cormorant text-2xl font-thin md:text-3xl lg:text-4xl">
+          {title.toUpperCase()}
         </h1>
       ) : (
-        <h2 className="py-4 text-center font-cormorant text-4xl font-thin md:text-5xl lg:text-6xl">
+        <h2 className="py-4 text-center font-cormorant text-2xl font-thin md:text-3xl lg:text-4xl">
           {title}
         </h2>
       )}

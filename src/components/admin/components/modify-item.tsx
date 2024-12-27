@@ -30,7 +30,11 @@ import {
 } from "~/components/ui/select";
 import { Textarea } from "~/components/ui/textarea";
 import { toast } from "~/hooks/use-toast";
-import { modifyMenuItemSchema } from "~/lib/types";
+import {
+  MenuSections,
+  MenuSectionTypeLabel,
+  modifyMenuItemSchema,
+} from "~/lib/types";
 
 type Item = z.infer<typeof modifyMenuItemSchema>;
 
@@ -162,12 +166,14 @@ export default function ModifyItem({
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="starter">A Partager</SelectItem>
-                      <SelectItem value="entree">Entree</SelectItem>
-                      <SelectItem value="main">Plat</SelectItem>
-                      <SelectItem value="dessert">Dessert</SelectItem>
+                      {MenuSections.map((type) => (
+                        <SelectItem key={type} value={type}>
+                          {MenuSectionTypeLabel[type]}
+                        </SelectItem>
+                      ))}
                     </SelectContent>
                   </Select>
+
                   <FormMessage />
                 </FormItem>
               )}

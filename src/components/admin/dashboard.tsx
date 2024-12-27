@@ -180,12 +180,12 @@ export default function RestaurantDashboard({
                 <CreateDrink />
               </div>
             </div>
-            <div className="grid w-full bg-primary p-4 md:min-h-screen md:w-2/3 md:rounded-r-3xl">
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3">
+            <div className="w-full bg-primary p-4 md:min-h-screen md:w-2/3 md:rounded-r-3xl">
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {drinks.map((drink) => (
                   <Card
                     key={drink.id}
-                    className="relative flex max-h-[250px] flex-col items-start space-y-2 bg-background"
+                    className="relative flex max-h-[250px] flex-col items-start bg-background"
                   >
                     <CardHeader>
                       <p className="w-2/3 font-light text-accent">
@@ -203,7 +203,10 @@ export default function RestaurantDashboard({
                         item={{
                           ...drink,
                           description: drink.description ?? "",
-                          glassPrice: drink.glassPrice ?? "",
+                          appellation: drink.appellation ?? "",
+                          domaine: drink.domaine ?? "",
+                          isGlass: drink.isGlass ?? false,
+                          year: drink.year ?? "",
                         }}
                       />
                     </CardHeader>
@@ -213,14 +216,6 @@ export default function RestaurantDashboard({
                         Prix
                         <span className="text-accent">{drink.price}€</span>
                       </p>
-                      {drink.glassPrice && (
-                        <p className="flex w-full justify-between">
-                          Prix au verre
-                          <span className="pl-8 text-accent">
-                            {drink.glassPrice}€
-                          </span>
-                        </p>
-                      )}
                     </CardContent>
                   </Card>
                 ))}
@@ -228,7 +223,9 @@ export default function RestaurantDashboard({
             </div>
           </div>
         </TabsContent>
-        <TabsContent value="blog">{/* <BlogPostForm /> */}</TabsContent>
+        {/* <TabsContent value="blog">
+          <BlogPostForm />
+        </TabsContent> */}
       </Tabs>
     </div>
   );

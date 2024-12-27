@@ -1,12 +1,16 @@
 import { getActiveMenu } from "~/app/actions";
-import { MenuSectionType } from "~/lib/types";
+import {
+  MenuSections,
+  type MenuSectionType,
+  MenuSectionTypeLabel,
+} from "~/lib/types";
 import { type MenuItemType } from "~/server/db/schema";
 import { Skeleton } from "../ui/skeleton";
 
 export async function MenuDashboard() {
   const menu = await getActiveMenu();
 
-  return MenuSectionType.map((section, index) => (
+  return MenuSections.map((section, index) => (
     <MenuSection key={index} selectedSection={section} menu={menu} />
   ));
 }
@@ -16,22 +20,13 @@ export async function MenuSection({
   selectedSection,
 }: {
   menu: Awaited<ReturnType<typeof getActiveMenu>>;
-  selectedSection: MenuItemType["type"];
+  selectedSection: MenuSectionType;
 }) {
-  const title =
-    selectedSection === "entree"
-      ? "Entrées"
-      : selectedSection === "main"
-        ? "Plats"
-        : selectedSection === "dessert"
-          ? "Desserts"
-          : "Pour commencer";
-
   return (
     <div className="flex flex-col py-8 sm:px-4 lg:px-32">
       <div className="flex flex-col gap-12">
         <p className="text-center font-cormorant text-5xl text-accent">
-          {title}
+          {MenuSectionTypeLabel[selectedSection]}
         </p>
         <div className="grid grid-cols-1 gap-16 px-10 sm:grid-cols-2 md:grid-cols-2 md:px-0 lg:grid-cols-3">
           {menu?.menuItems.map(

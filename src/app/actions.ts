@@ -7,7 +7,12 @@ import { redirect } from "next/navigation";
 import { Resend } from "resend";
 import { type ContactFormValues } from "~/components/contact-form";
 import { env } from "~/env";
-import { type InsertDrinkInput, type InsertMenuItemInput } from "~/lib/types";
+import type {
+  InsertDrinkInput,
+  InsertMenuItemInput,
+  MenuSectionType,
+  ModifyDrinkInput,
+} from "~/lib/types";
 import { VOLETS_EMAIL } from "~/lib/variables";
 import { db } from "~/server/db";
 import { drinks, menuItems, menus } from "~/server/db/schema";
@@ -212,14 +217,18 @@ export async function createItem(data: InsertMenuItemInput): Promise<{
   }
 }
 
-export async function createDrink(data: InsertDrinkInput) {
+export async function createDrink(drink: InsertDrinkInput) {
   await db
     .insert(drinks)
     .values({
-      name: data.name,
-      description: data.description,
-      price: data.price,
-      type: data.type,
+      name: drink.name,
+      price: drink.price,
+      type: drink.type,
+      region: drink.region,
+      domaine: drink.domaine,
+      appellation: drink.appellation,
+      year: drink.year,
+      isGlass: drink.isGlass,
     })
     .execute();
 
@@ -260,32 +269,20 @@ export async function deleteDrink(id: number) {
   redirect("/admin");
 }
 
-export async function modifyDrink(data: {
-  id: number;
-  name: string;
-  description: string;
-  price: string;
-  type:
-    | "rouge"
-    | "blanc"
-    | "biere"
-    | "cidre"
-    | "cocktail"
-    | "soft"
-    | "champagne"
-    | "rose";
-}) {
-  const { id, name, description, price, type } = data;
-
+export async function modifyDrink(drink: ModifyDrinkInput) {
   await db
     .update(drinks)
     .set({
-      name: name,
-      description: description,
-      price: price,
-      type: type,
+      name: drink.name,
+      price: drink.price,
+      type: drink.type,
+      region: drink.region,
+      domaine: drink.domaine,
+      appellation: drink.appellation,
+      year: drink.year,
+      isGlass: drink.isGlass,
     })
-    .where(eq(drinks.id, id))
+    .where(eq(drinks.id, drink.id))
     .execute();
 
   revalidatePath("/admin");
@@ -299,7 +296,7 @@ export async function modifyItem(data: {
   name: string;
   description: string;
   price: string;
-  type: "entree" | "main" | "dessert" | "starter";
+  type: MenuSectionType;
   menuId: number;
 }) {
   const { id, name, description, price, type, menuId } = data;

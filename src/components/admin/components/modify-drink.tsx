@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { type z } from "zod";
 import { modifyDrink } from "~/app/actions";
 import { Button } from "~/components/ui/button";
+import { Checkbox } from "~/components/ui/checkbox";
 import {
   Dialog,
   DialogContent,
@@ -28,12 +29,16 @@ import {
   SelectTrigger,
   SelectValue,
 } from "~/components/ui/select";
-import { Textarea } from "~/components/ui/textarea";
-import { modifyDrinkSchema } from "~/lib/types";
+import {
+  DrinkRegion,
+  Drinks,
+  DrinkTypeLabel,
+  modifyDrinkSchema,
+} from "~/lib/types";
 
 type Drink = z.infer<typeof modifyDrinkSchema>;
 
-export default function ModifyDrink({ item }: { item: Drink }) {
+export default function ModifyDrink({ item }: { item: Omit<Drink, "region"> }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isModifying, setIsModifying] = useState(0);
   const form = useForm<z.output<typeof modifyDrinkSchema>>({
@@ -42,19 +47,23 @@ export default function ModifyDrink({ item }: { item: Drink }) {
       id: item.id,
       name: item.name,
       type: item.type,
-      description: item.description ?? "",
-      glassPrice: item.glassPrice,
+      description: item.description,
+      appellation: item.appellation,
+      domaine: item.domaine,
+      year: item.year,
+      isGlass: item.isGlass,
       price: item.price,
     },
   });
 
-  const onModify = async (formData: z.infer<typeof modifyDrinkSchema>) => {
+  const onSubmit = async (formData: z.infer<typeof modifyDrinkSchema>) => {
     setIsModifying(formData.id);
     setIsOpen(true);
     await modifyDrink({
       ...formData,
       id: formData.id ?? 0,
-      description: formData.description ?? "",
+      appellation: formData.appellation ?? "",
+      domaine: formData.domaine ?? "",
     });
 
     setIsOpen(false);
@@ -69,24 +78,10 @@ export default function ModifyDrink({ item }: { item: Drink }) {
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Modifier un plat</DialogTitle>
+          <DialogTitle>Modifier une boisson</DialogTitle>
         </DialogHeader>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onModify)} className="space-y-8">
-            <FormField
-              control={form.control}
-              name="name"
-              defaultValue={item.name}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Nom</FormLabel>
-                  <FormControl>
-                    <Input {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <FormField
               control={form.control}
               name="id"
@@ -102,13 +97,13 @@ export default function ModifyDrink({ item }: { item: Drink }) {
             />
             <FormField
               control={form.control}
-              name="description"
-              defaultValue={item.description ?? ""}
+              name="name"
+              defaultValue={item.name}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Description</FormLabel>
+                  <FormLabel>Nom</FormLabel>
                   <FormControl>
-                    <Textarea placeholder="Description" {...field} />
+                    <Input {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -130,14 +125,11 @@ export default function ModifyDrink({ item }: { item: Drink }) {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="rouge">Rouge</SelectItem>
-                      <SelectItem value="blanc">Blanc</SelectItem>
-                      <SelectItem value="rose">Rosé</SelectItem>
-                      <SelectItem value="biere">Bière</SelectItem>
-                      <SelectItem value="cidre">Cidre</SelectItem>
-                      <SelectItem value="cocktail">Cocktail</SelectItem>
-                      <SelectItem value="soft">Soft</SelectItem>
-                      <SelectItem value="champagne">Champagne</SelectItem>
+                      {Drinks.map((drink) => (
+                        <SelectItem key={drink} value={drink}>
+                          {DrinkTypeLabel[drink].label}
+                        </SelectItem>
+                      ))}
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -160,11 +152,83 @@ export default function ModifyDrink({ item }: { item: Drink }) {
             />
             <FormField
               control={form.control}
-              name="glassPrice"
-              defaultValue={item.price}
+              name="isGlass"
+              defaultValue={item.isGlass}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Prix au verre, si nécessaire</FormLabel>
+                  <FormLabel>Est ce un prix au verre ?</FormLabel>
+                  <FormControl>
+                    <Checkbox
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="domaine"
+              defaultValue={item.domaine}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Domaine</FormLabel>
+                  <FormControl>
+                    <Input type="text" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="appellation"
+              defaultValue={item.appellation}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Appellation</FormLabel>
+                  <FormControl>
+                    <Input type="text" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="region"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Region</FormLabel>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Region" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {DrinkRegion.map((region) => (
+                        <SelectItem key={region} value={region}>
+                          {region}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="year"
+              defaultValue={item.year}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Année</FormLabel>
                   <FormControl>
                     <Input type="text" {...field} />
                   </FormControl>

@@ -18,6 +18,7 @@ import {
   timestamp,
   varchar,
 } from "drizzle-orm/pg-core";
+import { Drinks, MenuSections } from "~/lib/types";
 
 /**
  * This is an example of how to use the multi-project schema feature of Drizzle ORM. Use the same
@@ -47,25 +48,20 @@ export const posts = createTable(
   }),
 );
 
-export const drinksType = pgEnum("drink_type", [
-  "rouge",
-  "blanc",
-  "biere",
-  "rose",
-  "cidre",
-  "cocktail",
-  "soft",
-  "champagne",
-]);
+export const drinksType = pgEnum("drink_type", Drinks);
 export const drinks = createTable(
   "drink",
   {
     id: serial("id").primaryKey(),
     name: varchar("name", { length: 256 }).notNull(),
+    domaine: varchar("domaine", { length: 256 }),
+    isGlass: boolean("is_glass").default(false),
+    appellation: varchar("appellation", { length: 256 }),
     description: text("description"),
     price: varchar("price", { length: 256 }).notNull(),
-    glassPrice: varchar("glass_price", { length: 256 }),
+    region: varchar("region", { length: 256 }),
     type: drinksType("type").notNull(),
+    year: varchar("year"),
     createdAt: timestamp("created_at", { withTimezone: true })
       .default(sql`CURRENT_TIMESTAMP`)
       .notNull(),
@@ -98,12 +94,7 @@ export const menus = createTable(
   }),
 );
 
-export const itemType = pgEnum("item_type", [
-  "entree",
-  "main",
-  "dessert",
-  "starter",
-]);
+export const itemType = pgEnum("item_type", MenuSections);
 
 export const menuItems = createTable(
   "menu_item",
