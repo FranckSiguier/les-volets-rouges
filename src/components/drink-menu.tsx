@@ -41,8 +41,21 @@ function DrinkCard({ drink }: { drink: DrinksType }) {
 }
 
 export function DrinksMenu({ drinks }: { drinks: DrinksType[] }) {
+  const drinksByTheGlass = drinks.filter((drink) => drink.isGlass);
+  const drinksByTheBottle = drinks.filter((drink) => !drink.isGlass);
   // Group drinks by type
-  const drinksByType = drinks.reduce(
+  const drinksByType = drinksByTheBottle.reduce(
+    (acc, drink) => {
+      if (!acc[drink.type]) {
+        acc[drink.type] = [];
+      }
+      acc[drink.type]?.push(drink);
+      return acc;
+    },
+    {} as Record<DrinkType, DrinksType[]>,
+  );
+
+  const drinksByTheGlassByType = drinksByTheGlass.reduce(
     (acc, drink) => {
       if (!acc[drink.type]) {
         acc[drink.type] = [];
@@ -57,8 +70,36 @@ export function DrinksMenu({ drinks }: { drinks: DrinksType[] }) {
     (type) => drinksByType[type]?.length > 0,
   );
 
+  const availableTypesByTheGlass = Drinks.filter(
+    (type) => drinksByTheGlassByType[type]?.length > 0,
+  );
+
   return (
     <div className="space-y-12">
+      {drinksByTheGlass.length > 0 &&
+        availableTypesByTheGlass.map((type) => (
+          <section
+            key={type + "glass"}
+            id={type + "glass"}
+            className="md:px-40 lg:px-60"
+          >
+            <div className="flex flex-col items-center pb-6 text-center font-cormorant">
+              <h2 className="text-3xl font-medium text-accent">
+                VINS AU VERRE
+              </h2>
+            </div>
+            <div></div>
+            <p className="py-4 font-cormorant text-xl text-accent md:py-6 md:text-2xl lg:py-8">
+              {DrinkTypeLabel[type].label.toUpperCase()}
+            </p>
+            <div className="flex flex-col gap-6">
+              {drinksByTheGlassByType[type].map((drink) => (
+                <DrinkCard key={drink.id} drink={drink} />
+              ))}
+            </div>
+          </section>
+        ))}
+
       {availableTypes.map((type) => (
         <section key={type} className="md:px-40 lg:px-60" id={type}>
           <div className="flex flex-col items-center pb-6 text-center font-cormorant md:pb-10 lg:pb-16">

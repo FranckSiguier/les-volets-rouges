@@ -44,8 +44,8 @@ export default function HomePage() {
         <Separator />
         <SeparatorBanner title="Les Volets Rouges" isMainTitle={false} />
         <Separator className="max-w-full lg:max-w-2xl" />
-        <div className="flex flex-col items-center justify-center gap-6 py-4 text-center lg:flex-row lg:items-start lg:justify-between lg:py-6 lg:text-left">
-          <p className="max-w-full py-4 text-xl font-light md:max-w-md md:py-10 md:text-2xl">
+        <div className="flex flex-col items-center justify-center gap-6 py-4 lg:flex-row lg:items-start lg:justify-between lg:py-6 lg:text-left">
+          <p className="max-w-full py-4 font-light md:max-w-md md:py-10 md:text-2xl">
             Une référence directe à notre terre natale,
             <strong className="text-accent"> le Pays Basque</strong>. Le
             Restaurant est situé au cœur du quartier des Carmes à Toulouse. Nous

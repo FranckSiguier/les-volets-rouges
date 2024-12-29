@@ -127,7 +127,7 @@ export default function CreateDrink() {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>
-                    S&apos;agit t&apos;il d&apos;un prix au verre ?{" "}
+                    S&apos;agit t&apos;il d&apos;un vin au verre ?{" "}
                   </FormLabel>
                   <FormControl>
                     <Checkbox

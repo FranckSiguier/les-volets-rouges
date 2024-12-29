@@ -36,7 +36,7 @@ export function TeamBanner() {
               </div>
             </div>
           </CardHeader>
-          <CardContent>
+          <CardContent className="text-base md:text-lg">
             <p className="pb-4">
               Après avoir travaillé à Paris pendant plus de dix ans, et
               s&apos;être formé dans de nombreux établissements dont{" "}
@@ -74,7 +74,7 @@ export function TeamBanner() {
               </div>
             </div>
           </CardHeader>
-          <CardContent>
+          <CardContent className="text-base md:text-lg">
             <p className="pb-4">
               Après une formation initiale dans le domaine de la finance à
               l&apos;Université de Lyon, Vincent travaille dans le milieu de

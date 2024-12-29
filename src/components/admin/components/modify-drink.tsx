@@ -156,7 +156,7 @@ export default function ModifyDrink({ item }: { item: Omit<Drink, "region"> }) {
               defaultValue={item.isGlass}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Est ce un prix au verre ?</FormLabel>
+                  <FormLabel>Est ce un vin au verre ? </FormLabel>
                   <FormControl>
                     <Checkbox
                       checked={field.value}
