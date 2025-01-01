@@ -94,7 +94,6 @@ export function WineSection({
   const availableRegions = DrinkRegion.filter(
     (region) => (drinksByRegion[region]?.length ?? 0) > 0,
   );
-  console.log(drinksByRegion);
 
   return (
     <section key={type} className="md:px-40 lg:px-60" id={type}>
