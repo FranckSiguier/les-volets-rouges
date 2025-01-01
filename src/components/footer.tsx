@@ -8,7 +8,7 @@ import { Routes } from "~/utils/utils";
 
 export function Footer() {
   return (
-    <footer className="mt-6 flex w-full flex-col items-center justify-center gap-6 pb-10 pt-4 text-2xl">
+    <footer className="mt-6 flex w-full flex-col items-center justify-center gap-6 pb-10 pt-4 font-mono text-2xl">
       <Separator />
       <div className="flex w-full flex-col items-center justify-between gap-6 p-6 lg:flex-row">
         <Image

@@ -4,37 +4,63 @@ import { Drinks, type DrinkType, DrinkTypeLabel } from "~/lib/types";
 // Map drink types to their display names and icons
 
 function DrinkCard({ drink }: { drink: DrinksType }) {
+  const isThereRegionOrAppellation =
+    (drink.region ?? drink.appellation) ? true : false;
+
+  let colSpanName = "col-span-3";
+  let colSpanPrice = "col-span-1";
+  let gridCols = "grid-cols-7";
+  if (!drink.year && !isThereRegionOrAppellation) {
+    gridCols = "grid-cols-5";
+    colSpanName = "col-span-3";
+    colSpanPrice = "col-span-1";
+  } else if (!isThereRegionOrAppellation && drink.year) {
+    gridCols = "grid-cols-5";
+    colSpanName = "col-span-2";
+    colSpanPrice = "col-span-2";
+  }
+
   return (
     <div className="flex flex-col gap-4 font-light">
-      <div className="grid grid-cols-6 items-center justify-between">
-        <div className="col-span-2 flex flex-col gap-1">
-          <h3 className="text-base md:text-xl">{drink.name.toUpperCase()}</h3>
+      <div className={`grid ${gridCols} items-center justify-between`}>
+        <div className={`${colSpanName} flex flex-col gap-1`}>
+          <h3 className="font-mono text-sm md:text-lg">
+            {drink.name.toUpperCase()}
+          </h3>
           {drink.domaine && (
-            <p className="text-xs font-extralight md:text-sm">
+            <p className="text-xs font-extralight lg:text-sm">
               {drink.domaine.toUpperCase()}
             </p>
           )}
         </div>
         {drink.year ? (
-          <p className="col-span-1 pr-2 text-right md:pr-4 lg:pr-6">
+          <p className="col-span-1 pr-2 text-right text-xs md:pr-4 lg:pr-6 lg:text-sm">
             {drink.year}
           </p>
         ) : (
-          <p className="col-span-1 text-right"></p>
+          <div className="col-span-1"></div>
         )}
-        <div className="col-span-2 flex flex-col gap-2 pl-2 md:pl-4">
-          {drink.region && (
-            <p className="text-sm md:text-base lg:text-xl">
-              {drink.region.toUpperCase()}
-            </p>
-          )}
-          {drink.appellation && (
-            <p className="text-xs font-extralight md:text-sm lg:text-base">
-              {drink.appellation.toUpperCase()}
-            </p>
-          )}
-        </div>
-        <p className="col-span-1 text-right text-xl">{drink.price}</p>
+        {isThereRegionOrAppellation && (
+          <div className="col-span-2 flex flex-col gap-2 pl-2 md:pl-4">
+            {drink.region &&
+              drink.type !== "blanc" &&
+              drink.type !== "rouge" &&
+              drink.type !== "rose" &&
+              drink.isGlass && (
+                <p className="font-mono text-xs md:text-sm lg:text-base">
+                  {drink.region.toUpperCase()}
+                </p>
+              )}
+            {drink.appellation && (
+              <p className="text-xs font-extralight lg:text-sm">
+                {drink.appellation.toUpperCase()}
+              </p>
+            )}
+          </div>
+        )}
+        <p className={`${colSpanPrice} text-right font-mono text-xl`}>
+          {drink.price}
+        </p>
       </div>
     </div>
   );
@@ -75,7 +101,12 @@ export function DrinksMenu({ drinks }: { drinks: DrinksType[] }) {
   );
 
   return (
-    <div className="space-y-12">
+    <div className="space-y-4 md:space-y-6 lg:space-y-8">
+      {drinksByTheGlass.length > 0 && (
+        <div className="flex flex-col items-center pb-6 text-center font-cormorant">
+          <h2 className="text-3xl font-medium text-accent">VINS AU VERRE</h2>
+        </div>
+      )}
       {drinksByTheGlass.length > 0 &&
         availableTypesByTheGlass.map((type) => (
           <section
@@ -83,16 +114,10 @@ export function DrinksMenu({ drinks }: { drinks: DrinksType[] }) {
             id={type + "glass"}
             className="md:px-40 lg:px-60"
           >
-            <div className="flex flex-col items-center pb-6 text-center font-cormorant">
-              <h2 className="text-3xl font-medium text-accent">
-                VINS AU VERRE
-              </h2>
-            </div>
-            <div></div>
-            <p className="py-4 font-cormorant text-xl text-accent md:py-6 md:text-2xl lg:py-8">
+            <p className="py-2 font-cormorant text-xl text-accent md:text-2xl lg:py-4">
               {DrinkTypeLabel[type].label.toUpperCase()}
             </p>
-            <div className="flex flex-col gap-6">
+            <div className="flex flex-col gap-4">
               {drinksByTheGlassByType[type].map((drink) => (
                 <DrinkCard key={drink.id} drink={drink} />
               ))}
@@ -102,7 +127,7 @@ export function DrinksMenu({ drinks }: { drinks: DrinksType[] }) {
 
       {availableTypes.map((type) => (
         <section key={type} className="md:px-40 lg:px-60" id={type}>
-          <div className="flex flex-col items-center pb-6 text-center font-cormorant md:pb-10 lg:pb-16">
+          <div className="flex flex-col items-center py-4 text-center font-cormorant md:py-8 lg:py-10">
             <h2 className="text-3xl font-medium text-accent">
               {DrinkTypeLabel[type].label.toUpperCase()}
             </h2>

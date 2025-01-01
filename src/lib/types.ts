@@ -27,13 +27,13 @@ export const Drinks = [
 export type DrinkType = (typeof Drinks)[number];
 
 export const DrinkTypeLabel = {
-  soft: { label: "Eaux - Sodas - Softs - Mocktails", volume: "" },
+  soft: { label: "Eaux & Softs", volume: "" },
   hot: { label: "Boissons Chaudes", volume: "" },
-  biere: { label: "Bières - Pressions", volume: "" },
-  cidre: { label: "Cidres", volume: "" },
+  biere: { label: "Bières & Cidres", volume: "" },
+  cidre: { label: "Vins de Pommes", volume: "75cl" },
   champagne: { label: "Champagne", volume: "75cl" },
-  aperitif: { label: "Apéritifs", volume: "" },
-  sparkling: { label: "Vins Pétillants", volume: "75cl" },
+  aperitif: { label: "Alcool & Spiritueux", volume: "" },
+  sparkling: { label: "Bulles", volume: "75cl" },
   rose: { label: "Vins Rosés", volume: "75cl" },
   rouge: { label: "Vins Rouges", volume: "75cl" },
   blanc: { label: "Vins Blancs", volume: "75cl" },
@@ -47,8 +47,9 @@ export const DrinkRegion = [
   "Languedoc Roussillon",
   "Provence",
   "Sud-Ouest",
-  "Vallée de la Loire",
-  "Vallée du Rhône",
+  "Loire",
+  "Beaujolais",
+  "Rhône",
   "Savoie",
 ] as const;
 
