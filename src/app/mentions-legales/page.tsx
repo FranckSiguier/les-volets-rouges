@@ -25,7 +25,7 @@ export default function Legal() {
         propriété de la société Les Volets Rouges ou de ses partenaires. Toute
         représentation et/ou reproduction et/ou exploitation partielle ou totale
         des contenus et services proposés par le site
-        <span className="font-bold">.lesvoletsrouges.fr</span>, par quelque
+        <span className="font-bold">lesvoletsrouges.fr</span>, par quelque
         procédé que ce soit, sans l&apos;autorisation préalable et par écrit de
         la société Les Volets Rouges et
         <span className="font-bold"> ou de ses partenaires </span>

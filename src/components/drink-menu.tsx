@@ -1,5 +1,10 @@
 import { type DrinksType } from "~/app/actions";
-import { Drinks, type DrinkType, DrinkTypeLabel } from "~/lib/types";
+import {
+  DrinkRegion,
+  Drinks,
+  type DrinkType,
+  DrinkTypeLabel,
+} from "~/lib/types";
 
 // Map drink types to their display names and icons
 
@@ -66,6 +71,59 @@ function DrinkCard({ drink }: { drink: DrinksType }) {
   );
 }
 
+export function WineSection({
+  drinks,
+  type,
+}: {
+  drinks: DrinksType[];
+  type: DrinkType;
+}) {
+  const drinksByRegion = drinks.reduce(
+    (acc, drink) => {
+      if (drink.region && !acc[drink.region]) {
+        acc[drink.region] = [];
+      }
+      if (drink.region) {
+        acc[drink.region]?.push(drink);
+      }
+      return acc;
+    },
+    {} as Record<string, DrinksType[]>,
+  );
+
+  const availableRegions = DrinkRegion.filter(
+    (region) => (drinksByRegion[region]?.length ?? 0) > 0,
+  );
+  console.log(drinksByRegion);
+
+  return (
+    <section key={type} className="md:px-40 lg:px-60" id={type}>
+      <div className="flex flex-col items-center py-4 text-center font-cormorant md:py-8 lg:py-10">
+        <h2 className="text-3xl font-medium text-accent">
+          {DrinkTypeLabel[type].label.toUpperCase()}
+        </h2>
+        <p>
+          {DrinkTypeLabel[type].volume !== "" && (
+            <span className="text-2xl">{DrinkTypeLabel[type].volume}</span>
+          )}
+        </p>
+      </div>
+      {availableRegions.map((region) => (
+        <div key={region} className="py-4">
+          <h2 className="py-2 font-cormorant text-2xl text-accent">
+            {region.toUpperCase()}
+          </h2>
+          <div className="flex flex-col gap-4 lg:gap-6">
+            {drinksByRegion[region]?.map((drink) => (
+              <DrinkCard key={drink.id} drink={drink} />
+            ))}
+          </div>
+        </div>
+      ))}
+    </section>
+  );
+}
+
 export function DrinksMenu({ drinks }: { drinks: DrinksType[] }) {
   const drinksByTheGlass = drinks.filter((drink) => drink.isGlass);
   const drinksByTheBottle = drinks.filter((drink) => !drink.isGlass);
@@ -125,25 +183,31 @@ export function DrinksMenu({ drinks }: { drinks: DrinksType[] }) {
           </section>
         ))}
 
-      {availableTypes.map((type) => (
-        <section key={type} className="md:px-40 lg:px-60" id={type}>
-          <div className="flex flex-col items-center py-4 text-center font-cormorant md:py-8 lg:py-10">
-            <h2 className="text-3xl font-medium text-accent">
-              {DrinkTypeLabel[type].label.toUpperCase()}
-            </h2>
-            <p>
-              {DrinkTypeLabel[type].volume !== "" && (
-                <span className="text-2xl">{DrinkTypeLabel[type].volume}</span>
-              )}
-            </p>
-          </div>
-          <div className="flex flex-col gap-6">
-            {drinksByType[type].map((drink) => (
-              <DrinkCard key={drink.id} drink={drink} />
-            ))}
-          </div>
-        </section>
-      ))}
+      {availableTypes.map((type) =>
+        type === "blanc" || type === "rouge" || type === "rose" ? (
+          <WineSection key={type} drinks={drinksByType[type]} type={type} />
+        ) : (
+          <section key={type} className="md:px-40 lg:px-60" id={type}>
+            <div className="flex flex-col items-center py-4 text-center font-cormorant md:py-8 lg:py-10">
+              <h2 className="text-3xl font-medium text-accent">
+                {DrinkTypeLabel[type].label.toUpperCase()}
+              </h2>
+              <p>
+                {DrinkTypeLabel[type].volume !== "" && (
+                  <span className="text-2xl">
+                    {DrinkTypeLabel[type].volume}
+                  </span>
+                )}
+              </p>
+            </div>
+            <div className="flex flex-col gap-4 lg:gap-6">
+              {drinksByType[type].map((drink) => (
+                <DrinkCard key={drink.id} drink={drink} />
+              ))}
+            </div>
+          </section>
+        ),
+      )}
     </div>
   );
 }
