@@ -3,7 +3,7 @@ import { EditIcon, LoaderCircle } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { type z } from "zod";
-import { modifyDrink } from "~/app/actions";
+import { type DrinksType, modifyDrink } from "~/app/actions";
 import { Button } from "~/components/ui/button";
 import { Checkbox } from "~/components/ui/checkbox";
 import {
@@ -31,14 +31,13 @@ import {
 } from "~/components/ui/select";
 import {
   DrinkRegion,
+  type DrinkRegionType,
   Drinks,
   DrinkTypeLabel,
   modifyDrinkSchema,
 } from "~/lib/types";
 
-type Drink = z.infer<typeof modifyDrinkSchema>;
-
-export default function ModifyDrink({ item }: { item: Drink }) {
+export default function ModifyDrink({ item }: { item: DrinksType }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isModifying, setIsModifying] = useState(0);
   const form = useForm<z.output<typeof modifyDrinkSchema>>({
@@ -48,11 +47,11 @@ export default function ModifyDrink({ item }: { item: Drink }) {
       name: item.name,
       type: item.type,
       price: item.price,
-      isGlass: item.isGlass,
-      appellation: item.appellation,
-      domaine: item.domaine,
-      year: item.year,
-      region: item.region,
+      isGlass: item.isGlass ?? false,
+      appellation: item.appellation ?? undefined,
+      domaine: item.domaine ?? undefined,
+      year: item.year ?? undefined,
+      region: (item.region as DrinkRegionType) ?? undefined,
     },
   });
 
@@ -92,7 +91,6 @@ export default function ModifyDrink({ item }: { item: Drink }) {
             <FormField
               control={form.control}
               name="name"
-              defaultValue={item.name}
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Nom</FormLabel>
@@ -133,7 +131,6 @@ export default function ModifyDrink({ item }: { item: Drink }) {
             <FormField
               control={form.control}
               name="price"
-              defaultValue={item.price}
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Prix</FormLabel>
@@ -147,7 +144,6 @@ export default function ModifyDrink({ item }: { item: Drink }) {
             <FormField
               control={form.control}
               name="isGlass"
-              defaultValue={item.isGlass}
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Est ce un vin au verre ? </FormLabel>
@@ -164,7 +160,6 @@ export default function ModifyDrink({ item }: { item: Drink }) {
             <FormField
               control={form.control}
               name="domaine"
-              defaultValue={item.domaine}
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Domaine</FormLabel>
@@ -178,7 +173,6 @@ export default function ModifyDrink({ item }: { item: Drink }) {
             <FormField
               control={form.control}
               name="appellation"
-              defaultValue={item.appellation}
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Appellation</FormLabel>
@@ -219,7 +213,6 @@ export default function ModifyDrink({ item }: { item: Drink }) {
             <FormField
               control={form.control}
               name="year"
-              defaultValue={item.year}
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Année</FormLabel>

@@ -199,16 +199,7 @@ export default function RestaurantDashboard({
                           onClick={() => handleDeleteDrink(drink.id)}
                         />
                       )}
-                      <ModifyDrink
-                        item={{
-                          ...drink,
-                          description: drink.description ?? "",
-                          appellation: drink.appellation ?? "",
-                          domaine: drink.domaine ?? "",
-                          isGlass: drink.isGlass ?? false,
-                          year: drink.year ?? "",
-                        }}
-                      />
+                      <ModifyDrink item={drink} />
                     </CardHeader>
                     <CardContent className="flex w-full flex-col space-y-4 text-sm font-thin">
                       <p className="w-full text-lg">{drink.description}</p>

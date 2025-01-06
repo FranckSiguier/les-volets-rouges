@@ -52,6 +52,7 @@ export const DrinkRegion = [
   "Rhône",
   "Savoie",
 ] as const;
+export type DrinkRegionType = (typeof DrinkRegion)[number];
 
 export const insertMenuItemSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters." }),
