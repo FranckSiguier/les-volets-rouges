@@ -68,17 +68,13 @@ export type InsertMenuItemInput = z.infer<typeof insertMenuItemSchema>;
 
 export const insertDrinkSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters." }),
-  description: z
-    .string()
-    .min(2, { message: "Description must be at least 2 characters." })
-    .optional(),
-  region: z.enum(DrinkRegion).optional(),
-  domaine: z.string().optional(),
-  appellation: z.string().optional(),
-  year: z.string().optional(),
+  type: z.enum(Drinks),
   price: z.string().min(1, { message: "Price must be at least 1 character." }),
   isGlass: z.boolean().optional(),
-  type: z.enum(Drinks),
+  domaine: z.string().optional(),
+  appellation: z.string().optional(),
+  region: z.enum(DrinkRegion).optional(),
+  year: z.string().optional(),
 });
 export type InsertDrinkInput = z.infer<typeof insertDrinkSchema>;
 
