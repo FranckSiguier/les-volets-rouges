@@ -45,6 +45,7 @@ export default async function MenuPage() {
           </p>
           <p className="font-extralight opacity-80">
             (Ainsi que notre carte habituelle)
+            {/* trggier */}
           </p>
         </div>
       </div>
