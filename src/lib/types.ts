@@ -106,21 +106,16 @@ export const modifyDrinkSchema = z.object({
     .string()
     .trim()
     .min(2, { message: "Name must be at least 2 characters." }),
-  description: z
-    .string()
-    .trim()
-    .min(2, { message: "Description must be at least 2 characters." })
-    .optional(),
+  type: z.enum(Drinks),
   price: z
     .string()
     .trim()
     .min(1, { message: "Price must be at least 1 character." }),
-  region: z.enum(DrinkRegion).optional(),
+  isGlass: z.boolean().optional(),
   domaine: z.string().optional(),
   appellation: z.string().optional(),
+  region: z.enum(DrinkRegion).optional(),
   year: z.string().optional(),
-  isGlass: z.boolean().optional(),
-  type: z.enum(Drinks),
 });
 
 export type ModifyDrinkInput = z.infer<typeof modifyDrinkSchema>;

@@ -38,7 +38,7 @@ import {
 
 type Drink = z.infer<typeof modifyDrinkSchema>;
 
-export default function ModifyDrink({ item }: { item: Omit<Drink, "region"> }) {
+export default function ModifyDrink({ item }: { item: Drink }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isModifying, setIsModifying] = useState(0);
   const form = useForm<z.output<typeof modifyDrinkSchema>>({
@@ -47,25 +47,19 @@ export default function ModifyDrink({ item }: { item: Omit<Drink, "region"> }) {
       id: item.id,
       name: item.name,
       type: item.type,
-      description: item.description,
+      price: item.price,
+      isGlass: item.isGlass,
       appellation: item.appellation,
       domaine: item.domaine,
       year: item.year,
-      isGlass: item.isGlass,
-      price: item.price,
+      region: item.region,
     },
   });
 
   const onSubmit = async (formData: z.infer<typeof modifyDrinkSchema>) => {
     setIsModifying(formData.id);
     setIsOpen(true);
-    await modifyDrink({
-      ...formData,
-      id: formData.id ?? 0,
-      appellation: formData.appellation ?? "",
-      domaine: formData.domaine ?? "",
-    });
-
+    await modifyDrink(formData);
     setIsOpen(false);
     setIsModifying(0);
     form.reset();
