@@ -2,7 +2,7 @@ import { ArrowLeft, Calendar, User } from "lucide-react";
 import { type Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { getBlogPost } from "~/app/actions";
+import { getBlogPost, getBlogPosts } from "~/app/actions";
 import { type Block } from "~/components/blog-form";
 
 export const metadata: Metadata = {
@@ -10,13 +10,13 @@ export const metadata: Metadata = {
   description: "Découvrez les dernières actualités de notre restaurant.",
 };
 
-// export async function generateStaticParams() {
-//   const posts = await getBlogPosts();
+export async function generateStaticParams() {
+  const posts = await getBlogPosts();
 
-//   return posts.map((post) => ({
-//     params: { id: post.id.toString() },
-//   }));
-// }
+  return posts.map((post) => ({
+    params: { id: post.id.toString() },
+  }));
+}
 
 async function BlogPost({ params }: { params: Promise<{ id: string }> }) {
   const id = (await params).id;
