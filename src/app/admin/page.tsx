@@ -1,6 +1,5 @@
-import { createClient } from "~/utils/supabase/server";
 import { redirect } from "next/navigation";
-import { getDrinks, getMenus } from "../actions";
+import { createClient, getDrinks, getMenus } from "../actions";
 import RestaurantDashboard from "~/components/admin/dashboard";
 
 export default async function ProtectedPage() {

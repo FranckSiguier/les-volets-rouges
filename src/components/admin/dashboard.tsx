@@ -24,6 +24,7 @@ import CreateDrink from "./components/create-drink";
 import CreateItem from "./components/create-item";
 import ModifyDrink from "./components/modify-drink";
 import ModifyItem from "./components/modify-item";
+import BlogForm from "../blog-form";
 
 export default function RestaurantDashboard({
   menus,
@@ -214,9 +215,9 @@ export default function RestaurantDashboard({
             </div>
           </div>
         </TabsContent>
-        {/* <TabsContent value="blog">
-          <BlogPostForm />
-        </TabsContent> */}
+        <TabsContent value="blog">
+          <BlogForm />
+        </TabsContent>
       </Tabs>
     </div>
   );

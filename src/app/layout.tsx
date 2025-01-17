@@ -48,9 +48,6 @@ export const metadata: Metadata = {
     nocache: false,
     noarchive: false,
   },
-  alternates: {
-    canonical: "https://www.lesvoletsrouges.fr/",
-  },
   icons: [{ rel: "icon", url: "/favicon-32x32.png" }],
 };
 

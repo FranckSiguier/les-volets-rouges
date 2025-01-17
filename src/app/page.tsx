@@ -4,6 +4,7 @@ import RestaurantHours from "~/components/horaires";
 import { SeparatorBanner } from "~/components/separator-banner";
 import { TeamBanner } from "~/components/team-banner";
 import { Separator } from "~/components/ui/separator";
+import { IMAGE_VOLETS_ROUGES } from "~/lib/variables";
 
 export default function HomePage() {
   return (
@@ -57,9 +58,7 @@ export default function HomePage() {
           </p>
           <Image
             className="rounded-full lg:-mt-20"
-            src={
-              "https://njowvzjporohgzvgfyif.supabase.co/storage/v1/object/public/assets/photo_2.jpg?t=2024-11-12T01%3A15%3A49.464Z"
-            }
+            src={IMAGE_VOLETS_ROUGES}
             alt="photo de Vincent et Paul devant le restaurant les volets rouges"
             width={624}
             height={300}

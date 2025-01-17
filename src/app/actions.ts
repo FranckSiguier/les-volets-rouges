@@ -1,10 +1,12 @@
 "use server";
 
+import { createServerClient } from "@supabase/ssr";
 import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
-import { headers } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { Resend } from "resend";
+import { type Block } from "~/components/blog-form";
 import { type ContactFormValues } from "~/components/contact-form";
 import { env } from "~/env";
 import type {
@@ -13,11 +15,40 @@ import type {
   MenuSectionType,
   ModifyDrinkInput,
 } from "~/lib/types";
-import { VOLETS_EMAIL } from "~/lib/variables";
+import { IMAGE_VOLETS_ROUGES, VOLETS_EMAIL } from "~/lib/variables";
 import { db } from "~/server/db";
-import { drinks, menuItems, menus } from "~/server/db/schema";
-import { createClient } from "~/utils/supabase/server";
+import { drinks, menuItems, menus, posts } from "~/server/db/schema";
 import { encodedRedirect } from "~/utils/utils";
+
+export const createClient = async () => {
+  // eslint-disable-next-line @typescript-eslint/await-thenable
+  const cookieStore = await cookies();
+
+  return createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      cookies: {
+        getAll() {
+          return cookieStore.getAll();
+        },
+        setAll(cookiesToSet) {
+          try {
+            cookiesToSet.forEach(({ name, value, options }) => {
+              // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+              cookieStore.set(name, value, options);
+            });
+          } catch (error) {
+            // The `set` method was called from a Server Component.
+            // This can be ignored if you have middleware refreshing
+            // user sessions.
+            console.error(error);
+          }
+        },
+      },
+    },
+  );
+};
 
 export const signUpAction = async (formData: FormData) => {
   const email = formData.get("email")?.toString();
@@ -362,4 +393,97 @@ export const sendMessage = async (data: ContactFormValues) => {
   });
 
   return true;
+};
+
+export type PostsPreviewType = {
+  id: number;
+  name: string;
+  content: string;
+  createdAt: string;
+  coverImage: string;
+  excerpt: string;
+}[];
+
+export const getBlogPosts = async (): Promise<PostsPreviewType> => {
+  const posts = await db.query.posts.findMany();
+
+  // For each post we will read the content to find the url of the cover image
+  // and the excerpt
+
+  const postsWithPreviews = posts.map((post) => {
+    const content = JSON.parse(post.content) as Block[];
+    const coverImage =
+      content.find((block) => block.type === "image")?.content ??
+      IMAGE_VOLETS_ROUGES;
+    const excerptBlock = content.find((block) => block.type === "text");
+    const excerpt = excerptBlock?.content.slice(0, 50) + "...";
+
+    return {
+      id: post.id,
+      name: post.name,
+      coverImage,
+      excerpt,
+      createdAt: post.createdAt.toISOString(),
+      content: post.content,
+    };
+  });
+
+  return postsWithPreviews;
+};
+
+type BlogPostType = {
+  id: number;
+  name: string;
+  content: string;
+  createdAt: string;
+  coverImage: string;
+};
+export const getBlogPost = async (id: string): Promise<BlogPostType | null> => {
+  const post = await db.query.posts.findFirst({
+    where: (posts, { eq }) => eq(posts.id, +id),
+  });
+
+  if (!post) {
+    return null;
+  }
+  const content = JSON.parse(post.content) as Block[];
+
+  const coverImage =
+    content.find((block) => block.type === "image")?.content ??
+    IMAGE_VOLETS_ROUGES;
+
+  return {
+    id: post.id,
+    name: post.name,
+    content: post.content,
+    createdAt: post.createdAt.toISOString(),
+    coverImage,
+  };
+};
+
+export const uploadBlogPost = async (data: {
+  name: string;
+  content: Block[];
+}) => {
+  const post = await db
+    .insert(posts)
+    .values({
+      name: data.name,
+      content: JSON.stringify(data.content),
+    })
+    .returning({ id: posts.id })
+    .execute();
+
+  if (post) {
+    console.log(`Post created successfully`);
+
+    // Trigger revalidation after the creation
+    revalidatePath("/blog");
+    revalidatePath("/admin");
+
+    return { success: true, id: post[0]?.id };
+  } else {
+    console.log(`Failed to create post`);
+    return { success: false };
+  }
 };

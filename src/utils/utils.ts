@@ -28,3 +28,9 @@ export const Routes = {
   forgotPassword: "/forgot-password",
   mentionsLegales: "/mentions-legales",
 } as const;
+
+export function formatString(input: string) {
+  return input
+    .toLowerCase() // Convert all to lowercase
+    .replace(/\s+/g, "_"); // Replace all consecutive spaces with a single underscore
+}
