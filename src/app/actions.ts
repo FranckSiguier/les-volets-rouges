@@ -50,6 +50,17 @@ export const createClient = async () => {
   );
 };
 
+export const verifyAuth = async () => {
+  const supabase = await createClient();
+  const session = await supabase.auth.getSession();
+
+  if (!session) {
+    return redirect("/sign-in");
+  }
+
+  return true;
+};
+
 export const signUpAction = async (formData: FormData) => {
   const email = formData.get("email")?.toString();
   const password = formData.get("password")?.toString();
@@ -200,17 +211,6 @@ export const getActiveMenu = async () => {
 };
 export type MenuType = Awaited<ReturnType<typeof getActiveMenu>>;
 
-export const getMenus = async () => {
-  const menus = await db.query.menus.findMany({
-    with: {
-      menuItems: true,
-    },
-  });
-
-  return menus;
-};
-export type MenusType = Awaited<ReturnType<typeof getMenus>>;
-
 export const getDrinks = async () => {
   const drinks = await db.query.drinks.findMany();
 
@@ -218,165 +218,7 @@ export const getDrinks = async () => {
 };
 export type DrinksType = Awaited<ReturnType<typeof getDrinks>>[number];
 
-export async function createItem(data: InsertMenuItemInput): Promise<{
-  success: boolean;
-  id?: number;
-}> {
-  const result = await db
-    .insert(menuItems)
-    .values({
-      name: data.name,
-      description: data.description,
-      price: data.price,
-      type: data.type,
-      menuId: data.menuId,
-    })
-    .returning({ id: menuItems.id })
-    .execute();
-
-  if (result) {
-    console.log(`Item  created successfully`);
-
-    // Trigger revalidation after the creation
-    revalidatePath("/admin");
-    revalidatePath("/menu");
-
-    return { success: true, id: result[0]?.id };
-  } else {
-    console.log(`Failed to create item`);
-    return { success: false };
-  }
-}
-
-export async function createDrink(drink: InsertDrinkInput) {
-  await db
-    .insert(drinks)
-    .values({
-      name: drink.name,
-      price: drink.price,
-      type: drink.type,
-      region: drink.region,
-      domaine: drink.domaine,
-      appellation: drink.appellation,
-      year: drink.year,
-      isGlass: drink.isGlass,
-    })
-    .execute();
-
-  // Trigger revalidation after the creation
-  revalidatePath("/admin");
-  revalidatePath("/vins");
-
-  redirect("/admin");
-}
-
-export async function deleteItem(id: number) {
-  const result = await db
-    .delete(menuItems)
-    .where(eq(menuItems.id, id))
-    .execute();
-
-  if (result) {
-    console.log(`Item with ID ${id} deleted successfully`);
-
-    // Trigger revalidation after the deletion
-    revalidatePath("/admin");
-    revalidatePath("/menu");
-
-    return true; // Return true to indicate successful deletion
-  } else {
-    console.log(`Failed to delete item with ID ${id}`);
-    return false;
-  }
-}
-
-export async function deleteDrink(id: number) {
-  await db.delete(drinks).where(eq(drinks.id, id)).execute();
-
-  // Trigger revalidation after the deletion
-  revalidatePath("/admin");
-  revalidatePath("/vins");
-
-  redirect("/admin");
-}
-
-export async function modifyDrink(drink: ModifyDrinkInput) {
-  await db
-    .update(drinks)
-    .set({
-      name: drink.name,
-      price: drink.price,
-      type: drink.type,
-      region: drink.region,
-      domaine: drink.domaine,
-      appellation: drink.appellation,
-      year: drink.year,
-      isGlass: drink.isGlass,
-    })
-    .where(eq(drinks.id, drink.id))
-    .execute();
-
-  revalidatePath("/admin");
-  revalidatePath("/vins");
-
-  redirect("/admin");
-}
-
-export async function modifyItem(data: {
-  id: number;
-  name: string;
-  description: string;
-  price: string;
-  type: MenuSectionType;
-  menuId: number;
-}) {
-  const { id, name, description, price, type, menuId } = data;
-
-  try {
-    const result = await db
-      .update(menuItems)
-      .set({
-        name: name,
-        description: description,
-        price: price,
-        type: type,
-        menuId: menuId,
-      })
-      .where(eq(menuItems.id, id))
-      .execute();
-
-    if (result) {
-      console.log(`Item with ID ${id} updated successfully`);
-
-      revalidatePath("/admin");
-      revalidatePath("/menu");
-
-      return true;
-    } else {
-      console.log(`Failed to update item with ID ${id}`);
-      return false;
-    }
-  } catch (error) {
-    console.error("Error updating item:", error);
-    return false;
-  }
-}
-
 export const sendMessage = async (data: ContactFormValues) => {
-  // const secretKey = env.RECAPTCHA_SECRET_KEY;
-
-  // const response = await fetch(
-  //   `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${recaptchaToken}`,
-  //   {
-  //     method: "POST",
-  //   },
-  // );
-
-  // const verificationData = (await response.json()) as { success: boolean };
-  // if (!verificationData.success) {
-  //   return false;
-  // }
-
   const resend = new Resend(env.RESEND_API_KEY);
 
   await resend.emails.send({
@@ -461,10 +303,14 @@ export const getBlogPost = async (id: string): Promise<BlogPostType | null> => {
   };
 };
 
+////////////////////// AUTHENTICATED ACTIONS //////////////////////
+
 export const uploadBlogPost = async (data: {
   name: string;
   content: Block[];
 }) => {
+  await verifyAuth();
+
   const post = await db
     .insert(posts)
     .values({
@@ -487,3 +333,165 @@ export const uploadBlogPost = async (data: {
     return { success: false };
   }
 };
+
+export async function createDrink(drink: InsertDrinkInput) {
+  await verifyAuth();
+  await db
+    .insert(drinks)
+    .values({
+      name: drink.name,
+      price: drink.price,
+      type: drink.type,
+      region: drink.region,
+      domaine: drink.domaine,
+      appellation: drink.appellation,
+      year: drink.year,
+      isGlass: drink.isGlass,
+    })
+    .execute();
+
+  // Trigger revalidation after the creation
+  revalidatePath("/admin");
+  revalidatePath("/vins");
+
+  redirect("/admin");
+}
+
+export async function deleteItem(id: number) {
+  await verifyAuth();
+  const result = await db
+    .delete(menuItems)
+    .where(eq(menuItems.id, id))
+    .execute();
+
+  if (result) {
+    console.log(`Item with ID ${id} deleted successfully`);
+
+    // Trigger revalidation after the deletion
+    revalidatePath("/admin");
+    revalidatePath("/menu");
+
+    return true; // Return true to indicate successful deletion
+  } else {
+    console.log(`Failed to delete item with ID ${id}`);
+    return false;
+  }
+}
+
+export async function deleteDrink(id: number) {
+  await verifyAuth();
+  await db.delete(drinks).where(eq(drinks.id, id)).execute();
+
+  // Trigger revalidation after the deletion
+  revalidatePath("/admin");
+  revalidatePath("/vins");
+
+  redirect("/admin");
+}
+
+export async function modifyDrink(drink: ModifyDrinkInput) {
+  await db
+    .update(drinks)
+    .set({
+      name: drink.name,
+      price: drink.price,
+      type: drink.type,
+      region: drink.region,
+      domaine: drink.domaine,
+      appellation: drink.appellation,
+      year: drink.year,
+      isGlass: drink.isGlass,
+    })
+    .where(eq(drinks.id, drink.id))
+    .execute();
+
+  revalidatePath("/admin");
+  revalidatePath("/vins");
+
+  redirect("/admin");
+}
+
+export async function modifyItem(data: {
+  id: number;
+  name: string;
+  description: string;
+  price: string;
+  type: MenuSectionType;
+  menuId: number;
+}) {
+  await verifyAuth();
+  const { id, name, description, price, type, menuId } = data;
+
+  try {
+    const result = await db
+      .update(menuItems)
+      .set({
+        name: name,
+        description: description,
+        price: price,
+        type: type,
+        menuId: menuId,
+      })
+      .where(eq(menuItems.id, id))
+      .execute();
+
+    if (result) {
+      console.log(`Item with ID ${id} updated successfully`);
+
+      revalidatePath("/admin");
+      revalidatePath("/menu");
+
+      return true;
+    } else {
+      console.log(`Failed to update item with ID ${id}`);
+      return false;
+    }
+  } catch (error) {
+    console.error("Error updating item:", error);
+    return false;
+  }
+}
+
+export async function createItem(data: InsertMenuItemInput): Promise<{
+  success: boolean;
+  id?: number;
+}> {
+  await verifyAuth();
+  const result = await db
+    .insert(menuItems)
+    .values({
+      name: data.name,
+      description: data.description,
+      price: data.price,
+      type: data.type,
+      menuId: data.menuId,
+    })
+    .returning({ id: menuItems.id })
+    .execute();
+
+  if (result) {
+    console.log(`Item  created successfully`);
+
+    // Trigger revalidation after the creation
+    revalidatePath("/admin");
+    revalidatePath("/menu");
+
+    return { success: true, id: result[0]?.id };
+  } else {
+    console.log(`Failed to create item`);
+    return { success: false };
+  }
+}
+
+export const getMenus = async () => {
+  await verifyAuth();
+
+  const menus = await db.query.menus.findMany({
+    with: {
+      menuItems: true,
+    },
+  });
+
+  return menus;
+};
+export type MenusType = Awaited<ReturnType<typeof getMenus>>;
