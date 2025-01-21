@@ -102,7 +102,7 @@ export function Navbar() {
                 key={"contact"}
                 href={`/contact`}
                 className="flex w-full items-center justify-center py-2 text-lg"
-                prefetch={false}
+                prefetch={true}
                 onClick={handleClose}
               >
                 Contact
@@ -163,7 +163,7 @@ export function Navbar() {
             href={Routes.contact}
             onClick={() => handleActiveLink("contact")}
             className={`font-light underline-offset-[4px] hover:text-primary hover:underline active:underline ${activeLink === "contact" ? "underline" : ""}`}
-            prefetch={false}
+            prefetch={true}
           >
             Contact
           </Link>
