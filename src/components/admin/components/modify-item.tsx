@@ -21,6 +21,7 @@ import {
   FormMessage,
 } from "~/components/ui/form";
 import { Input } from "~/components/ui/input";
+import { ScrollArea } from "~/components/ui/scroll-area";
 import {
   Select,
   SelectContent,
@@ -105,112 +106,114 @@ export default function ModifyItem({
       <DialogTrigger asChild>
         <EditIcon className="absolute right-12 top-4 cursor-pointer hover:text-accent" />
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="p-10 sm:max-w-[500px]">
         <DialogHeader>
           <DialogTitle>Modifier un plat</DialogTitle>
         </DialogHeader>
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onModify)} className="space-y-8">
-            <FormField
-              control={form.control}
-              name="name"
-              defaultValue={item.name}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Nom</FormLabel>
-                  <FormControl>
-                    <Input {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="id"
-              render={({ field }) => (
-                <FormItem className="hidden">
-                  <FormLabel>Id</FormLabel>
-                  <FormControl>
-                    <Input type="text" disabled {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="description"
-              defaultValue={item.description ?? ""}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Description</FormLabel>
-                  <FormControl>
-                    <Textarea placeholder="Description" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="type"
-              defaultValue={item.type}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Type de plat</FormLabel>
-                  <Select onValueChange={field.onChange}>
+        <ScrollArea className="h-[500px]">
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onModify)} className="space-y-8">
+              <FormField
+                control={form.control}
+                name="name"
+                defaultValue={item.name}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Nom</FormLabel>
                     <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Type de plat" />
-                      </SelectTrigger>
+                      <Input {...field} />
                     </FormControl>
-                    <SelectContent>
-                      {MenuSections.map((type) => (
-                        <SelectItem key={type} value={type}>
-                          {MenuSectionTypeLabel[type]}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="id"
+                render={({ field }) => (
+                  <FormItem className="hidden">
+                    <FormLabel>Id</FormLabel>
+                    <FormControl>
+                      <Input type="text" disabled {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="description"
+                defaultValue={item.description ?? ""}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Description</FormLabel>
+                    <FormControl>
+                      <Textarea placeholder="Description" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="type"
+                defaultValue={item.type}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Type de plat</FormLabel>
+                    <Select onValueChange={field.onChange}>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Type de plat" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {MenuSections.map((type) => (
+                          <SelectItem key={type} value={type}>
+                            {MenuSectionTypeLabel[type]}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
 
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="price"
-              defaultValue={item.price}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Prix</FormLabel>
-                  <FormControl>
-                    <Input type="text" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <div className="flex w-full justify-center">
-              {isModifying ? (
-                <>
-                  <Button className="flex w-full cursor-not-allowed items-center justify-center gap-4 bg-accent text-white opacity-60 md:w-1/2">
-                    <LoaderCircle className="animate-spin" />
-                    <p>Modification ...</p>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="price"
+                defaultValue={item.price}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Prix</FormLabel>
+                    <FormControl>
+                      <Input type="text" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <div className="flex w-full justify-center">
+                {isModifying ? (
+                  <>
+                    <Button className="flex w-full cursor-not-allowed items-center justify-center gap-4 bg-accent text-white opacity-60 md:w-1/2">
+                      <LoaderCircle className="animate-spin" />
+                      <p>Modification ...</p>
+                    </Button>
+                  </>
+                ) : (
+                  <Button
+                    className="w-full items-center bg-accent text-white hover:bg-accent hover:bg-opacity-60 md:w-1/2"
+                    type="submit"
+                  >
+                    Modifier
                   </Button>
-                </>
-              ) : (
-                <Button
-                  className="w-full items-center bg-accent text-white hover:bg-accent hover:bg-opacity-60 md:w-1/2"
-                  type="submit"
-                >
-                  Modifier
-                </Button>
-              )}
-            </div>
-          </form>
-        </Form>
+                )}
+              </div>
+            </form>
+          </Form>
+        </ScrollArea>
       </DialogContent>
     </Dialog>
   );

@@ -21,6 +21,7 @@ import {
   FormMessage,
 } from "~/components/ui/form";
 import { Input } from "~/components/ui/input";
+import { ScrollArea } from "~/components/ui/scroll-area";
 import {
   Select,
   SelectContent,
@@ -99,111 +100,113 @@ export default function CreateItem({
           Créer un plat
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="p-10 sm:max-w-[500px]">
         <DialogHeader>
           <DialogTitle>Ajouter un plat</DialogTitle>
         </DialogHeader>
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-            <FormField
-              control={form.control}
-              name="name"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Nom</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Nom du plat" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="menuId"
-              render={({ field }) => (
-                <FormItem className="hidden">
-                  <FormLabel>Menu ID</FormLabel>
-                  <FormControl>
-                    <Textarea placeholder="Menu Id" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="description"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Description</FormLabel>
-                  <FormControl>
-                    <Textarea placeholder="Description" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="type"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Type de plat</FormLabel>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                  >
+        <ScrollArea className="h-[500px]">
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Nom</FormLabel>
                     <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Type de plat" />
-                      </SelectTrigger>
+                      <Input placeholder="Nom du plat" {...field} />
                     </FormControl>
-                    <SelectContent>
-                      {MenuSections.map((type) => (
-                        <SelectItem key={type} value={type}>
-                          {MenuSectionTypeLabel[type]}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="price"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Prix</FormLabel>
-                  <FormControl>
-                    <Input type="text" placeholder="0" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="menuId"
+                render={({ field }) => (
+                  <FormItem className="hidden">
+                    <FormLabel>Menu ID</FormLabel>
+                    <FormControl>
+                      <Textarea placeholder="Menu Id" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="description"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Description</FormLabel>
+                    <FormControl>
+                      <Textarea placeholder="Description" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="type"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Type de plat</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Type de plat" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {MenuSections.map((type) => (
+                          <SelectItem key={type} value={type}>
+                            {MenuSectionTypeLabel[type]}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="price"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Prix</FormLabel>
+                    <FormControl>
+                      <Input type="text" placeholder="0" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-            <div className="flex w-full justify-center">
-              {isSubmitting ? (
-                <>
-                  <Button className="flex w-full cursor-not-allowed items-center justify-center gap-4 bg-accent text-white opacity-60 hover:bg-accent md:w-1/2">
-                    <LoaderCircle className="animate-spin" />
-                    <p>Création ...</p>
+              <div className="flex w-full justify-center">
+                {isSubmitting ? (
+                  <>
+                    <Button className="flex w-full cursor-not-allowed items-center justify-center gap-4 bg-accent text-white opacity-60 hover:bg-accent md:w-1/2">
+                      <LoaderCircle className="animate-spin" />
+                      <p>Création ...</p>
+                    </Button>
+                  </>
+                ) : (
+                  <Button
+                    className="w-full items-center bg-accent text-white hover:bg-accent hover:bg-opacity-60 md:w-1/2"
+                    type="submit"
+                  >
+                    Créer
                   </Button>
-                </>
-              ) : (
-                <Button
-                  className="w-full items-center bg-accent text-white hover:bg-accent hover:bg-opacity-60 md:w-1/2"
-                  type="submit"
-                >
-                  Créer
-                </Button>
-              )}
-            </div>
-          </form>
-        </Form>
+                )}
+              </div>
+            </form>
+          </Form>
+        </ScrollArea>
       </DialogContent>
     </Dialog>
   );

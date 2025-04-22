@@ -65,4 +65,52 @@
     @apply bg-background text-foreground;
     font-family: sans-serif;
   }
+
+  @keyframes autoRotateAnimation {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .autoRotate {
+    animation: autoRotateAnimation;
+    animation-timeline: view();
+  }
+
+  .autoShow {
+    animation: autoShowAnimation both;
+    animation-timeline: view(40% 30%);
+  }
+
+  .autoBlur {
+    animation: autoBlurAnimation linear both;
+    animation-timeline: view(40% 30%);
+  }
+
+  @keyframes autoBlurAnimation {
+    0% {
+      filter: blur(40px);
+    }
+    30%,
+    60% {
+      filter: blur(0);
+    }
+    100% {
+      filter: blur(40px);
+    }
+  }
+
+  @keyframes autoShowAnimation {
+    from {
+      opacity: 0;
+      transform: translate(200px) scale(0.3);
+    }
+    to {
+      opacity: 1;
+      transform: translate(0) scale(1);
+    }
+  }
 }
