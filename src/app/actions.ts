@@ -202,6 +202,7 @@ export const getActiveMenu = async () => {
           price: true,
           type: true,
         },
+        orderBy: (menuItems, { asc }) => [asc(menuItems.name)],
       },
     },
     where: eq(menus.active, true),
@@ -212,7 +213,9 @@ export const getActiveMenu = async () => {
 export type MenuType = Awaited<ReturnType<typeof getActiveMenu>>;
 
 export const getDrinks = async () => {
-  const drinks = await db.query.drinks.findMany();
+  const drinks = await db.query.drinks.findMany({
+    orderBy: (drinks, { asc }) => [asc(drinks.name)],
+  });
 
   return drinks;
 };
