@@ -79,7 +79,6 @@ export default function RestaurantDashboard({
   const handleDeleteDrink = async (id: number) => {
     setIsDeleting(id);
     await deleteDrink(id);
-    setIsDeleting(0);
   };
 
   return (

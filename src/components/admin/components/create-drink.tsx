@@ -49,12 +49,15 @@ export default function CreateDrink() {
 
   const onSubmit = async (data: z.infer<typeof insertDrinkSchema>) => {
     setIsSubmitting(true);
-    setIsOpen(true);
-    await createDrink(data);
-
-    setIsOpen(false);
-    setIsSubmitting(false);
-    form.reset();
+    try {
+      await createDrink(data);
+    } catch (error) {
+      console.error("Error creating drink:", error);
+    } finally {
+      setIsSubmitting(false);
+      setIsOpen(false);
+      form.reset();
+    }
   };
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>

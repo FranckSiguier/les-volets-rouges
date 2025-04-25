@@ -6,7 +6,6 @@ import { type z } from "zod";
 import { type DrinksType, modifyDrink } from "~/app/actions";
 import { Button } from "~/components/ui/button";
 import { Checkbox } from "~/components/ui/checkbox";
-import { ScrollArea } from "~/components/ui/scroll-area";
 import {
   Dialog,
   DialogContent,
@@ -23,6 +22,7 @@ import {
   FormMessage,
 } from "~/components/ui/form";
 import { Input } from "~/components/ui/input";
+import { ScrollArea } from "~/components/ui/scroll-area";
 import {
   Select,
   SelectContent,
@@ -58,11 +58,15 @@ export default function ModifyDrink({ item }: { item: DrinksType }) {
 
   const onSubmit = async (formData: z.infer<typeof modifyDrinkSchema>) => {
     setIsModifying(formData.id);
-    setIsOpen(true);
-    await modifyDrink(formData);
-    setIsOpen(false);
-    setIsModifying(0);
-    form.reset();
+    try {
+      await modifyDrink(formData);
+    } catch (error) {
+      console.error("Error modifying drink:", error);
+    } finally {
+      setIsModifying(0);
+      setIsOpen(false);
+      form.reset();
+    }
   };
 
   return (
