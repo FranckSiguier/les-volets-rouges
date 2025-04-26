@@ -22,11 +22,13 @@ export const Drinks = [
   "rose",
   "rouge",
   "blanc",
+  "cocktail",
 ] as const;
 
 export type DrinkType = (typeof Drinks)[number];
 
 export const DrinkTypeLabel = {
+  cocktail: { label: "Cocktails du moment", volume: "" },
   soft: { label: "Eaux & Softs", volume: "" },
   hot: { label: "Boissons Chaudes", volume: "" },
   biere: { label: "Bières & Cidres", volume: "" },
