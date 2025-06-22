@@ -69,36 +69,28 @@ export default function HomePage() {
       <section className="grid w-full items-center justify-center gap-6 py-16 lg:grid-cols-4">
         <Image
           className="motion-preset-bounce col-span-1 mr-10 h-[250px] w-[280px] rounded-full object-cover lg:-mt-10 lg:mr-0"
-          src={
-            "https://njowvzjporohgzvgfyif.supabase.co/storage/v1/object/public/assets/photo_3.png"
-          }
+          src="/assets/photo_3.png"
           alt="Paul qui cuisine"
           width={500}
           height={500}
         />
         <Image
           className="motion-preset-bounce col-span-1 ml-10 h-[250px] w-[280px] rounded-full object-cover lg:ml-0 lg:mt-10"
-          src={
-            "https://njowvzjporohgzvgfyif.supabase.co/storage/v1/object/public/assets/photo_4.jpg?t=2024-11-12T01%3A18%3A08.838Z"
-          }
+          src="/assets/photo_4.jpg"
           alt="Potimarron et citrouille"
           width={500}
           height={500}
         />
         <Image
           className="motion-preset-bounce col-span-1 mr-10 h-[360px] w-[280px] rounded-full object-cover lg:-mt-10 lg:mr-0"
-          src={
-            "https://njowvzjporohgzvgfyif.supabase.co/storage/v1/object/public/assets/photo_5.jpg?t=2024-11-12T01%3A18%3A17.765Z"
-          }
+          src="/assets/photo_5.jpg"
           alt="Vincent avec un tablier"
           width={500}
           height={500}
         />
         <Image
           className="motion-preset-bounce col-span-1 ml-10 h-[250px] w-[280px] rounded-full object-cover lg:ml-0 lg:mt-10"
-          src={
-            "https://njowvzjporohgzvgfyif.supabase.co/storage/v1/object/public/assets/photo_6.jpg?t=2024-11-12T01%3A18%3A31.225Z"
-          }
+          src="/assets/photo_6.jpg"
           alt="Bouteilles de vin"
           width={500}
           height={500}

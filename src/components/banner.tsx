@@ -47,9 +47,7 @@ export default function RestaurantBanner() {
             <div className="relative mx-auto max-w-2xl lg:max-w-none">
               <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl shadow-2xl">
                 <Image
-                  src={
-                    "https://njowvzjporohgzvgfyif.supabase.co/storage/v1/object/public/assets/photo_1.jpg"
-                  }
+                  src={"/assets/photo_1.jpg"}
                   alt="photo de la rue Velane devant le restaurant les volets rouges"
                   className="h-full w-full rounded-2xl object-cover md:rounded-3xl"
                   sizes="(max-width: 768px) 100vw, 50vw"

@@ -8,6 +8,7 @@ import {
   CardTitle,
 } from "~/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
+import Image from "next/image";
 
 export function TeamBanner() {
   return (
@@ -23,7 +24,7 @@ export function TeamBanner() {
             <div className="flex items-center space-x-4">
               <Avatar className="h-20 w-20">
                 <AvatarImage
-                  src="https://njowvzjporohgzvgfyif.supabase.co/storage/v1/object/public/assets/Chef%20Icon.png?t=2024-11-12T02%3A28%3A26.440Z"
+                  src="/assets/Chef Icon.png"
                   alt="Paul Du Bois De Maquillé"
                 />
                 <AvatarFallback>Paul</AvatarFallback>
@@ -61,7 +62,7 @@ export function TeamBanner() {
             <div className="flex items-center space-x-4">
               <Avatar className="h-20 w-20">
                 <AvatarImage
-                  src="https://njowvzjporohgzvgfyif.supabase.co/storage/v1/object/public/assets/Waiter%20Icon.png?t=2024-11-12T02%3A30%3A33.568Z"
+                  src="/assets/Waiter Icon.png"
                   alt="Vincent Du Bois De Maquillé"
                 />
                 <AvatarFallback>Vincent</AvatarFallback>
