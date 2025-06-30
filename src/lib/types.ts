@@ -43,11 +43,17 @@ export const DrinkTypeLabel = {
 
 export const DrinkRegion = [
   "Alsace",
+  "Auvergne",
+  "Bordeaux",
   "Bourgogne",
   "Champagne",
+  "Corse",
+  "Étrangers",
   "Jura",
+  "Languedoc",
   "Languedoc Roussillon",
   "Provence",
+  "Roussillon",
   "Sud-Ouest",
   "Loire",
   "Beaujolais",
