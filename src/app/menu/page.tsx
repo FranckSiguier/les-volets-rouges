@@ -37,7 +37,7 @@ export default async function MenuPage() {
           </p>
           <p className="font-light md:text-xl lg:text-2xl">
             MENU DÉGUSTATION EN 5 TEMPS :{" "}
-            <span className="text-accent">58€</span> / PERS
+            <span className="text-accent">62€</span> / PERS
           </p>
           <p className="font-light opacity-80">
             Une expérience culinaire en 5 étapes, pensée pour être partagée par
