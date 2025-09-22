@@ -88,7 +88,7 @@ export function Navbar() {
                 Vins
               </Link>
 
-              <Link
+              {/* <Link
                 key={"blog"}
                 href={`/blog`}
                 className="flex w-full items-center justify-center py-2 text-lg"
@@ -96,6 +96,17 @@ export function Navbar() {
                 onClick={handleClose}
               >
                 Blog
+              </Link> */}
+
+              <Link
+                key={"bons"}
+                href={"https://lesvoletsrouges.bonkdo.com/fr/"}
+                className="flex w-full items-center justify-center py-2 text-lg"
+                prefetch={false}
+                onClick={handleClose}
+                target="_blank"
+              >
+                Bons cadeaux
               </Link>
 
               <Link
@@ -152,12 +163,13 @@ export function Navbar() {
             Vins
           </Link>
           <Link
-            href={Routes.blog}
-            onClick={() => handleActiveLink("blog")}
-            className={`font-light underline-offset-[4px] hover:text-primary hover:underline active:underline ${activeLink === "blog" ? "underline" : ""}`}
-            prefetch={true}
+            href={"https://lesvoletsrouges.bonkdo.com/fr/"}
+            onClick={() => handleActiveLink("bons")}
+            className={`font-light underline-offset-[4px] hover:text-primary hover:underline active:underline ${activeLink === "bons" ? "underline" : ""}`}
+            prefetch={false}
+            target="_blank"
           >
-            Blog
+            Bons cadeaux
           </Link>
           <Link
             href={Routes.contact}
