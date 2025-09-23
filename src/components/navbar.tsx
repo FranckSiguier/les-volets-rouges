@@ -99,17 +99,6 @@ export function Navbar() {
               </Link> */}
 
               <Link
-                key={"bons"}
-                href={"https://lesvoletsrouges.bonkdo.com/fr/"}
-                className="flex w-full items-center justify-center py-2 text-lg"
-                prefetch={false}
-                onClick={handleClose}
-                target="_blank"
-              >
-                Bons cadeaux
-              </Link>
-
-              <Link
                 key={"contact"}
                 href={`/contact`}
                 className="flex w-full items-center justify-center py-2 text-lg"
@@ -127,6 +116,17 @@ export function Navbar() {
               >
                 <Button className="w-full" size="xl">
                   Réserver une table
+                </Button>
+              </Link>
+              <Link
+                key={"bons"}
+                href={"https://lesvoletsrouges.bonkdo.com/fr/"}
+                prefetch={true}
+                onClick={handleClose}
+                target="_blank"
+              >
+                <Button className="w-full" variant="outline" size="xl">
+                  Offrir un bon cadeau
                 </Button>
               </Link>
             </div>
@@ -163,15 +163,6 @@ export function Navbar() {
             Vins
           </Link>
           <Link
-            href={"https://lesvoletsrouges.bonkdo.com/fr/"}
-            onClick={() => handleActiveLink("bons")}
-            className={`font-light underline-offset-[4px] hover:text-primary hover:underline active:underline ${activeLink === "bons" ? "underline" : ""}`}
-            prefetch={false}
-            target="_blank"
-          >
-            Bons cadeaux
-          </Link>
-          <Link
             href={Routes.contact}
             onClick={() => handleActiveLink("contact")}
             className={`font-light underline-offset-[4px] hover:text-primary hover:underline active:underline ${activeLink === "contact" ? "underline" : ""}`}
@@ -205,11 +196,23 @@ export function Navbar() {
 
         {/* Right-aligned Link */}
 
-        <Link href={Routes.reserver} prefetch={true} onClick={handleClose}>
-          <Button className="w-full" size="xl">
-            Réserver une table
-          </Button>
-        </Link>
+        <div className="flex flex-col gap-4 xl:flex-row">
+          <Link href={Routes.reserver} prefetch={true} onClick={handleClose}>
+            <Button className="w-full" size="lg">
+              Réserver une table
+            </Button>
+          </Link>
+          <Link
+            href={"https://lesvoletsrouges.bonkdo.com/fr/"}
+            prefetch={false}
+            onClick={handleClose}
+            target="_blank"
+          >
+            <Button className="w-full" variant="outline" size="lg">
+              Offrir un bon cadeau
+            </Button>
+          </Link>
+        </div>
       </header>
     </>
   );
