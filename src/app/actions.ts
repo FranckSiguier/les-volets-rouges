@@ -5,10 +5,10 @@ import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { cookies, headers } from "next/headers";
 import { redirect } from "next/navigation";
-import { Resend } from "resend";
 import { type Block } from "~/components/blog-form";
 import { type ContactFormValues } from "~/components/contact-form";
 import { env } from "~/env";
+import nodemailer from "nodemailer";
 import type {
   InsertDrinkInput,
   InsertMenuItemInput,
@@ -222,10 +222,41 @@ export const getDrinks = async () => {
 export type DrinksType = Awaited<ReturnType<typeof getDrinks>>[number];
 
 export const sendMessage = async (data: ContactFormValues) => {
-  const resend = new Resend(env.RESEND_API_KEY);
+  // Verify Turnstile token
+  const turnstileResponse = await fetch(
+    "https://challenges.cloudflare.com/turnstile/v0/siteverify",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        secret: env.TURNSTILE_SECRET_KEY,
+        response: data.captchaToken,
+      }),
+    },
+  );
 
-  await resend.emails.send({
-    from: "contact@lesvoletsrouges.fr",
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+  const turnstileData = await turnstileResponse.json();
+
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+  if (!turnstileData.success) {
+    throw new Error("Captcha verification failed");
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: VOLETS_EMAIL,
+      pass: env.GOOGLE_APP_PASSWORD,
+    },
+  });
+
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+  await transporter.sendMail({
+    from: VOLETS_EMAIL,
     to: VOLETS_EMAIL,
     subject: "Message depuis formulaire de contact",
     html: `

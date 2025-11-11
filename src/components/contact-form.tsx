@@ -25,6 +25,8 @@ import {
   FormLabel,
   FormMessage,
 } from "~/components/ui/form";
+import { Turnstile } from "@marsidev/react-turnstile";
+import { env } from "~/env";
 
 const contactFormSchema = z.object({
   name: z.string().min(2, {
@@ -38,6 +40,9 @@ const contactFormSchema = z.object({
     required_error: "Veuillez sélectionner une raison.",
   }),
   message: z.string().optional(),
+  captchaToken: z.string().min(1, {
+    message: "Veuillez vérifier le captcha.",
+  }),
 });
 export type ContactFormValues = z.infer<typeof contactFormSchema>;
 
@@ -184,6 +189,28 @@ export default function RestaurantContactForm() {
               </FormItem>
             )}
           />
+
+          <div>
+            <Turnstile
+              siteKey={
+                env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || "1x00000000000000000000AA"
+              }
+              onSuccess={(token) => {
+                form.setValue("captchaToken", token);
+              }}
+              onError={() => {
+                form.setValue("captchaToken", "");
+              }}
+              onExpire={() => {
+                form.setValue("captchaToken", "");
+              }}
+            />
+            {form.formState.errors.captchaToken && (
+              <p className="mt-2 text-sm text-red-400">
+                {form.formState.errors.captchaToken.message}
+              </p>
+            )}
+          </div>
           <Button
             type="submit"
             className="w-full bg-accent text-white hover:bg-accent hover:bg-opacity-60"
