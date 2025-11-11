@@ -27,6 +27,7 @@ import {
 } from "~/components/ui/form";
 import { Turnstile } from "@marsidev/react-turnstile";
 import { env } from "~/env";
+import { useRouter } from "next/navigation";
 
 const contactFormSchema = z.object({
   name: z.string().min(2, {
@@ -36,9 +37,12 @@ const contactFormSchema = z.object({
     message: "Veuillez entrer une adresse email valide.",
   }),
   phone: z.string().optional(),
-  inquiryType: z.enum(["group_booking", "feedback", "voucher", "other"], {
-    required_error: "Veuillez sélectionner une raison.",
-  }),
+  inquiryType: z.enum(
+    ["Réservation de groupe", "Feedback", "Bon cadeau", "Autres"],
+    {
+      required_error: "Veuillez sélectionner une raison.",
+    },
+  ),
   message: z.string().optional(),
   captchaToken: z.string().min(1, {
     message: "Veuillez vérifier le captcha.",
@@ -48,7 +52,7 @@ export type ContactFormValues = z.infer<typeof contactFormSchema>;
 
 export default function RestaurantContactForm() {
   const [loading, setLoading] = useState(false);
-
+  const router = useRouter();
   const form = useForm<z.infer<typeof contactFormSchema>>({
     resolver: zodResolver(contactFormSchema),
     defaultValues: {
@@ -69,6 +73,7 @@ export default function RestaurantContactForm() {
     });
     setLoading(false);
     form.reset();
+    router.push("/");
   }
 
   return (
@@ -155,16 +160,16 @@ export default function RestaurantContactForm() {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    <SelectItem value="feedback">
+                    <SelectItem value="Feedback">
                       Un retour sur votre expérience
                     </SelectItem>
-                    <SelectItem value="group_booking">
+                    <SelectItem value="Réservation de groupe">
                       Une réservation de groupe
                     </SelectItem>
-                    <SelectItem value="voucher">
+                    <SelectItem value="Bon cadeau">
                       Offrir un bon cadeau
                     </SelectItem>
-                    <SelectItem value="other">Autres</SelectItem>
+                    <SelectItem value="Autres">Autres</SelectItem>
                   </SelectContent>
                 </Select>
                 <FormMessage />
