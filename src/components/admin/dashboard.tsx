@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  Calendar,
   LoaderCircle,
   Pencil,
   UtensilsCrossed,
@@ -13,6 +14,7 @@ import {
   deleteDrink,
   deleteItem,
   type DrinksType,
+  type getMenuOfTheDay,
   type MenusType,
   type MenuType,
 } from "~/app/actions";
@@ -22,6 +24,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
 import { toast } from "~/hooks/use-toast";
 import CreateDrink from "./components/create-drink";
 import CreateItem from "./components/create-item";
+import EditMenuOfTheDay from "./components/edit-menu-of-the-day";
 import ModifyDrink from "./components/modify-drink";
 import ModifyItem from "./components/modify-item";
 import BlogForm from "../blog-form";
@@ -29,14 +32,18 @@ import BlogForm from "../blog-form";
 export default function RestaurantDashboard({
   menus,
   drinks,
+  menuOfTheDay,
 }: {
   menus: MenusType;
   drinks: DrinksType[];
+  menuOfTheDay: Awaited<ReturnType<typeof getMenuOfTheDay>>;
 }) {
   const searchParams = useSearchParams();
   const router = useRouter();
 
-  const tab = searchParams.get("tab") ?? ("food" as "drinks" | "food" | "blog");
+  const tab =
+    searchParams.get("tab") ??
+    ("food" as "drinks" | "food" | "blog" | "menu-of-the-day");
 
   const [activeMenu, setActiveMenu] = useState<MenuType>(
     menus.find((menu) => menu.active) ?? menus[0],
@@ -47,7 +54,7 @@ export default function RestaurantDashboard({
     return null;
   }
 
-  const setTab = (tab: "drinks" | "food" | "blog") => {
+  const setTab = (tab: "drinks" | "food" | "blog" | "menu-of-the-day") => {
     router.replace(`admin/?tab=${tab}`);
   };
 
@@ -84,7 +91,7 @@ export default function RestaurantDashboard({
   return (
     <div className="flex w-full flex-col items-center bg-background p-4 md:rounded-l-3xl">
       <Tabs defaultValue={tab} className="w-full items-center space-y-4 py-6">
-        <TabsList className="grid w-full grid-cols-3 bg-primary">
+        <TabsList className="grid w-full grid-cols-4 bg-primary">
           <TabsTrigger
             value="food"
             onClick={() => setTab("food")}
@@ -108,6 +115,14 @@ export default function RestaurantDashboard({
           >
             <Pencil className="h-4 w-4" />
             Écrire un article
+          </TabsTrigger>
+          <TabsTrigger
+            value="menu-of-the-day"
+            onClick={() => setTab("menu-of-the-day")}
+            className="flex items-center gap-2 text-white"
+          >
+            <Calendar className="h-4 w-4" />
+            Menu du jour
           </TabsTrigger>
         </TabsList>
         <TabsContent value="food">
@@ -216,6 +231,9 @@ export default function RestaurantDashboard({
         </TabsContent>
         <TabsContent value="blog">
           <BlogForm />
+        </TabsContent>
+        <TabsContent value="menu-of-the-day">
+          <EditMenuOfTheDay menuOfTheDayData={menuOfTheDay} />
         </TabsContent>
       </Tabs>
     </div>

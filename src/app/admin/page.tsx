@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { createClient, getDrinks, getMenus } from "../actions";
+import { createClient, getDrinks, getMenuOfTheDay, getMenus } from "../actions";
 import RestaurantDashboard from "~/components/admin/dashboard";
 import { Metadata } from "next";
 
@@ -21,6 +21,13 @@ export default async function ProtectedPage() {
 
   const menus = await getMenus();
   const drinks = await getDrinks();
+  const menuOfTheDay = await getMenuOfTheDay();
 
-  return <RestaurantDashboard menus={menus} drinks={drinks} />;
+  return (
+    <RestaurantDashboard
+      menus={menus}
+      drinks={drinks}
+      menuOfTheDay={menuOfTheDay}
+    />
+  );
 }

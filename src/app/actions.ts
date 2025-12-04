@@ -17,7 +17,7 @@ import type {
 } from "~/lib/types";
 import { IMAGE_VOLETS_ROUGES, VOLETS_EMAIL } from "~/lib/variables";
 import { db } from "~/server/db";
-import { drinks, menuItems, menus, posts } from "~/server/db/schema";
+import { drinks, menuItems, menus, menuOfTheDay, posts } from "~/server/db/schema";
 import { encodedRedirect } from "~/utils/utils";
 
 export const createClient = async () => {
@@ -535,7 +535,64 @@ export const getMenus = async () => {
 export type MenusType = Awaited<ReturnType<typeof getMenus>>;
 
 export const getMenuOfTheDay = async () => {
-  const menuOfTheDay = await db.query.menuOfTheDay.findFirst();
+  const menuOfTheDayData = await db.query.menuOfTheDay.findFirst();
 
-  return menuOfTheDay;
+  return menuOfTheDayData;
 };
+
+export async function updateMenuOfTheDay(data: {
+  id?: number;
+  starter: string;
+  main: string;
+  dessert: string;
+  starterPrice: string;
+  mainPrice: string;
+  dessertPrice: string;
+  starterDescription?: string;
+  mainDescription?: string;
+  dessertDescription?: string;
+}) {
+  await verifyAuth();
+
+  const existingMenu = await db.query.menuOfTheDay.findFirst();
+
+  if (existingMenu) {
+    // Update existing menu
+    await db
+      .update(menuOfTheDay)
+      .set({
+        starter: data.starter,
+        main: data.main,
+        dessert: data.dessert,
+        starterPrice: data.starterPrice,
+        mainPrice: data.mainPrice,
+        dessertPrice: data.dessertPrice,
+        starterDescription: data.starterDescription ?? null,
+        mainDescription: data.mainDescription ?? null,
+        dessertDescription: data.dessertDescription ?? null,
+      })
+      .where(eq(menuOfTheDay.id, existingMenu.id))
+      .execute();
+  } else {
+    // Create new menu
+    await db
+      .insert(menuOfTheDay)
+      .values({
+        starter: data.starter,
+        main: data.main,
+        dessert: data.dessert,
+        starterPrice: data.starterPrice,
+        mainPrice: data.mainPrice,
+        dessertPrice: data.dessertPrice,
+        starterDescription: data.starterDescription ?? null,
+        mainDescription: data.mainDescription ?? null,
+        dessertDescription: data.dessertDescription ?? null,
+      })
+      .execute();
+  }
+
+  revalidatePath("/admin");
+  revalidatePath("/menu");
+
+  return { success: true };
+}
