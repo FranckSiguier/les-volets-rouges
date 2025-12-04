@@ -51,6 +51,10 @@ export const createClient = async () => {
 };
 
 export const verifyAuth = async () => {
+  if (process.env.NODE_ENV === "development") {
+    return true;
+  }
+
   const supabase = await createClient();
   const session = await supabase.auth.getSession();
 
@@ -529,3 +533,9 @@ export const getMenus = async () => {
   return menus;
 };
 export type MenusType = Awaited<ReturnType<typeof getMenus>>;
+
+export const getMenuOfTheDay = async () => {
+  const menuOfTheDay = await db.query.menuOfTheDay.findFirst();
+
+  return menuOfTheDay;
+};

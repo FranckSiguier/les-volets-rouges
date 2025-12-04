@@ -49,7 +49,7 @@ function MenuItem({
   return (
     <div className="flex flex-col gap-2">
       <div className="flex justify-between">
-        <p className="font-cormorant text-2xl lg:pr-2">
+        <p className="font-cormorant text-xl md:text-2xl lg:pr-2">
           {item.name?.toUpperCase()}
         </p>
         <p className="text-lg font-light text-accent">{item.price}€</p>

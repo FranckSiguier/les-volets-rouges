@@ -18,7 +18,7 @@ import {
   timestamp,
   varchar,
 } from "drizzle-orm/pg-core";
-import { Drinks, MenuSections } from "~/lib/types";
+import { DrinkRegion, Drinks, MenuSections } from "~/lib/types";
 
 /**
  * This is an example of how to use the multi-project schema feature of Drizzle ORM. Use the same
@@ -49,19 +49,20 @@ export const posts = createTable(
 );
 
 export const drinksType = pgEnum("drink_type", Drinks);
+export const drinkRegion = pgEnum("drink_region", DrinkRegion);
 export const drinks = createTable(
   "drink",
   {
     id: serial("id").primaryKey(),
     name: varchar("name", { length: 256 }).notNull(),
-    domaine: varchar("domaine", { length: 256 }),
+    domaine: text("domaine"),
     isGlass: boolean("is_glass").default(false),
-    appellation: varchar("appellation", { length: 256 }),
+    appellation: text("appellation"),
     description: text("description"),
     price: varchar("price", { length: 256 }).notNull(),
-    region: varchar("region", { length: 256 }),
+    region: drinkRegion("region"),
     type: drinksType("type").notNull(),
-    year: varchar("year"),
+    year: text("year"),
     createdAt: timestamp("created_at", { withTimezone: true })
       .default(sql`CURRENT_TIMESTAMP`)
       .notNull(),
@@ -100,7 +101,7 @@ export const menuItems = createTable(
   "menu_item",
   {
     id: serial("id").primaryKey(),
-    menuId: integer("menu_id")
+    menuId: serial("menu_id")
       .references(() => menus.id)
       .notNull(),
     name: varchar("name", { length: 256 }).notNull(),
@@ -130,3 +131,24 @@ export const menuItemsRelations = relations(menuItems, ({ one }) => ({
     references: [menus.id],
   }),
 }));
+
+export const menuOfTheDay = createTable("menu_of_the_day", {
+  id: serial("id").primaryKey(),
+  starter: varchar("starter", { length: 256 }).notNull(),
+  main: varchar("main", { length: 256 }).notNull(),
+  dessert: varchar("dessert", { length: 256 }).notNull(),
+  starterPrice: varchar("starter_price", { length: 256 }).notNull(),
+  mainPrice: varchar("main_price", { length: 256 }).notNull(),
+  dessertPrice: varchar("dessert_price", { length: 256 }).notNull(),
+  starterDescription: text("starter_description"),
+  mainDescription: text("main_description"),
+  dessertDescription: text("dessert_description"),
+  createdAt: timestamp("created_at", { withTimezone: true })
+    .default(sql`CURRENT_TIMESTAMP`)
+    .notNull(),
+  updatedAt: timestamp("updated_at", { withTimezone: true }).$onUpdate(
+    () => new Date(),
+  ),
+});
+export type MenuOfTheDayType = InferSelectModel<typeof menuOfTheDay>;
+export type MenuOfTheDayInsertType = InferInsertModel<typeof menuOfTheDay>;
