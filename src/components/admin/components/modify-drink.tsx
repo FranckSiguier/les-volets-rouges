@@ -32,7 +32,6 @@ import {
 } from "~/components/ui/select";
 import {
   DrinkRegion,
-  type DrinkRegionType,
   Drinks,
   DrinkTypeLabel,
   modifyDrinkSchema,
@@ -52,7 +51,7 @@ export default function ModifyDrink({ item }: { item: DrinksType }) {
       appellation: item.appellation ?? undefined,
       domaine: item.domaine ?? undefined,
       year: item.year ?? undefined,
-      region: (item.region as DrinkRegionType) ?? undefined,
+      region: item.region ?? undefined,
     },
   });
 

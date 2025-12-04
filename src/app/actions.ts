@@ -17,7 +17,13 @@ import type {
 } from "~/lib/types";
 import { IMAGE_VOLETS_ROUGES, VOLETS_EMAIL } from "~/lib/variables";
 import { db } from "~/server/db";
-import { drinks, menuItems, menus, menuOfTheDay, posts } from "~/server/db/schema";
+import {
+  drinks,
+  menuItems,
+  menus,
+  menuOfTheDay,
+  posts,
+} from "~/server/db/schema";
 import { encodedRedirect } from "~/utils/utils";
 
 export const createClient = async () => {
@@ -66,8 +72,8 @@ export const verifyAuth = async () => {
 };
 
 export const signUpAction = async (formData: FormData) => {
-  const email = formData.get("email")?.toString();
-  const password = formData.get("password")?.toString();
+  const email = formData.get("email") as string | null;
+  const password = formData.get("password") as string | null;
   const supabase = await createClient();
   // eslint-disable-next-line @typescript-eslint/await-thenable
   const origin = (await headers()).get("origin");
@@ -114,11 +120,11 @@ export const signInAction = async (formData: FormData) => {
 };
 
 export const forgotPasswordAction = async (formData: FormData) => {
-  const email = formData.get("email")?.toString();
+  const email = formData.get("email") as string | null;
   const supabase = await createClient();
   // eslint-disable-next-line @typescript-eslint/await-thenable
   const origin = (await headers()).get("origin");
-  const callbackUrl = formData.get("callbackUrl")?.toString();
+  const callbackUrl = formData.get("callbackUrl") as string | null;
 
   if (!email) {
     return encodedRedirect("error", "/forgot-password", "Email is required");

@@ -10,7 +10,6 @@ import {
 import {
   boolean,
   index,
-  integer,
   pgEnum,
   pgTableCreator,
   serial,
