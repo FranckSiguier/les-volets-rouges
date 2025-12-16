@@ -9,6 +9,7 @@ import {
 } from "drizzle-orm";
 import {
   boolean,
+  date,
   index,
   pgEnum,
   pgTableCreator,
@@ -133,6 +134,9 @@ export const menuItemsRelations = relations(menuItems, ({ one }) => ({
 
 export const menuOfTheDay = createTable("menu_of_the_day", {
   id: serial("id").primaryKey(),
+  date: date("date")
+    .notNull()
+    .default(sql`CURRENT_DATE`),
   starter: varchar("starter", { length: 256 }).notNull(),
   main: varchar("main", { length: 256 }).notNull(),
   dessert: varchar("dessert", { length: 256 }).notNull(),

@@ -548,6 +548,7 @@ export const getMenuOfTheDay = async () => {
 
 export async function updateMenuOfTheDay(data: {
   id?: number;
+  date: string;
   starter: string;
   main: string;
   dessert: string;
@@ -567,6 +568,7 @@ export async function updateMenuOfTheDay(data: {
     await db
       .update(menuOfTheDay)
       .set({
+        date: data.date,
         starter: data.starter,
         main: data.main,
         dessert: data.dessert,

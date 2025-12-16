@@ -132,6 +132,7 @@ export type DeleteMenuItemInput = z.infer<typeof deleteMenuItemSchema>;
 
 export const menuOfTheDaySchema = z.object({
   id: z.number().optional(),
+  date: z.string().min(1, { message: "Date is required." }),
   starter: z.string().min(1, { message: "Starter name is required." }),
   main: z.string().min(1, { message: "Main dish name is required." }),
   dessert: z.string().min(1, { message: "Dessert name is required." }),

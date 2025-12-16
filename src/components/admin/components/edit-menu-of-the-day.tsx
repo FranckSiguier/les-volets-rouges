@@ -30,6 +30,7 @@ export default function EditMenuOfTheDay({
     resolver: zodResolver(menuOfTheDaySchema),
     defaultValues: {
       id: menuOfTheDayData?.id,
+      date: menuOfTheDayData?.date,
       starter: menuOfTheDayData?.starter ?? "",
       main: menuOfTheDayData?.main ?? "",
       dessert: menuOfTheDayData?.dessert ?? "",
@@ -47,6 +48,7 @@ export default function EditMenuOfTheDay({
     if (menuOfTheDayData) {
       form.reset({
         id: menuOfTheDayData.id,
+        date: menuOfTheDayData.date,
         starter: menuOfTheDayData.starter ?? "",
         main: menuOfTheDayData.main ?? "",
         dessert: menuOfTheDayData.dessert ?? "",
@@ -66,7 +68,8 @@ export default function EditMenuOfTheDay({
     if (!success) {
       toast({
         title: "Erreur",
-        description: "Une erreur est survenue lors de la mise à jour du menu du jour",
+        description:
+          "Une erreur est survenue lors de la mise à jour du menu du jour",
       });
       setIsSubmitting(false);
       return;
@@ -87,6 +90,19 @@ export default function EditMenuOfTheDay({
             {/* Starter Section */}
             <div className="space-y-4 rounded-lg border p-6">
               <h3 className="text-lg font-semibold">Entrée</h3>
+              <FormField
+                control={form.control}
+                name="date"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Date</FormLabel>
+                    <FormControl>
+                      <Input type="date" {...field} value={field.value} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
               <FormField
                 control={form.control}
                 name="starter"
@@ -237,4 +253,3 @@ export default function EditMenuOfTheDay({
     </div>
   );
 }
-

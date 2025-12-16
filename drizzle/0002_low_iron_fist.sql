@@ -1,0 +1,1 @@
+ALTER TABLE "les-volets-rouges_menu_of_the_day" ADD COLUMN "date" date DEFAULT CURRENT_DATE NOT NULL;
