@@ -549,9 +549,6 @@ export const getMenuOfTheDay = async () => {
 export async function updateMenuOfTheDay(data: {
   id?: number;
   date: string;
-  starter: string;
-  main: string;
-  dessert: string;
   starterPrice: string;
   mainPrice: string;
   dessertPrice: string;
@@ -569,9 +566,6 @@ export async function updateMenuOfTheDay(data: {
       .update(menuOfTheDay)
       .set({
         date: data.date,
-        starter: data.starter,
-        main: data.main,
-        dessert: data.dessert,
         starterPrice: data.starterPrice,
         mainPrice: data.mainPrice,
         dessertPrice: data.dessertPrice,
@@ -586,9 +580,9 @@ export async function updateMenuOfTheDay(data: {
     await db
       .insert(menuOfTheDay)
       .values({
-        starter: data.starter,
-        main: data.main,
-        dessert: data.dessert,
+        starter: "Entrée",
+        main: "Plat",
+        dessert: "Dessert",
         starterPrice: data.starterPrice,
         mainPrice: data.mainPrice,
         dessertPrice: data.dessertPrice,

@@ -31,9 +31,6 @@ export default function EditMenuOfTheDay({
     defaultValues: {
       id: menuOfTheDayData?.id,
       date: menuOfTheDayData?.date,
-      starter: menuOfTheDayData?.starter ?? "",
-      main: menuOfTheDayData?.main ?? "",
-      dessert: menuOfTheDayData?.dessert ?? "",
       starterPrice: menuOfTheDayData?.starterPrice ?? "",
       mainPrice: menuOfTheDayData?.mainPrice ?? "",
       dessertPrice: menuOfTheDayData?.dessertPrice ?? "",
@@ -49,9 +46,6 @@ export default function EditMenuOfTheDay({
       form.reset({
         id: menuOfTheDayData.id,
         date: menuOfTheDayData.date,
-        starter: menuOfTheDayData.starter ?? "",
-        main: menuOfTheDayData.main ?? "",
-        dessert: menuOfTheDayData.dessert ?? "",
         starterPrice: menuOfTheDayData.starterPrice ?? "",
         mainPrice: menuOfTheDayData.mainPrice ?? "",
         dessertPrice: menuOfTheDayData.dessertPrice ?? "",
@@ -87,35 +81,22 @@ export default function EditMenuOfTheDay({
         <h2 className="mb-6 text-2xl font-light">Menu du jour</h2>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+            <FormField
+              control={form.control}
+              name="date"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Date</FormLabel>
+                  <FormControl>
+                    <Input type="date" {...field} value={field.value} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
             {/* Starter Section */}
             <div className="space-y-4 rounded-lg border p-6">
               <h3 className="text-lg font-semibold">Entrée</h3>
-              <FormField
-                control={form.control}
-                name="date"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Date</FormLabel>
-                    <FormControl>
-                      <Input type="date" {...field} value={field.value} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="starter"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Nom</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Nom de l'entrée" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
               <FormField
                 control={form.control}
                 name="starterPrice"
@@ -149,19 +130,6 @@ export default function EditMenuOfTheDay({
               <h3 className="text-lg font-semibold">Plat</h3>
               <FormField
                 control={form.control}
-                name="main"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Nom</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Nom du plat" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
                 name="mainPrice"
                 render={({ field }) => (
                   <FormItem>
@@ -191,19 +159,6 @@ export default function EditMenuOfTheDay({
             {/* Dessert Section */}
             <div className="space-y-4 rounded-lg border p-6">
               <h3 className="text-lg font-semibold">Dessert</h3>
-              <FormField
-                control={form.control}
-                name="dessert"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Nom</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Nom du dessert" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
               <FormField
                 control={form.control}
                 name="dessertPrice"

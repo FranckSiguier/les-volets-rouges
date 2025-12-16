@@ -35,14 +35,11 @@ export default async function MenuPage() {
           {/* Entrée du Jour */}
           <div className="rounded-lg border border-accent/20 bg-background/50 p-6 shadow-sm md:p-8">
             <div className="mb-4 flex flex-col gap-4">
-              <h3 className="font-cormorant text-xl text-accent md:text-2xl">
-                ENTREE
-              </h3>
               <div className="flex items-start justify-between gap-4">
-                <h4 className="font-cormorant text-xl md:text-2xl lg:text-3xl">
-                  {menuOfTheDay?.starter.toUpperCase()}
+                <h4 className="font-cormorant text-xl text-accent md:text-2xl lg:text-3xl">
+                  {menuOfTheDay?.starter}
                 </h4>
-                <p className="whitespace-nowrap text-lg font-light text-accent md:text-xl">
+                <p className="whitespace-nowrap text-lg font-light md:text-xl">
                   {menuOfTheDay?.starterPrice}€
                 </p>
               </div>
@@ -55,14 +52,11 @@ export default async function MenuPage() {
           {/* Plat du Jour */}
           <div className="rounded-lg border border-accent/20 bg-background/50 p-6 shadow-sm md:p-8">
             <div className="mb-4 flex flex-col gap-4">
-              <h3 className="font-cormorant text-xl text-accent md:text-2xl">
-                PLAT
-              </h3>
               <div className="flex items-start justify-between gap-4">
-                <h4 className="font-cormorant text-xl md:text-2xl lg:text-3xl">
-                  {menuOfTheDay?.main.toUpperCase()}
+                <h4 className="font-cormorant text-xl text-accent md:text-2xl lg:text-3xl">
+                  {menuOfTheDay?.main}
                 </h4>
-                <p className="whitespace-nowrap text-lg font-light text-accent md:text-xl">
+                <p className="whitespace-nowrap text-lg font-light md:text-xl">
                   {menuOfTheDay?.mainPrice}€
                 </p>
               </div>
@@ -75,14 +69,11 @@ export default async function MenuPage() {
           {/* Dessert du Jour */}
           <div className="rounded-lg border border-accent/20 bg-background/50 p-6 shadow-sm md:p-8">
             <div className="mb-4 flex flex-col gap-4">
-              <h3 className="font-cormorant text-xl text-accent md:text-2xl">
-                DESSERT
-              </h3>
               <div className="flex items-start justify-between gap-4">
-                <h4 className="font-cormorant text-xl md:text-2xl lg:text-3xl">
-                  {menuOfTheDay?.dessert.toUpperCase()}
+                <h4 className="font-cormorant text-xl text-accent md:text-2xl lg:text-3xl">
+                  {menuOfTheDay?.dessert}
                 </h4>
-                <p className="whitespace-nowrap text-lg font-light text-accent md:text-xl">
+                <p className="whitespace-nowrap text-lg font-light md:text-xl">
                   {menuOfTheDay?.dessertPrice}€
                 </p>
               </div>
