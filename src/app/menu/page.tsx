@@ -22,7 +22,11 @@ export default async function MenuPage() {
       {/* Menu of the Day Section */}
       <div className="mb-2 flex flex-col items-center gap-8 px-4 py-4 md:py-6">
         <h2 className="font-cormorant text-4xl text-accent md:text-5xl lg:text-6xl">
-          MENU DU JOUR
+          MENU DU JOUR (
+          {menuOfTheDay?.updatedAt?.toLocaleDateString("fr-FR", {
+            dateStyle: "full",
+          })}
+          )
         </h2>
         <div className="grid w-full max-w-5xl grid-cols-1 gap-6 md:grid-cols-3">
           {/* Entrée du Jour */}
