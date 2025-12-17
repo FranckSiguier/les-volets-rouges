@@ -37,7 +37,7 @@ export default async function MenuPage() {
             <div className="mb-4 flex flex-col gap-4">
               <div className="flex items-start justify-between gap-4">
                 <h4 className="font-cormorant text-xl text-accent md:text-2xl lg:text-3xl">
-                  {menuOfTheDay?.starter}
+                  Entrée du jour
                 </h4>
                 <p className="whitespace-nowrap text-lg font-light md:text-xl">
                   {menuOfTheDay?.starterPrice}€
@@ -54,7 +54,7 @@ export default async function MenuPage() {
             <div className="mb-4 flex flex-col gap-4">
               <div className="flex items-start justify-between gap-4">
                 <h4 className="font-cormorant text-xl text-accent md:text-2xl lg:text-3xl">
-                  {menuOfTheDay?.main}
+                  Plat du jour
                 </h4>
                 <p className="whitespace-nowrap text-lg font-light md:text-xl">
                   {menuOfTheDay?.mainPrice}€
@@ -71,7 +71,7 @@ export default async function MenuPage() {
             <div className="mb-4 flex flex-col gap-4">
               <div className="flex items-start justify-between gap-4">
                 <h4 className="font-cormorant text-xl text-accent md:text-2xl lg:text-3xl">
-                  {menuOfTheDay?.dessert}
+                  Dessert du jour
                 </h4>
                 <p className="whitespace-nowrap text-lg font-light md:text-xl">
                   {menuOfTheDay?.dessertPrice}€

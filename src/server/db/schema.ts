@@ -137,9 +137,6 @@ export const menuOfTheDay = createTable("menu_of_the_day", {
   date: date("date")
     .notNull()
     .default(sql`CURRENT_DATE`),
-  starter: varchar("starter", { length: 256 }).notNull(),
-  main: varchar("main", { length: 256 }).notNull(),
-  dessert: varchar("dessert", { length: 256 }).notNull(),
   starterPrice: varchar("starter_price", { length: 256 }).notNull(),
   mainPrice: varchar("main_price", { length: 256 }).notNull(),
   dessertPrice: varchar("dessert_price", { length: 256 }).notNull(),

@@ -580,9 +580,7 @@ export async function updateMenuOfTheDay(data: {
     await db
       .insert(menuOfTheDay)
       .values({
-        starter: "Entrée",
-        main: "Plat",
-        dessert: "Dessert",
+        date: data.date,
         starterPrice: data.starterPrice,
         mainPrice: data.mainPrice,
         dessertPrice: data.dessertPrice,
